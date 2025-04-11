@@ -8,10 +8,6 @@ function LogInPage() {
 }
 
 function LogIn() {
-  return (
-    <div>
-      <h1>LogIn page</h1>
-    </div>
-  );
+  return <div></div>;
 }
-export default LogIn;
+export default LogInPage;

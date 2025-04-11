@@ -2,21 +2,35 @@
 @import 'tailwindcss/preflight';
 @import 'tailwindcss/utilities';
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
 h1 {
   @apply text-8xl;
+  font-family: 'Playfair Display', serif;
 }
 h2 {
   @apply text-7xl;
+  font-family: 'Playfair Display', serif;
 }
 h3 {
   @apply text-6xl;
+  font-family: 'Playfair Display', serif;
 }
 h4 {
   @apply text-5xl;
+  font-family: 'Playfair Display', serif;
 }
 h5 {
   @apply text-4xl;
+  font-family: 'Playfair Display', serif;
 }
 h6 {
   @apply text-3xl;
+  font-family: 'Playfair Display', serif;
+}
+
+li,
+p,
+a {
+  font-family: 'Roboto', sans-serif;
 }

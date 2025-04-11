@@ -1,5 +1,3 @@
-import './App.css';
-
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 //
 import Homepage from './pages/Homepage';
@@ -8,7 +6,6 @@ import LogInPage from './pages/LogInPage';
 import SingleVenuePage from './pages/SingleVenuePage';
 import UserProfileView from './pages/UserProfileView';
 import VenueManagerView from './pages/VenueManagerView';
-// import SingleVenuePage from './pages/SingleVenuePage';
 
 //
 function App() {
