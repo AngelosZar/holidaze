@@ -1,8 +1,9 @@
+import Layout from '../components/Layout';
 function VenueManagerView() {
   return (
-    <div>
+    <Layout>
       <h1>VenueManagerView</h1>
-    </div>
+    </Layout>
   );
 }
 

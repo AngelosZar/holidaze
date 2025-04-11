@@ -1,8 +1,9 @@
+import Layout from '../components/Layout';
 function UserProfileView() {
   return (
-    <div>
+    <Layout>
       <h1>UserProfileView</h1>
-    </div>
+    </Layout>
   );
 }
 

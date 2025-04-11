@@ -1,11 +1,19 @@
 import Layout from '../components/Layout';
-import Header from '../components/Header';
-function Homepage({ children }) {
+
+function Homepage() {
   return (
-    <>
-      <Layout>{children}</Layout>
-    </>
+    <Layout>
+      <HomeHero />
+    </Layout>
   );
 }
 
 export default Homepage;
+//
+function HomeHero() {
+  return (
+    <div className="">
+      <h1>This is the hero section</h1>
+    </div>
+  );
+}

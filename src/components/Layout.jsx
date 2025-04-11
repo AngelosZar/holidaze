@@ -1,11 +1,13 @@
 import Header from './Header';
 import Footer from './Footer';
-import { Children } from 'react';
-function Layout({ Children }) {
+
+function Layout({ children }) {
   return (
     <>
       <Header />
-      <main>{Children}</main>
+      <main className="w-full max-w-1520px flex flex-col mx-auto flex-grow min-h-screen">
+        {children}
+      </main>
       <Footer />
     </>
   );
