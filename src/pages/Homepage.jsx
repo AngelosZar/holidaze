@@ -1,8 +1,10 @@
-function Homepage() {
+import Layout from '../components/Layout';
+import Header from '../components/Header';
+function Homepage({ children }) {
   return (
-    <div>
-      <h1>Homepage</h1>
-    </div>
+    <>
+      <Layout>{children}</Layout>
+    </>
   );
 }
 
