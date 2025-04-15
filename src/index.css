@@ -32,6 +32,7 @@
   @apply m-0;
   @apply p-0;
 }
+
 *,
 ::after,
 ::before,
@@ -39,6 +40,12 @@
 ::file-selector-button {
   box-sizing: border-box;
 }
+
+body {
+  @apply max-w-[1520px];
+  @apply mx-auto;
+}
+
 h1 {
   @apply text-8xl;
   font-family: 'Playfair Display', serif;

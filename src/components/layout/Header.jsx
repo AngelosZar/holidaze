@@ -12,7 +12,7 @@ export default function Header() {
         setIsOpen(false);
         setIsScrolling(false);
       }
-      if (window.scrollY > 20) {
+      if (window.scrollY > 35) {
         setIsScrolling(true);
       }
     };
@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed max-w-[1520px] text-white ${
+      className={`fixed max-w-[1520px] text-white border-b-1 ${
         isScrolling ? ' bg-richBlack text-white' : ' bg-richBlack/60 '
       } mx-auto left-0 right-0`}
     >
