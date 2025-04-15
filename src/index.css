@@ -6,6 +6,9 @@
 
 @theme {
   --breakpoint-3xl: 1920px;
+  --color-bodyDark: rgb(16, 24, 40);
+  --color-bodyLight: rgb(249, 250, 251);
+
   --color-primary: rgb(3, 45, 81);
   --color-primary80: rgb(51, 87, 116);
   --color-primary60: rgb(99, 128, 151);
@@ -71,8 +74,36 @@ h6 {
   font-family: 'Playfair Display', serif;
 }
 
-li,
 p,
-a {
+ul,
+li,
+form,
+input,
+textarea,
+select {
   font-family: 'Roboto', sans-serif;
+}
+@layer components {
+  .formLabel {
+    @apply mb-2 text-sm font-medium text-gray-900 dark:text-white;
+  }
+  .formInput {
+    @apply block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500;
+  }
+  .btn {
+    @apply inline-block  text-center transition-colors duration-200
+    disabled:opacity-50 disabled:cursor-not-allowed active:scale-95 cursor-pointer;
+  }
+  .btn-primary {
+    @apply text-white bg-primary px-4 py-2 rounded-md font-bold;
+  }
+  .btn-primary:hover {
+    @apply bg-primary40;
+  }
+  .btn-secondary {
+    @apply bg-white border border-primary20 px-4 py-2 rounded-md font-bold;
+  }
+  .btn-secondary:hover {
+    @apply bg-primary60 text-white;
+  }
 }
