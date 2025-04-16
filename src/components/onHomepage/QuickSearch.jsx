@@ -1,22 +1,22 @@
+import SingleCard from '../SingleCard';
 function QuickSearch() {
   return (
-    <section>
-      <h3>Quick Search</h3>
-      <div>
-        <ul className="flex flex-col md:flex-row gap-4">
-          <li>Category 1</li>
-          <li>Category 2</li>
-          <li>Category 3</li>
-          <li>Category 4</li>
+    <section className="container mx-auto px-4">
+      <h4>Quick Search</h4>
+      <div className="flex flex-col md:flex-row gap-4 mt-4">
+        <ul className="flex flex-col md:flex-row gap-8 bg-primary text-white py-4 px-2 rounded-lg">
+          <li className="">Category 1</li>
+          <li className="">Category 2</li>
+          <li className="">Category 3</li>
+          <li className="">Category 4</li>
         </ul>
       </div>
-      <div>
+      <div className="mt-6 mb-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          <h2>cards</h2>
-          <h2>cards</h2>
-          <h2>cards</h2>
-          <h2>cards</h2>
-          <h2>cards</h2>
+          <SingleCard />
+          <SingleCard />
+          <SingleCard />
+          <SingleCard />
         </div>
       </div>
     </section>

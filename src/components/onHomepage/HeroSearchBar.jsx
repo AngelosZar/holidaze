@@ -38,4 +38,4 @@ export default function HeroSearchBar() {
     </div>
   );
 }
-// styles for 500px up to 1200 px redo
+
