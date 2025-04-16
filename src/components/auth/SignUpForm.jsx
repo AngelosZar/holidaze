@@ -9,7 +9,7 @@ function SignUpForm() {
           type="email"
           name="email"
           id="email"
-          placeholder="name@lastname.com"
+          placeholder="username@noroff.no"
           required=""
           className="formInput"
         ></input>
@@ -25,6 +25,10 @@ function SignUpForm() {
           placeholder="••••••••"
           required=""
           className="formInput"
+          maxlength="30"
+          pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+          title="Email must be a valid noroff email ending with @stud.noroff.no"
+          autocomplete="email"
         ></input>
       </div>
       <div>
@@ -38,6 +42,7 @@ function SignUpForm() {
           placeholder="••••••••"
           required=""
           className="formInput"
+          autocomplete="current-password"
         ></input>
       </div>
       <div className="flex items-start">
@@ -48,6 +53,7 @@ function SignUpForm() {
             type="checkbox"
             className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
             required=""
+            autoComplete="current-password"
           ></input>
         </div>
         <div className="ml-3 text-sm">
@@ -70,12 +76,11 @@ function SignUpForm() {
       </button>
       <p className="text-sm font-light text-gray-500 dark:text-gray-400">
         Already have an account?
-        <span> </span>
         <a
           href="#"
           className="font-medium text-primary-600 hover:underline dark:text-primary-500"
         >
-          Login here
+          <span className="m-2"> Login here</span>
         </a>
       </p>
     </form>

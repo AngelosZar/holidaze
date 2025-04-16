@@ -1,4 +1,4 @@
-function SocialLogInBtns() {
+export default function SocialLogInBtns() {
   return (
     <div className="flex items-center justify-between">
       <span className="bg-red-400 text-white px-4 py-2 rounded-lg hover:bg-red-500">
