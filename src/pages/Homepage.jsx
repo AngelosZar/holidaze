@@ -10,7 +10,6 @@ function Homepage() {
   return (
     <Layout>
       <HomeHero />
-      <HeroSearchBar />
       <QuickSearch />
       <ChooseHolidays />
       <RecommendedStays />
