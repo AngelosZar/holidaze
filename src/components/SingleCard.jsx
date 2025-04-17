@@ -15,8 +15,8 @@ function SingleCard() {
         </div>
         <div className="p-3">
           <div className="flex justify-between items-center">
-            <hp className="font-medium text-base">Oslo, Norway</hp>
-            <div className="flex items-center">
+            <p className="font-semibold">Oslo, Norway</p>
+            <div className="flex items-center  text-primary">
               <span className="mr-1">★</span>
               <span>4</span>
             </div>
