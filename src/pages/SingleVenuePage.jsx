@@ -4,7 +4,6 @@ import VenueInfoSection from '../components/onSingleVenue/VenueInfoSection';
 function SingleVenuePage() {
   return (
     <Layout>
-      <h1>Single page </h1>
       <HeroGrid />
       <VenueInfoSection />
     </Layout>
