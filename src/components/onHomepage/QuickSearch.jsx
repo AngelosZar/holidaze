@@ -17,6 +17,7 @@ function QuickSearch() {
           <SingleCard />
           <SingleCard />
           <SingleCard />
+          <SingleCard />
         </div>
       </div>
     </section>

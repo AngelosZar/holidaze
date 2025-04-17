@@ -25,7 +25,7 @@ export default function Header() {
 
   return (
     <header
-      className={`fixed max-w-[1520px] text-white border-b-1 ${
+      className={`fixed max-w-[1520px] text-white border-b-1 z-50 ${
         isScrolling ? ' bg-richBlack text-white' : ' bg-richBlack/60 '
       } mx-auto left-0 right-0`}
     >

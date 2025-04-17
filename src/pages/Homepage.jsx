@@ -11,7 +11,7 @@ function Homepage() {
     <Layout>
       <HomeHero />
       <QuickSearch />
-      <ChooseHolidays />
+      {/* <ChooseHolidays /> */}
       <RecommendedStays />
       <AboutUs />
       <TestimonialsSection />
