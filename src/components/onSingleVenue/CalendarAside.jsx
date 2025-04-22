@@ -1,7 +1,7 @@
 function CalendarAside() {
   return (
-    <div>
-      <h4>show number of days booked</h4>
+    <div className="flex ">
+      <h4>You have booked</h4>
       <h4>calendar components</h4>
     </div>
   );
