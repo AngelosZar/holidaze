@@ -24,10 +24,10 @@ function MyMapComponent() {
       zoom={13}
       style={{ height: 'auto', width: '100%', minHeight: '400px' }}
     >
-      {/* <TileLayer
+      <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      /> */}
+      />
     </MapContainer>
   );
 }

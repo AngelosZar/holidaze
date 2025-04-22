@@ -1,8 +1,11 @@
 import Layout from '../components/layout/Layout';
+import { UserOnHeroSection } from '../components/onSingleVenue/onProfile/UserOnHeroSection';
 function UserProfileView() {
   return (
     <Layout>
-      <h1>UserProfileView</h1>
+      <>
+        <UserOnHeroSection />
+      </>
     </Layout>
   );
 }
