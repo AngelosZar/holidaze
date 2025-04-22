@@ -1,6 +1,6 @@
 export function UserOnHeroSection() {
   return (
-    <section className="w-full mt-[90px]">
+    <section className="w-full mt-[90px] mb-64">
       <div className="relative w-full h-48">
         <img
           src="https://images.unsplash.com/photo-1744708334926-9d27b0c8ca9e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
@@ -16,7 +16,7 @@ export function UserOnHeroSection() {
             />
           </div>
         </div>
-        <div className="mt-22 px-12 sm:mt-12 flex justify-between">
+        <div className="mt-22 px-12 sm:mt-12 flex justify-between ">
           <div></div>
           <div className="mr-4 ">
             <h6 className="text-xl font-medium">Angelos .Zr</h6>
