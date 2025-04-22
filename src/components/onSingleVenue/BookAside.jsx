@@ -1,5 +1,5 @@
 import BasicDatePicker from '../onHomepage/DatePicker';
-
+import NumberDropDown from '../utilities/NumberDropDown';
 function BookAside() {
   return (
     <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-md border-2 border-primary">
@@ -40,21 +40,3 @@ function BookAside() {
 }
 
 export default BookAside;
-
-function NumberDropDown() {
-  return (
-    <div className="flex  gap-8">
-      <label htmlFor="guests" className="text-lg pl-1 pb-1">
-        Number of guests
-      </label>
-      <select>
-        {/* change to number by api- max guests */}
-        {[1, 2, 3, 4, 5, 6].map(number => (
-          <option key={number} value={number}>
-            {number}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
-}
