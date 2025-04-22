@@ -24,6 +24,12 @@ export function UpComingBookingCard() {
           </div>
         </div>
         <p className="text-sm font-medium mt-1">1000 kr per night</p>
+        <div className="flex justify-between mt-1">
+          <button className="text-red-500 hover:text-red-700">Cancel</button>
+          <button className="text-primary hover:text-primary80">
+            Change dates
+          </button>
+        </div>
       </div>
     </div>
   );
