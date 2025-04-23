@@ -1,4 +1,4 @@
-import SocialLogInBtns from './SocialLogInBtns';
+import SocialLogInBtns from '../auth/SocialLogInBtns';
 
 function AuthContainer({ children, action }) {
   return (
