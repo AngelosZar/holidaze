@@ -3,6 +3,7 @@ import { UserOnHeroSection } from '../components/onProfile/UserOnHeroSection';
 import CurrentBookingsSection from '../components/onManagerView/CurrentBookingsSection';
 //
 import { EditVenueDropDown } from '../components/onManagerView/EditVenueDropDown';
+import ManageMyAccount from '../components/onManagerView/ManageMyAccount';
 
 function VenueManagerView() {
   return (
@@ -10,6 +11,7 @@ function VenueManagerView() {
       <UserOnHeroSection />
       <CurrentBookingsSection />
       <EditVenueDropDown />
+      <ManageMyAccount />
     </Layout>
   );
 }

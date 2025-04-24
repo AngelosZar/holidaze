@@ -4,7 +4,8 @@ import SetAccommodationIncludes from './SetAccommodationIncludes';
 
 export function EditVenueDropDown() {
   return (
-    <section className="w-full mt-12 mb-12">
+    <section className="w-full my-12 mx-8">
+      <h3 className="mb-12">Edit venue dropdown</h3>
       <div className="flex flex-col md:flex-row justify-evenly items-center">
         <div className="max-w-sm ">
           <img
