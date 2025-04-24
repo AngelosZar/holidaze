@@ -9,7 +9,7 @@ import { useState } from 'react';
 function LogInPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { login, isLoading, error, isAuthenticated } = useAuthStore();
+  const { signin, isLoading, error, isAuthenticated } = useAuthStore();
 
   // useEffect(() => {
   //   if (isAuthenticated) navigate to homepage or profile{}

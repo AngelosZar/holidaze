@@ -1,5 +1,14 @@
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
+// import useAuthStore from '../stores/authStore';
+import useAuthStore from '../../stores/authStore';
+//
+
 function SignInForm() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { signin, isLoading, error, isAuthenticated } = useAuthStore();
+
   return (
     <form action="#" className="space-y-4 md:space-y-6">
       <div>
@@ -13,7 +22,9 @@ function SignInForm() {
           placeholder="user@noroff.no"
           required=""
           className="formInput"
-          autocomplete="email"
+          autoComplete="email"
+          onChange={e => setEmail(e.target.value)}
+          // value={email}
         ></input>
       </div>
       <div>
@@ -27,7 +38,8 @@ function SignInForm() {
           placeholder="••••••••"
           required=""
           className="formInput"
-          autocomplete="current-password"
+          autoComplete="current-password"
+          onChange={e => setPassword(e.target.value)}
         ></input>
       </div>
       <div className="flex items-start">
@@ -55,8 +67,23 @@ function SignInForm() {
           </a>
         </div>
       </div>
-      <button type="submit" className=" btn-primary">
-        Log in
+      <button
+        type="submit"
+        className="btn-primary"
+        onClick={async e => {
+          e.preventDefault();
+          console.log('Login clicked');
+          console.log('email', email);
+          console.log('password', password);
+          try {
+            await signin(email, password);
+          } catch (err) {
+            console.error('Sign in error:', err);
+          }
+        }}
+        disabled={isLoading}
+      >
+        {isLoading ? 'Signing in...' : 'Log in'}
       </button>
       <p className="text-sm font-light text-gray-500 dark:text-gray-400">
         Not registered yet?

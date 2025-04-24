@@ -1,4 +1,6 @@
 import { create } from 'zustand';
+import { SIGN_IN_URL } from '../components/Constants';
+
 const useAuthStore = create(set => ({
   user: null,
   isAuthenticated: false,
@@ -12,20 +14,21 @@ const useAuthStore = create(set => ({
     set({ isLoading: true });
     // loading spinner
     try {
-      const response = await fetch('https://api.example.com/auth/signin', {
+      const response = await fetch('SIGN_IN_URL', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, password }),
       });
-
+      console.log('response', response);
       if (!response.ok) {
         throw new Error('Failed to sign in');
       }
 
       const data = await response.json();
       set({ user: data.user, isAuthenticated: true, isLoading: false });
+      console.log('data', data);
     } catch (error) {
       set({ error: error.message, isLoading: false });
     }
