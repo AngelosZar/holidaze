@@ -22,7 +22,7 @@ export function EditVenueDropDown() {
           <h1>calendar</h1>
         </div>
       </div>
-      <div>
+      <section className="py-12 border border-gray-200">
         <form action="">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <BasicInfoForForm />
@@ -30,7 +30,7 @@ export function EditVenueDropDown() {
             <SetAccommodationIncludes />
           </div>
         </form>
-      </div>
+      </section>
     </section>
   );
 }
