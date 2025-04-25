@@ -17,9 +17,28 @@ function SignUpForm() {
     console.log(acceptTerms);
     // setAcceptTerms(!acceptTerms);
   }
+  function handleData() {
+    return {
+      name: `${name}`, // Required
+      email: `${email}`, // Required
+      password: `${password}`, // Required
+      // create another component for this after the
+      bio: 'This is my profile bio', // Optional
+      avatar: {
+        url: 'https://img.service.com/avatar.jpg', // Optional
+        alt: 'My avatar alt text', // Optional
+      },
+      banner: {
+        url: 'https://img.service.com/banner.jpg', // Optional
+        alt: 'My banner alt text', // Optional
+      },
+      venueManager: true, // Optional
+    };
+  }
   async function handleSubmit(e) {
+    e.preventDefault();
+
     if (!acceptTerms) {
-      // setError('You must accept the terms and conditions');
       alert('You must accept the terms and conditions');
       return;
     }
@@ -33,29 +52,14 @@ function SignUpForm() {
       alert('Password and Confirm Password must be the same');
       return;
     }
-    e.preventDefault();
-    console.log('click');
-    console.log(name);
-    console.log(email);
-    console.log(password);
-    console.log(confirmPassword);
+    //
+    const userData = handleData();
     try {
-      const data = await register(name, email, password);
-      if (!data) {
-        alert('something went wrong');
-        return;
-      } else {
-        console.log('data', data);
-        console.log('response', data);
-        alert('User created successfully');
-      }
-      alert('User created successfully');
-      alert(error);
-      // create modal for this and all other alerts
-      // redirect to login page
-      // navigate('/login');
+      const data = await register(userData);
+      console.log('data', data);
+      navigate('/LogInPage');
     } catch (error) {
-      console.log(error);
+      throw new Error(error);
     }
   }
   return (
