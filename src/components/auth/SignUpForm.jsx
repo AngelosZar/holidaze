@@ -1,6 +1,77 @@
+import { useState } from 'react';
+import useAuthStore from '../../stores/authStore';
+import { useNavigate } from 'react-router-dom';
+
 function SignUpForm() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [acceptTerms, setAcceptTerms] = useState(false);
+  const navigate = useNavigate();
+  const { register, isLoading, error, setError } = useAuthStore();
+
+  function toggleAcceptTerms() {
+    if (!acceptTerms) setAcceptTerms(true);
+    if (acceptTerms) setAcceptTerms(false);
+    console.log(acceptTerms);
+    // setAcceptTerms(!acceptTerms);
+  }
+  async function handleSubmit(e) {
+    if (!acceptTerms) {
+      // setError('You must accept the terms and conditions');
+      alert('You must accept the terms and conditions');
+      return;
+    }
+    if (!name || !email || !password || !confirmPassword) {
+      alert('All fields are required');
+
+      // create modal for this and all other alerts
+      return;
+    }
+    if (password !== confirmPassword) {
+      alert('Password and Confirm Password must be the same');
+      return;
+    }
+    e.preventDefault();
+    console.log('click');
+    console.log(name);
+    console.log(email);
+    console.log(password);
+    console.log(confirmPassword);
+    try {
+      const data = await register(name, email, password);
+      if (!data) {
+        alert('something went wrong');
+        return;
+      } else {
+        console.log('data', data);
+        console.log('response', data);
+        alert('User created successfully');
+      }
+      alert('User created successfully');
+      alert(error);
+      // create modal for this and all other alerts
+      // redirect to login page
+      // navigate('/login');
+    } catch (error) {
+      console.log(error);
+    }
+  }
   return (
     <form action="#" className="space-y-4 md:space-y-6">
+      <div>
+        <label htmlFor="name" className="formLabel">
+          Username
+        </label>
+        <input
+          type="text"
+          name="name"
+          id="name"
+          className="formInput"
+          onChange={e => setName(e.target.value)}
+        />
+      </div>
       <div>
         <label htmlFor="email" className="formLabel">
           Email
@@ -12,6 +83,8 @@ function SignUpForm() {
           placeholder="username@noroff.no"
           required=""
           className="formInput"
+          pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+          onChange={e => setEmail(e.target.value)}
         ></input>
       </div>
       <div>
@@ -25,24 +98,25 @@ function SignUpForm() {
           placeholder="••••••••"
           required=""
           className="formInput"
-          maxlength="30"
-          pattern="^[\w\-.]+@(stud\.)?noroff\.no$"
+          maxLength="30"
           title="Email must be a valid noroff email ending with @stud.noroff.no"
-          autocomplete="email"
+          autoComplete="email"
+          onChange={e => setPassword(e.target.value)}
         ></input>
       </div>
       <div>
-        <label htmlFor="confirm-password" className="formLabel">
+        <label htmlFor="confirmPassword" className="formLabel">
           Confirm your password
         </label>
         <input
           type="password"
-          name="confirm-password"
-          id="confirm-password"
+          name="confirmPassword"
+          id="confirmPassword"
           placeholder="••••••••"
           required=""
           className="formInput"
-          autocomplete="current-password"
+          autoComplete="current-password"
+          onChange={e => setConfirmPassword(e.target.value)}
         ></input>
       </div>
       <div className="flex items-start">
@@ -54,6 +128,7 @@ function SignUpForm() {
             className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
             required=""
             autoComplete="current-password"
+            onChange={toggleAcceptTerms}
           ></input>
         </div>
         <div className="ml-3 text-sm">
@@ -71,7 +146,7 @@ function SignUpForm() {
           </label>
         </div>
       </div>
-      <button type="submit" className=" btn-primary">
+      <button type="submit" className=" btn-primary" onClick={handleSubmit}>
         Create an account
       </button>
       <p className="text-sm font-light text-gray-500 dark:text-gray-400">

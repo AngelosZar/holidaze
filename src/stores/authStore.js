@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { SIGN_IN_URL } from '../components/Constants';
+import { REGISTER_URL } from '../components/Constants';
 
 const useAuthStore = create(set => ({
   user: null,
@@ -14,7 +15,7 @@ const useAuthStore = create(set => ({
     set({ isLoading: true });
     // loading spinner
     try {
-      const response = await fetch('SIGN_IN_URL', {
+      const response = await fetch(SIGN_IN_URL, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -35,12 +36,44 @@ const useAuthStore = create(set => ({
   },
 
   // register user
-  register: async (name, email, password) => {},
-  // name is optional
+  register: async (name, email, password) => {
+    // check if password and confirm password are the same if not return
+    try {
+      const response = await fetch(REGISTER_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+      if (!response.ok) {
+        throw new Error('Failed to sign up');
+      }
+      const data = await response.json();
+      console.log(data);
+      console.log(response);
+      alert('User created successfully');
+      // create modal for this and all other alerts
+    } catch (error) {
+      set({ error: error.message, isLoading: false });
+      console.log(error);
+    }
+    // use local session and if remember this device save on local storage
+    // create modal window to congratulate and redirect to log in page
+    //
+    // where to keep this data ? local storage or session storage
+    // how to set the venue manager to true or false
+    // once password ..display additional window for the rest information
+  },
 
   // log out user\
-  logout: async () => {},
-
+  logout: async () => {
+    // clear local storage and session storage
+  },
+  // check if password and repeat password is same
+  //   confirmPassword: function(){
+  //     if(password === confirmPassword)
+  //   }
   //   init auth proceess check if user is authenticated and logged in
 }));
 
