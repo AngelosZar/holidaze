@@ -8,7 +8,7 @@ const useAuthStore = create(set => ({
   isLoading: false,
   error: [],
 
-  signin: async (email, password) => {
+  signin: async (email, password, rememberDevice = false) => {
     set({ isLoading: true });
     // loading spinner
     try {
@@ -19,22 +19,33 @@ const useAuthStore = create(set => ({
         },
         body: JSON.stringify({ email, password }),
       });
-      const data = await response.json();
-      if (data.errors && Array.isArray(data.errors) && data.errors.length > 0) {
-        const error = data.errors[0];
+      const { errors, data: userData } = await response.json();
+      if (errors && Array.isArray(errors) && errors.length > 0) {
+        const error = errors[0];
         set({ error: [error.message], isLoading: false });
         alert(`${error.message}`);
+        throw new Error(error.message);
       }
+      //
+      console.log('data', userData);
+      console.log('data', userData.accessToken);
+      const storage = rememberDevice ? localStorage : sessionStorage;
+      storage.setItem('user', JSON.stringify(userData));
+      storage.setItem('accessToken', userData.accessToken);
 
-      set({ user: data.user, isAuthenticated: true, isLoading: false });
+      set({ user: userData, isAuthenticated: true, isLoading: false });
+      return userData;
+      //
     } catch (error) {
       set({ error: [error.message], isLoading: false });
+      throw error;
     }
   },
 
   // register user
   register: async userData => {
     set({ isLoading: true });
+    // loading spinner
     try {
       const response = await fetch(REGISTER_URL, {
         method: 'POST',

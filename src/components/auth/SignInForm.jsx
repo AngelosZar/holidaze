@@ -1,13 +1,39 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-// import useAuthStore from '../stores/authStore';
 import useAuthStore from '../../stores/authStore';
+import { useNavigate } from 'react-router-dom';
 //
 
 function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const { signin, isLoading, error, isAuthenticated } = useAuthStore();
+  const navigate = useNavigate();
+  const [rememberDevice, setRememberDevice] = useState(false);
+
+  function toggleRememberDevice() {
+    setRememberDevice(prev => !prev);
+  }
+  // console.log(rememberDevice);
+  const handleSubmit = async e => {
+    e.preventDefault();
+    if (!email || !password) {
+      !email
+        ? alert('Email is required 1')
+        : !password
+        ? alert('Password is required')
+        : alert('All fields are required');
+      return;
+    }
+
+    try {
+      const data = await signin(email, password, rememberDevice);
+      console.log('data', data);
+      navigate('/Homepage');
+    } catch (error) {
+      console.error('Sign in error:', error);
+    }
+  };
 
   return (
     <form action="#" className="space-y-4 md:space-y-6">
@@ -50,6 +76,7 @@ function SignInForm() {
             type="checkbox"
             className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800"
             required=""
+            onClick={toggleRememberDevice}
           ></input>
         </div>
         <div className="ml-3 text-sm flex flex-row gap-2 justify-between w-full">
@@ -67,23 +94,8 @@ function SignInForm() {
           </a>
         </div>
       </div>
-      <button
-        type="submit"
-        className="btn-primary"
-        onClick={async e => {
-          e.preventDefault();
-          console.log('Login clicked');
-          console.log('email', email);
-          console.log('password', password);
-          try {
-            await signin(email, password);
-          } catch (err) {
-            console.error('Sign in error:', err);
-          }
-        }}
-        disabled={isLoading}
-      >
-        {isLoading ? 'Signing in...' : 'Log in'}
+      <button type="submit" className="btn-primary" onClick={handleSubmit}>
+        Sign in
       </button>
       <p className="text-sm font-light text-gray-500 dark:text-gray-400">
         Not registered yet?
