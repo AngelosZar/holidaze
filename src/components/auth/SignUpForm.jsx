@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import useAuthStore from '../../stores/authStore';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 function SignUpForm() {
   const [name, setName] = useState('');
@@ -152,12 +152,12 @@ function SignUpForm() {
       </button>
       <p className="text-sm font-light text-gray-500 dark:text-gray-400">
         Already have an account?
-        <a
-          href="#"
+        <NavLink
+          to={'/login'}
           className="font-medium text-primary-600 hover:underline dark:text-primary-500"
         >
           <span className="m-2"> Login here</span>
-        </a>
+        </NavLink>
       </p>
     </form>
   );

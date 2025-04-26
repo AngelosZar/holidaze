@@ -1,4 +1,19 @@
+import { useEffect } from 'react';
+import useProfileStore from '../../stores/profileStore';
 export function UserOnHeroSection() {
+  useEffect(() => {
+    const { accessToken, user, userName, users, isLoading, error } =
+      useProfileStore.getState();
+    console.log('userName', userName);
+    // getUser(userName);
+    try {
+      //
+    } catch (error) {
+      console.log('error', error);
+      Set({ error: error.message, isLoading: false });
+      throw error;
+    }
+  }, []);
   return (
     <section className="w-full mt-[90px] mb-64">
       <div className="relative w-full h-48">
