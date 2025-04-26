@@ -6,9 +6,16 @@ import LogInPage from './pages/LogInPage';
 import SingleVenuePage from './pages/SingleVenuePage';
 import UserProfileView from './pages/UserProfileView';
 import VenueManagerView from './pages/VenueManagerView';
+import useAuthStore from './stores/authStore';
+import { useEffect } from 'react';
 
 //
 function App() {
+  const { initAuth } = useAuthStore();
+  useEffect(() => {
+    initAuth();
+  }, [initAuth]);
+
   return (
     <>
       <BrowserRouter>

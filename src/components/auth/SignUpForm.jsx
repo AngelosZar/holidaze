@@ -12,10 +12,7 @@ function SignUpForm() {
   const { register, isLoading, error, setError } = useAuthStore();
 
   function toggleAcceptTerms() {
-    // if (!acceptTerms) setAcceptTerms(true);
-    // if (acceptTerms) setAcceptTerms(false);
-    console.log(acceptTerms);
-    setAcceptTerms(!acceptTerms);
+    setAcceptTerms(prev => !prev);
   }
   function handleData() {
     return {

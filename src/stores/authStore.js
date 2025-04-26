@@ -63,12 +63,7 @@ const useAuthStore = create(set => ({
           throw new Error(errorMessages.join(', '));
         }
       }
-      // use local session and if remember this device save on local storage
-      // create modal window to congratulate and redirect to log in page
-      //
-      // where to keep this data ? local storage or session storage
-      // how to set the venue manager to true or false
-      // once password ..display additional window for the rest information
+
       return data;
 
       // create modal for this and all other alerts
@@ -87,7 +82,18 @@ const useAuthStore = create(set => ({
   //   confirmPassword: function(){
   //     if(password === confirmPassword)
   //   }
-  //   init auth proceess check if user is authenticated and logged in
+
+  initAuth: () => {
+    const user =
+      JSON.parse(localStorage.getItem('user')) ||
+      JSON.parse(sessionStorage.getItem('user') || null);
+    if (user) {
+      set({ user, isAuthenticated: true });
+      console.log('user is authenticated', user);
+      alert('User is authenticated');
+    }
+  },
+  //
 }));
 
 export default useAuthStore;
