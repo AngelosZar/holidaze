@@ -75,8 +75,11 @@ const useAuthStore = create(set => ({
   },
 
   // log out user\
-  logout: async () => {
-    // clear local storage and session storage
+  logout: () => {
+    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
+    localStorage.removeItem('accessToken');
+    sessionStorage.removeItem('accessToken');
   },
   // check if password and repeat password is same
   //   confirmPassword: function(){
@@ -89,8 +92,6 @@ const useAuthStore = create(set => ({
       JSON.parse(sessionStorage.getItem('user') || null);
     if (user) {
       set({ user, isAuthenticated: true });
-      console.log('user is authenticated', user);
-      alert('User is authenticated');
     }
   },
   //

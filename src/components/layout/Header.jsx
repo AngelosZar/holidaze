@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import logo1 from '../../assets/logos/logo1.svg';
 import { NavLink } from 'react-router-dom';
+import useAuthStore from '../../stores/authStore';
+import { is } from 'date-fns/locale';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-
+  const { isAuthenticated, logout } = useAuthStore();
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 0) {
@@ -23,6 +25,13 @@ export default function Header() {
     };
   }, [isOpen, isScrolling]);
 
+  function handleLogout(e) {
+    e.preventDefault();
+    logout();
+    window.location.reload() || window.location.replace('/Homepage');
+    // change later to redirect depending on the current page \\
+  }
+
   return (
     <header
       className={`fixed max-w-[1520px] text-white border-b-1 z-50 ${
@@ -34,17 +43,25 @@ export default function Header() {
           <img src={logo1} alt="logo" className="w-60" />
         </NavLink>
         <div className="md:hidden">
-          <HamburgerMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+          <HamburgerMenu
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            handleLogout={handleLogout}
+            isAuthenticated={isAuthenticated}
+          />
         </div>
         <div className="hidden md:block">
-          <DesktopMenu />
+          <DesktopMenu
+            handleLogout={handleLogout}
+            isAuthenticated={isAuthenticated}
+          />
         </div>
       </nav>
     </header>
   );
 }
 
-function HamburgerMenu({ isOpen, setIsOpen }) {
+function HamburgerMenu({ isOpen, setIsOpen, handleLogout, isAuthenticated }) {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -101,6 +118,11 @@ function HamburgerMenu({ isOpen, setIsOpen }) {
             <li>
               <NavLink to="venue">Venue</NavLink>
             </li>
+            {isAuthenticated && (
+              <li>
+                <button onClick={handleLogout}>Log out</button>
+              </li>
+            )}
           </ul>
         </div>
       </div>
@@ -108,7 +130,7 @@ function HamburgerMenu({ isOpen, setIsOpen }) {
   );
 }
 
-function DesktopMenu() {
+function DesktopMenu({ handleLogout, isAuthenticated }) {
   return (
     <ul className="flex gap-4 mx-4">
       <li>
@@ -126,6 +148,11 @@ function DesktopMenu() {
       <li>
         <NavLink to="venue">Venue</NavLink>
       </li>
+      {isAuthenticated && (
+        <li>
+          <button onClick={handleLogout}>Log out</button>
+        </li>
+      )}
     </ul>
   );
 }
