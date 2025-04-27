@@ -5,6 +5,7 @@ import { GET_USER_URL } from '../components/Constants';
 //
 // import returnToken from '../components/utilities/returnToken';
 // import returnUser from '../components/utilities/returnUser';
+// import returnHeaders from '../components/utilities';
 import returnHeaders from '../components/utilities/returnHeaders';
 // holidaze-profiles
 // Holidaze profiles related endpoints

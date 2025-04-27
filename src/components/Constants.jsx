@@ -5,5 +5,5 @@ export const GET_USER_URL = `${BASE_URL}social/profiles/`;
 export const PUT_USER_URL = `${BASE_URL}social/profiles/`;
 //
 export const AUTH_GET_API_KEY_URL = `${BASE_URL}auth/create-api-key`;
-// export const API_KEY =  from local storage or session storage
-// export const API_KEY =
+
+export const API_KEY = import.meta.env.VITE_API_KEY;
