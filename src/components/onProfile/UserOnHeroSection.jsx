@@ -2,22 +2,20 @@ import { useEffect } from 'react';
 import useProfileStore from '../../stores/profileStore';
 export function UserOnHeroSection() {
   useEffect(() => {
-    const { accessToken, user, userName, users, isLoading, error, getUser } =
-      useProfileStore.getState();
-    console.log('userName', userName);
-    // getUser(userName);
-    try {
-      const data = getUser(userName);
-      console.log('data', data);
-      if (!data) {
-        console.log('No data found');
-        return;
+    const fetchUserData = async () => {
+      try {
+        const { accessToken, user, userName, getUser, getUserNameFromStorage } =
+          useProfileStore.getState();
+        const fetchUsername = getUserNameFromStorage();
+        console.log(fetchUsername);
+        const { data } = await getUser(fetchUsername);
+        console.log('userData', data);
+        return data;
+      } catch (error) {
+        console.error('Error fetching user data:', error);
       }
-    } catch (error) {
-      console.log('error', error);
-      Set({ error: error.message, isLoading: false });
-      throw error;
-    }
+    };
+    fetchUserData();
   }, []);
   return (
     <section className="w-full mt-[90px] mb-64">

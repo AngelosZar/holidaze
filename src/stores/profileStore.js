@@ -27,6 +27,7 @@ import returnHeaders from '../components/utilities/returnHeaders';
 
 // GET
 // /api/v1/holidaze/profiles/{name}/bookings
+
 const useProfileStore = create(set => ({
   accessToken: '',
   user: '',
@@ -34,20 +35,32 @@ const useProfileStore = create(set => ({
   users: [],
   isLoading: false,
   error: null,
-  //
 
   // maybe use for all and single user
 
-  getUserName: userData => {
-    return userData?.name || '';
+  getUserNameFromStorage: () => {
+    const userFromStorage =
+      localStorage.getItem('user') || sessionStorage.getItem('user');
+    if (userFromStorage) {
+      try {
+        const userData = JSON.parse(userFromStorage);
+        if (userData && userData.name) {
+          set({ userName: userData.name });
+          return userData.name;
+        }
+      } catch (error) {
+        set({ error: 'Error parsing user data from storage' });
+        console.error('Error parsing user data from storage:', error);
+      }
+    }
+    return null;
   },
 
   getUser: async (name = '') => {
-    // profileStore.js:63 Uncaught (in promise) Error: No API key header was found
-    // at getUser (profileStore.js:63:17)
     set({ isLoading: true, error: null });
     // loading spinner
     const headers = returnHeaders();
+
     try {
       const res = await fetch(`${GET_USER_URL}${name}`, {
         method: 'GET',
@@ -57,7 +70,7 @@ const useProfileStore = create(set => ({
         },
       });
       const data = await res.json();
-      console.log('data', data);
+      // console.log('data', data);
       //
       if (!res.ok) {
         if (data.errors && Array.isArray(data.errors)) {
