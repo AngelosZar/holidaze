@@ -3,8 +3,9 @@ import { create } from 'zustand';
 import { GET_USER_URL } from '../components/Constants';
 // import PUT_USER_URL from '../components/Constants';
 //
-import returnToken from '../components/utilities/returnToken';
-import returnUser from '../components/utilities/returnUser';
+// import returnToken from '../components/utilities/returnToken';
+// import returnUser from '../components/utilities/returnUser';
+import returnHeaders from '../components/utilities/returnHeaders';
 // holidaze-profiles
 // Holidaze profiles related endpoints
 
@@ -41,15 +42,17 @@ const useProfileStore = create(set => ({
   },
 
   getUser: async (name = '') => {
+    // profileStore.js:63 Uncaught (in promise) Error: No API key header was found
+    // at getUser (profileStore.js:63:17)
     set({ isLoading: true, error: null });
     // loading spinner
-    const accessToken = returnToken();
+    const headers = returnHeaders();
     try {
       const res = await fetch(`${GET_USER_URL}${name}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`,
+          ...headers.headers,
         },
       });
       const data = await res.json();

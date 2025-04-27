@@ -2,12 +2,17 @@ import { useEffect } from 'react';
 import useProfileStore from '../../stores/profileStore';
 export function UserOnHeroSection() {
   useEffect(() => {
-    const { accessToken, user, userName, users, isLoading, error } =
+    const { accessToken, user, userName, users, isLoading, error, getUser } =
       useProfileStore.getState();
     console.log('userName', userName);
     // getUser(userName);
     try {
-      //
+      const data = getUser(userName);
+      console.log('data', data);
+      if (!data) {
+        console.log('No data found');
+        return;
+      }
     } catch (error) {
       console.log('error', error);
       Set({ error: error.message, isLoading: false });
