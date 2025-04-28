@@ -30,77 +30,25 @@ import returnHeaders from '../components/utilities/returnHeaders';
 // GET
 // /api/v1/holidaze/profiles/{name}/bookings
 
-// const useProfileStore = create(set => ({
-//   accessToken: '',
-//   user: '',
-//   userName: '',
-//   userData: {},
-//   users: [],
-//   isLoading: false,
-//   error: null,
-
-//   // maybe use for all and single user
-
-//   getUserNameFromStorage: () => {
-//     const userFromStorage =
-//       localStorage.getItem('user') || sessionStorage.getItem('user');
-//     if (userFromStorage) {
-//       try {
-//         const userData = JSON.parse(userFromStorage);
-//         if (userData && userData.name) {
-//           set({ userName: userData.name });
-//           return userData.name;
-//         }
-//       } catch (error) {
-//         set({ error: 'Error parsing user data from storage' });
-//         console.error('Error parsing user data from storage:', error);
-//       }
-//     }
-//     return null;
-//   },
-
-//   getUser: async (name = '') => {
-//     set({ isLoading: true, error: null });
-//     // loading spinner
-//     const headers = returnHeaders();
-
-//     try {
-//       const res = await fetch(`${GET_USER_URL}${name}`, {
-//         method: 'GET',
-//         headers: {
-//           'Content-Type': 'application/json',
-//           ...headers.headers,
-//         },
-//       });
-//       const data = await res.json();
-//       set({ userData: data, isLoading: false });
-
-//       // console.log('data', data);
-//       //
-//       if (!res.ok) {
-//         if (data.errors && Array.isArray(data.errors)) {
-//           const error = data.errors[0];
-//           set({ error: error.message, isLoading: false });
-//           alert(`${error.message}`);
-//           throw new Error(error.message);
-//         }
-//       }
-
-//       return { data };
-//     } catch (error) {
-//       console.log('error', error);
-//       set({ error: error.message, isLoading: false });
-//       throw error;
-//     }
-//   },
-// }));
 const useProfileStore = create(
   persist(
     set => ({
       accessToken: returnToken(),
       user: '',
       userName: '',
-      userData: {},
+      // single user
+      userData: {
+        userName: '',
+        email: '',
+        bio: '',
+        avatarUrl: '',
+        avatarAlt: '',
+        bannerUrl: '',
+        bannerAlt: '',
+        venueManager: false,
+      },
+      //
+      // list of users ?
       users: [],
       isLoading: false,
       error: null,
@@ -155,6 +103,11 @@ const useProfileStore = create(
           set({ error: error.message, isLoading: false });
           throw error;
         }
+      },
+
+      setUserData: userData => {
+        set({ userData });
+        console.log('userData', userData);
       },
     }),
 
