@@ -10,8 +10,8 @@ const useVenueStore = create(
     setIsLoading: isLoading => set({ isLoading }),
     setError: error => set({ error }),
 
-    // fetchVenue: async () => {},
-    // fetchVenues: async () => {},
+    // getVenue: async () => {},
+    // getVenues: async () => {},
     // postVenue: async () => {},
     // putVenue: async () => {},
     // deleteVenue: async () => {},
