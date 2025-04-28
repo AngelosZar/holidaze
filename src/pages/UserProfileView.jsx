@@ -5,11 +5,9 @@ import SingleCard from '../components/SingleCard';
 function UserProfileView() {
   return (
     <Layout>
-      <>
-        <UserOnHeroSection />
-        <UpComingBookings />
-        <PreviousBookings />
-      </>
+      <UserOnHeroSection />
+      <UpComingBookings />
+      <PreviousBookings />
     </Layout>
   );
 }

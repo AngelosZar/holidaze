@@ -136,10 +136,9 @@ const useProfileStore = create(
               ...headers.headers,
             },
           });
-          const data = await res.json();
-          set({ userData: data, isLoading: false });
+          const { data } = await res.json();
 
-          // console.log('data', data);
+          console.log('data', data);
           //
           if (!res.ok) {
             if (data.errors && Array.isArray(data.errors)) {

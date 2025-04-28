@@ -1,17 +1,19 @@
-import { NavLink } from 'react-router-dom';
+import { useNavigate, NavLink } from 'react-router-dom';
 import useAuthStore from '../../stores/authStore';
+
 function AuthDecision() {
   const { setIsManager, error, isManager } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleManagerSignUp = () => {
     setIsManager(true);
-    window.location.href = '/register/manager';
+    navigate('/register/manager');
   };
   const handleUserSignUp = () => {
     setIsManager(false);
-    window.location.href = '/register/user';
+    navigate('/register/user');
   };
-  console.log(error, isManager);
+  console.log(isManager);
   return (
     <section className="bg-bodyLight dark:bg-bodyDark w-full h-screen mx-auto pt-24">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

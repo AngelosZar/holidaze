@@ -7,7 +7,7 @@ const useAuthStore = create(set => ({
   isAuthenticated: false,
   isLoading: false,
   error: [],
-  isManager: false,
+  isManager: JSON.parse(localStorage.getItem('isManager')) || false,
 
   setIsManager: isManager => {
     set({ isManager });
@@ -16,8 +16,8 @@ const useAuthStore = create(set => ({
   signin: async (
     email,
     password,
-    rememberDevice = false,
-    isManager = false
+    rememberDevice = false
+    // isManager = false
   ) => {
     set({ isLoading: true });
     // loading spinner
@@ -37,8 +37,6 @@ const useAuthStore = create(set => ({
         throw new Error(error.message);
       }
       //
-      console.log('data', userData);
-      console.log('data', userData.accessToken);
       const storage = rememberDevice ? localStorage : sessionStorage;
       storage.setItem('user', JSON.stringify(userData));
       storage.setItem('accessToken', userData.accessToken);
@@ -47,7 +45,6 @@ const useAuthStore = create(set => ({
         user: userData,
         isAuthenticated: true,
         isLoading: false,
-        isManager,
       });
       return userData;
       //
@@ -71,13 +68,16 @@ const useAuthStore = create(set => ({
       });
 
       const data = await response.json();
-      // console.log('data', data);
+      console.log('data', data);
       if (!response.ok) {
         // console.log('response', response);
         if (data.errors && Array.isArray(data.errors)) {
           const errorMessages = data.errors.map(error => error.message);
           set({ error: errorMessages.join(', '), isLoading: false });
           throw new Error(errorMessages.join(', '));
+        } else {
+          set({ error: [data.status || 'Request failed'], isLoading: false });
+          throw new Error(data.status || 'Registration failed');
         }
       }
       set({ isLoading: false });

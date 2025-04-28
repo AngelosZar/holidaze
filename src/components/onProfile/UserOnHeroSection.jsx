@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import useProfileStore from '../../stores/profileStore';
+
 export function UserOnHeroSection() {
   const {
     accessToken,
@@ -14,9 +15,18 @@ export function UserOnHeroSection() {
       try {
         const fetchUsername = getUserNameFromStorage();
         console.log(fetchUsername);
-        const { data } = await getUser(fetchUsername);
-        console.log('userData', data);
-        return data;
+        // const data = await getUser(fetchUsername);
+        // const { data } = await getUser(fetchUsername);
+        const {
+          data: { avatar, banner, bio, email, name, _count },
+        } = await getUser(fetchUsername);
+        console.log('avatar', avatar);
+        console.log('banner', banner);
+        console.log('bio', bio);
+        console.log('email', email);
+        console.log('name', name);
+
+        return { avatar, banner, bio, email, name, _count };
       } catch (error) {
         console.error('Error fetching user data:', error);
       }
@@ -43,7 +53,7 @@ export function UserOnHeroSection() {
         <div className="mt-22 px-12 sm:mt-12 flex justify-between ">
           <div></div>
           <div className="mr-4 ">
-            <h6 className="text-xl font-medium">{userData.data?.name}</h6>
+            <h6 className="text-xl font-medium">{name}</h6>
             <p className="">Manager</p>
             <button className="text-sm mt-1">Manage my account</button>
           </div>
