@@ -1,11 +1,17 @@
 import { useEffect } from 'react';
 import useProfileStore from '../../stores/profileStore';
 export function UserOnHeroSection() {
+  const {
+    accessToken,
+    user,
+    userName,
+    getUser,
+    getUserNameFromStorage,
+    userData,
+  } = useProfileStore.getState();
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const { accessToken, user, userName, getUser, getUserNameFromStorage } =
-          useProfileStore.getState();
         const fetchUsername = getUserNameFromStorage();
         console.log(fetchUsername);
         const { data } = await getUser(fetchUsername);
@@ -16,7 +22,7 @@ export function UserOnHeroSection() {
       }
     };
     fetchUserData();
-  }, []);
+  }, [getUser, getUserNameFromStorage]);
   return (
     <section className="w-full mt-[90px] mb-64">
       <div className="relative w-full h-48">
@@ -37,7 +43,7 @@ export function UserOnHeroSection() {
         <div className="mt-22 px-12 sm:mt-12 flex justify-between ">
           <div></div>
           <div className="mr-4 ">
-            <h6 className="text-xl font-medium">Angelos .Zr</h6>
+            <h6 className="text-xl font-medium">{userData.data?.name}</h6>
             <p className="">Manager</p>
             <button className="text-sm mt-1">Manage my account</button>
           </div>

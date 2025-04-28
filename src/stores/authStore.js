@@ -7,8 +7,18 @@ const useAuthStore = create(set => ({
   isAuthenticated: false,
   isLoading: false,
   error: [],
+  isManager: false,
 
-  signin: async (email, password, rememberDevice = false) => {
+  setIsManager: isManager => {
+    set({ isManager });
+  },
+
+  signin: async (
+    email,
+    password,
+    rememberDevice = false,
+    isManager = false
+  ) => {
     set({ isLoading: true });
     // loading spinner
     try {
@@ -33,7 +43,12 @@ const useAuthStore = create(set => ({
       storage.setItem('user', JSON.stringify(userData));
       storage.setItem('accessToken', userData.accessToken);
 
-      set({ user: userData, isAuthenticated: true, isLoading: false });
+      set({
+        user: userData,
+        isAuthenticated: true,
+        isLoading: false,
+        isManager,
+      });
       return userData;
       //
     } catch (error) {
@@ -52,18 +67,20 @@ const useAuthStore = create(set => ({
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ userData }),
+        body: JSON.stringify(userData),
       });
 
       const data = await response.json();
+      // console.log('data', data);
       if (!response.ok) {
+        // console.log('response', response);
         if (data.errors && Array.isArray(data.errors)) {
           const errorMessages = data.errors.map(error => error.message);
           set({ error: errorMessages.join(', '), isLoading: false });
           throw new Error(errorMessages.join(', '));
         }
       }
-
+      set({ isLoading: false });
       return data;
 
       // create modal for this and all other alerts
@@ -80,6 +97,7 @@ const useAuthStore = create(set => ({
     sessionStorage.removeItem('user');
     localStorage.removeItem('accessToken');
     sessionStorage.removeItem('accessToken');
+    sessionStorage.removeItem('profile-storage');
   },
   // check if password and repeat password is same
   //   confirmPassword: function(){

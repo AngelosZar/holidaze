@@ -9,18 +9,18 @@ function SignUpForm() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
   const navigate = useNavigate();
-  const { register, isLoading, error, setError } = useAuthStore();
-
+  const { register, error, setError } = useAuthStore();
+  console.log(name, email, password, confirmPassword, acceptTerms);
   function toggleAcceptTerms() {
     setAcceptTerms(prev => !prev);
   }
   function handleData() {
     return {
-      name: `${name}`, // Required
-      email: `${email}`, // Required
-      password: `${password}`, // Required
+      name, // Required
+      email, // Required
+      password, // Required
       // create another component for this after the
-      bio: 'This is my profile bio', // Optional
+      bio: '', // Optional
       avatar: {
         url: 'https://img.service.com/avatar.jpg', // Optional
         alt: 'My avatar alt text', // Optional
@@ -51,12 +51,17 @@ function SignUpForm() {
     }
     //
     const userData = handleData();
+
     try {
-      const data = await register(userData);
-      console.log('data', data);
-      navigate('/LogInPage');
+      const response = await register(userData);
+      console.log('data', response);
+
+      if (response && !error) {
+        navigate('/LogInPage');
+      }
     } catch (error) {
-      throw new Error(error);
+      console.error(error);
+      setError(error.message || 'Registration failed');
     }
   }
   return (
