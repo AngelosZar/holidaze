@@ -71,6 +71,18 @@ const useProfileStore = create(
         return null;
       },
 
+      setUserData: userData => {
+        set({ userData });
+      },
+
+      setIsLoading: isLoading => {
+        set({ isLoading });
+      },
+
+      setError: error => {
+        set({ error });
+      },
+
       getUser: async (name = '') => {
         set({ isLoading: true, error: null });
         // loading spinner
@@ -103,11 +115,6 @@ const useProfileStore = create(
           set({ error: error.message, isLoading: false });
           throw error;
         }
-      },
-
-      setUserData: userData => {
-        set({ userData });
-        console.log('userData', userData);
       },
     }),
 
