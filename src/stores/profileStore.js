@@ -105,7 +105,7 @@ const useProfileStore = create(
           });
           const { data } = await res.json();
 
-          console.log('data', data);
+          // console.log('data', data);
           //
           // if (!res.ok) {
           //   if (data.errors && Array.isArray(data.errors)) {
@@ -129,7 +129,7 @@ const useProfileStore = create(
           throw error;
         }
       },
-      putProfile: async (name, data) => {
+      putProfile: async (name, userInput) => {
         set({ isLoading: true, error: null });
         const headers = returnHeaders();
         // create a function to return an object with it
@@ -142,7 +142,7 @@ const useProfileStore = create(
               'Content-Type': 'application/json',
               ...headers.headers,
             },
-            body: JSON.stringify(data),
+            body: JSON.stringify(userInput),
             // body: JSON.stringify({
             //   bio: 'New bio',
             //   venueManager: true,
@@ -151,6 +151,12 @@ const useProfileStore = create(
             // }),
           });
           const { data } = await res.json();
+          returnErrors(
+            res,
+            data,
+            set => msg => set({ error: msg }),
+            val => set({ isLoading: val })
+          );
           // error handlling
           console.log('data', data);
         } catch (error) {
@@ -173,6 +179,12 @@ const useProfileStore = create(
             body: JSON.stringify(media),
           });
           const { data } = await res.json();
+          returnErrors(
+            res,
+            data,
+            set => msg => set({ error: msg }),
+            val => set({ isLoading: val })
+          );
           // error handlling
           console.log('data', data);
         } catch (error) {
@@ -181,7 +193,35 @@ const useProfileStore = create(
           throw error;
         }
       },
-      // getProfileVenues: async () => {},
+      getProfileVenues: async name => {
+        set({ isLoading: true, error: null });
+        const headers = returnHeaders();
+        try {
+          const res = await fetch(`${GET_USER_URL}${name}${VENUES_ENDPOINT}`, {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              ...headers.headers,
+            },
+          });
+          const data = await res.json();
+          console.log('data', data);
+          // console.log('res', res);
+
+          returnErrors(
+            res,
+            data,
+            msg => set({ error: msg }),
+            val => set({ isLoading: val })
+          );
+          set({ isLoading: false });
+          return data;
+        } catch (error) {
+          console.log('error', error);
+          set({ error: error.message, isLoading: false });
+          throw error;
+        }
+      },
       // getProfileBookings: async () => {},
     }),
 

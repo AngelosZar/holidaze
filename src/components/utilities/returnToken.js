@@ -6,7 +6,6 @@ const returnToken = () => {
     return;
   }
   if (accessToken) {
-    console.log('accessToken', accessToken);
     return accessToken;
   }
 };

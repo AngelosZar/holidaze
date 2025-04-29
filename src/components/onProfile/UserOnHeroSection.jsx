@@ -1,11 +1,26 @@
+import { useEffect } from 'react';
 import useUserData from '../../hooks/useUserData';
-
+import useProfileStore from '../../stores/profileStore';
 export function UserOnHeroSection() {
   const { userData, isLoading, error } = useUserData();
+  const { getProfileVenues } = useProfileStore(state => state);
 
+  useEffect(() => {
+    async function fetchVenues() {
+      try {
+        const data = await getProfileVenues('angZar');
+        console.log('data', data);
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+    fetchVenues();
+  }, [getProfileVenues]);
   if (isLoading) return <div>is loading ... add spinner</div>;
 
   if (error) return <div>error promt :{error.message}</div>;
+  // console.log('userData', userData);
+  // console.log(error);
 
   return (
     <section className="w-full mt-[90px] mb-64">
