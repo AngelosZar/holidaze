@@ -2,7 +2,13 @@ import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import returnToken from '../components/utilities/returnToken';
 //
-import { GET_USER_URL } from '../components/Constants';
+import {
+  GET_USER_URL,
+  PUT_USER_URL,
+  MEDIA_ENDPOINT,
+  BOOKINGS_ENDPOINT,
+  VENUES_ENDPOINT,
+} from '../components/Constants';
 // import PUT_USER_URL from '../components/Constants';
 //
 // import returnToken from '../components/utilities/returnToken';
@@ -116,6 +122,60 @@ const useProfileStore = create(
           throw error;
         }
       },
+      putProfile: async (name, data) => {
+        set({ isLoading: true, error: null });
+        const headers = returnHeaders();
+        // create a function to return an object with it
+        // Update or set bio, venueManager, banner and avatar properties.
+
+        try {
+          const res = await fetch(`PUT_USER_URL${name}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              ...headers.headers,
+            },
+            body: JSON.stringify(data),
+            // body: JSON.stringify({
+            //   bio: 'New bio',
+            //   venueManager: true,
+            //   bannerUrl: { url: '', alt: '' },
+            //   avatarUrl: { url: '', alt: '' },
+            // }),
+          });
+          const { data } = await res.json();
+          // error handlling
+          console.log('data', data);
+        } catch (error) {
+          console.log('error', error);
+          set({ error: error.message, isLoading: false });
+          throw error;
+        }
+      },
+
+      putProfileMedia: async (name, media) => {
+        set({ isLoading: true, error: null });
+        const headers = returnHeaders();
+        try {
+          const res = await fetch(`${PUT_USER_URL}${name}${MEDIA_ENDPOINT}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              ...headers.headers,
+            },
+            body: JSON.stringify(media),
+          });
+          const { data } = await res.json();
+          // error handlling
+          console.log('data', data);
+        } catch (error) {
+          console.log('error', error);
+          set({ error: error.message, isLoading: false });
+          throw error;
+        }
+      },
+      // getProfileVenues: async () => {},
+      // getProfileBookings: async () => {},
     }),
 
     {
