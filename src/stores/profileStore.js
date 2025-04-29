@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import returnToken from '../components/utilities/returnToken';
+import returnErrors from '../components/utilities/returnErrors';
 //
 import {
   GET_USER_URL,
@@ -106,14 +107,20 @@ const useProfileStore = create(
 
           console.log('data', data);
           //
-          if (!res.ok) {
-            if (data.errors && Array.isArray(data.errors)) {
-              const error = data.errors[0];
-              set({ error: error.message, isLoading: false });
-              alert(`${error.message}`);
-              throw new Error(error.message);
-            }
-          }
+          // if (!res.ok) {
+          //   if (data.errors && Array.isArray(data.errors)) {
+          //     const error = data.errors[0];
+          //     set({ error: error.message, isLoading: false });
+          //     alert(`${error.message}`);
+          //     throw new Error(error.message);
+          //   }
+          // }
+          returnErrors(
+            res,
+            data,
+            set => msg => set({ error: msg }),
+            val => set({ isLoading: val })
+          );
 
           return { data };
         } catch (error) {
