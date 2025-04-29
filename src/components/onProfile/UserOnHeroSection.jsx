@@ -2,13 +2,20 @@ import { useEffect } from 'react';
 import useUserData from '../../hooks/useUserData';
 
 import useGetUserVenues from '../../hooks/useGetUserVenues';
+import useGetUserBookings from '../../hooks/useGetUserBookings';
+
 export function UserOnHeroSection() {
   const { userData, isLoading, error } = useUserData();
-  const { setUser, listOfVenues } = useGetUserVenues();
-
-  const handleUserClick = userName => {
-    setUser(userName);
+  const { setUserForVenues, listOfVenues } = useGetUserVenues();
+  const { setUserForBookings, listOfBookings } = useGetUserBookings();
+  const handleSelectUserForVenues = userName => {
+    setUserForVenues(userName);
   };
+  const handleSelectUserForBookings = userName => {
+    setUserForBookings(userName);
+  };
+  // handle fetching venues
+
   if (isLoading) return <div>is loading ... add spinner</div>;
 
   if (error) return <div>error promt :{error.message}</div>;
@@ -22,7 +29,8 @@ export function UserOnHeroSection() {
           src={userData?.bannerUrl}
           alt={userData?.bannerAlt}
           className="w-full h-full object-cover"
-          // onClick={() => handleUserClick(userData?.userName)}
+          onClick={() => handleSelectUserForVenues(userData?.userName)}
+          // onClick={() => handleSelectUserForBookings(userData?.userName)}
         />
         <div className="absolute -bottom-16 left-12">
           <div className="rounded-full w-32 h-32 border-4 border-white overflow-hidden">

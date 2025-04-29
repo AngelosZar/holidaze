@@ -206,7 +206,6 @@ const useProfileStore = create(
           });
           const data = await res.json();
           console.log('data', data);
-          // console.log('res', res);
 
           returnErrors(
             res,
@@ -222,7 +221,38 @@ const useProfileStore = create(
           throw error;
         }
       },
-      // getProfileBookings: async () => {},
+
+      getProfileBookings: async userName => {
+        set({ isLoading: true, error: null });
+        const headers = returnHeaders();
+        try {
+          const res = await fetch(
+            `${GET_USER_URL}${userName}${BOOKINGS_ENDPOINT}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                ...headers.headers,
+              },
+            }
+          );
+          const data = await res.json();
+          console.log('data', data);
+
+          returnErrors(
+            res,
+            data,
+            msg => set({ error: msg }),
+            val => set({ isLoading: val })
+          );
+          set({ isLoading: false });
+          return data;
+        } catch (error) {
+          console.log('error', error);
+          set({ error: error.message, isLoading: false });
+          throw error;
+        }
+      },
     }),
 
     {
