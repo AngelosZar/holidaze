@@ -1,21 +1,14 @@
 import { useEffect } from 'react';
 import useUserData from '../../hooks/useUserData';
-import useProfileStore from '../../stores/profileStore';
+
+import useGetUserVenues from '../../hooks/useGetUserVenues';
 export function UserOnHeroSection() {
   const { userData, isLoading, error } = useUserData();
-  const { getProfileVenues } = useProfileStore(state => state);
+  const { setUser, listOfVenues } = useGetUserVenues();
 
-  useEffect(() => {
-    async function fetchVenues() {
-      try {
-        const data = await getProfileVenues('angZar');
-        console.log('data', data);
-      } catch (error) {
-        console.log('error', error);
-      }
-    }
-    fetchVenues();
-  }, [getProfileVenues]);
+  const handleUserClick = userName => {
+    setUser(userName);
+  };
   if (isLoading) return <div>is loading ... add spinner</div>;
 
   if (error) return <div>error promt :{error.message}</div>;
@@ -29,6 +22,7 @@ export function UserOnHeroSection() {
           src={userData?.bannerUrl}
           alt={userData?.bannerAlt}
           className="w-full h-full object-cover"
+          // onClick={() => handleUserClick(userData?.userName)}
         />
         <div className="absolute -bottom-16 left-12">
           <div className="rounded-full w-32 h-32 border-4 border-white overflow-hidden">
