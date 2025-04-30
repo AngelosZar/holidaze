@@ -48,7 +48,29 @@ const useVenueStore = create(
       }
     },
 
-    // getVenues: async () => {},
+    getVenue: async id => {
+      set({ isLoading: true });
+      try {
+        const res = await fetch(`${VENUES_URL}/${id}`, {
+          method: 'GET',
+          headers: returnHeaders(),
+        });
+        const data = await res.json();
+        console.log('data', data);
+        set({ singleVenue: data });
+        returnErrors(
+          res,
+          data,
+          set => msg => set({ error: msg }),
+          val => set({ isLoading: val })
+        );
+        set({ isLoading: false });
+        return data;
+      } catch (error) {
+        console.log('error:', error);
+        set({ error: returnErrors(error) });
+      }
+    },
     // postVenue: async () => {},
     // putVenue: async () => {},
     // deleteVenue: async () => {},

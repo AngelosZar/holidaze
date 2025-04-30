@@ -9,18 +9,18 @@ import RecommendedStays from '../components/onHomepage/RecommendedStays';
 import { TestimonialsSection } from '../components/Testimonials';
 import useVenueStore from '../stores/venuesStore';
 function Homepage() {
-  const { getVenues } = useVenueStore();
+  const { getVenue } = useVenueStore();
   useEffect(() => {
     async function fetchVenues() {
       try {
-        const data = await getVenues();
+        const data = await getVenue('7d74e8bc-ef55-4d26-803f-753c59e8b710');
         console.log('data', data);
       } catch (error) {
         console.log('error', error);
       }
     }
     fetchVenues();
-  }, [getVenues]);
+  }, [getVenue]);
 
   return (
     <Layout>

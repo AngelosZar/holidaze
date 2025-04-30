@@ -5,8 +5,8 @@ function useGetUserVenues(initialUser = 'angZar') {
   const { getProfileVenues, isLoading, error } = useProfileStore(
     state => state
   );
-  const [user, setUserForVenues] = useState(initialUser);
-  const [listOfVenues, setListOfVenues] = useState([]);
+  const [user, setUser] = useState(initialUser);
+
   //   set more states when needed // pagibnation, loading, error
 
   useEffect(() => {
@@ -14,7 +14,6 @@ function useGetUserVenues(initialUser = 'angZar') {
       try {
         const data = await getProfileVenues(user);
         console.log('data', data);
-        return data;
       } catch (error) {
         console.log('error', error);
       }
@@ -25,9 +24,7 @@ function useGetUserVenues(initialUser = 'angZar') {
   return {
     getProfileVenues,
     user,
-    setUserForVenues,
-    listOfVenues,
-    setListOfVenues,
+    setUser,
     isLoading,
     error,
   };
