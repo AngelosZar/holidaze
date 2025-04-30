@@ -48,13 +48,16 @@ const useVenueStore = create(
       }
     },
 
-    getVenue: async id => {
+    getVenue: async (id, owner = false, bookings = false) => {
       set({ isLoading: true });
       try {
-        const res = await fetch(`${VENUES_URL}/${id}`, {
-          method: 'GET',
-          headers: returnHeaders(),
-        });
+        const res = await fetch(
+          `${VENUES_URL}/${id}?_owner=${owner}&_bookings=${bookings}`,
+          {
+            method: 'GET',
+            headers: returnHeaders(),
+          }
+        );
         const data = await res.json();
         console.log('data', data);
         set({ singleVenue: data });
@@ -71,9 +74,165 @@ const useVenueStore = create(
         set({ error: returnErrors(error) });
       }
     },
-    // postVenue: async () => {},
-    // putVenue: async () => {},
-    // deleteVenue: async () => {},
+    // create a venueData object for api call
+    postVenue: async (venueData, owner = true, bookings = true) => {
+      set({ isLoading: true });
+      try {
+        const res = await fetch(
+          `${VENUES_URL}?_owner=${owner}&_bookings=${bookings}`,
+          {
+            method: 'POST',
+            headers: returnHeaders(),
+            body: JSON.stringify(venueData),
+          }
+        );
+        const data = await res.json();
+        console.log('data', data);
+        returnErrors(
+          res,
+          data,
+          set => msg => set({ error: msg }),
+          val => set({ isLoading: val })
+        );
+        set({ isLoading: false });
+        return data;
+      } catch (error) {
+        console.log('error:', error);
+        set({ error: returnErrors(error) });
+      }
+    },
+
+    putVenue: async (id, venueData) => {
+      set({ isLoading: true });
+      try {
+        const res = await fetch(`${VENUES_URL}/${id}`, {
+          method: 'PUT',
+          headers: returnHeaders(),
+          body: JSON.stringify(venueData),
+        });
+        const data = await res.json();
+        console.log('data', data);
+        returnErrors(
+          res,
+          data,
+          set => msg => set({ error: msg }),
+          val => set({ isLoading: val })
+        );
+        set({ isLoading: false });
+        return data;
+      } catch (error) {
+        console.log('error:', error);
+        set({ error: returnErrors(error) });
+      }
+    },
+    deleteVenue: async id => {
+      set({ isLoading: true });
+      try {
+        const res = await fetch(`${VENUES_URL}/${id}`, {
+          method: 'DELETE',
+          headers: returnHeaders(),
+        });
+        const data = await res.json();
+        console.log('data', data);
+
+        returnErrors(
+          res,
+          data,
+          set => msg => set({ error: msg }),
+          val => set({ isLoading: val })
+        );
+
+        set({ isLoading: false });
+        return data;
+      } catch (error) {
+        console.log('error:', error);
+        set({ error: returnErrors(error) });
+      }
+    },
+    searchVenues: async (query, limit = 6, offset = 1) => {
+      set({ isLoading: true });
+      try {
+        const res = await fetch(
+          `${VENUES_URL}?_owner=true&_bookings=true&limit=${limit}&offset=${offset}&q=${query}`,
+          {
+            method: 'GET',
+          }
+        );
+        const data = await res.json();
+        console.log('search data', data);
+        set({ venues: data });
+        returnErrors(
+          res,
+          data,
+          set => msg => set({ error: msg }),
+          val => set({ isLoading: val })
+        );
+        set({ isLoading: false });
+        return data;
+      } catch (error) {
+        console.log('error:', error);
+        set({ error: returnErrors(error) });
+      }
+    },
   }))
 );
 export default useVenueStore;
+
+// venueData post
+// {
+//     "name": "string", // Required
+//     "description": "string", // Required
+//     "media": [
+//       {
+//         "url": "https://url.com/image.jpg",
+//         "alt": "string"
+//       }
+//     ], // Optional
+//     "price": 0, // Required
+//     "maxGuests": 0, // Required
+//     "rating": 0, // Optional (default: 0)
+//     "meta": {
+//       "wifi": true, // Optional (default: false)
+//       "parking": true, // Optional (default: false)
+//       "breakfast": true, // Optional (default: false)
+//       "pets": true // Optional (default: false)
+//     },
+//     "location": {
+//       "address": "string", // Optional (default: null)
+//       "city": "string", // Optional (default: null)
+//       "zip": "string", // Optional (default: null)
+//       "country": "string", // Optional (default: null)
+//       "continent": "string", // Optional (default: null)
+//       "lat": 0, // Optional (default: 0)
+//       "lng": 0 // Optional (default: 0)
+//     }
+//   }
+// venuedata put
+// {
+//     "name": "string", // Optional
+//     "description": "string", // Optional
+//     "media": [
+//       {
+//         "url": "https://url.com/image.jpg",
+//         "alt": "string"
+//       }
+//     ], // Optional
+//     "price": 0, // Optional
+//     "maxGuests": 0, // Optional
+//     "rating": 0, // Optional
+//     "meta": {
+//       "wifi": true, // Optional
+//       "parking": true, // Optional
+//       "breakfast": true, // Optional
+//       "pets": true // Optional
+//     },
+//     "location": {
+//       "address": "string", // Optional
+//       "city": "string", // Optional
+//       "zip": "string", // Optional
+//       "country": "string", // Optional
+//       "continent": "string", // Optional
+//       "lat": 0, // Optional
+//       "lng": 0 // Optional
+//     }
+//   }
