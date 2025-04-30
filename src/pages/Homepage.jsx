@@ -7,22 +7,8 @@ import { HomeHero } from '../components/onHomepage/HomeHero';
 import QuickSearch from '../components/onHomepage/QuickSearch';
 import RecommendedStays from '../components/onHomepage/RecommendedStays';
 import { TestimonialsSection } from '../components/Testimonials';
-import useVenueStore from '../stores/venuesStore';
-function Homepage() {
-  const { getVenue, searchVenues } = useVenueStore();
-  useEffect(() => {
-    async function fetchVenues() {
-      try {
-        // const data = await getVenue('7d74e8bc-ef55-4d26-803f-753c59e8b710');
-        const data = await searchVenues('hotel', 6, 1);
-        console.log('data', data);
-      } catch (error) {
-        console.log('error', error);
-      }
-    }
-    fetchVenues();
-  }, [searchVenues]);
 
+function Homepage() {
   return (
     <Layout>
       <HomeHero />

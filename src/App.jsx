@@ -22,7 +22,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Homepage />} />
-          <Route path="/venue" element={<SingleVenuePage />} />
+          <Route path="/venue/:id" element={<SingleVenuePage />} />
           <Route path="/registerAs" element={<RegisterAs />} />
           <Route path="/register">
             <Route path="manager" element={<RegisterPage />} />

@@ -1,9 +1,24 @@
-function SingleCard() {
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+function SingleCard({ id, title, image, price, rating, location }) {
+  const [clickedCardId, setClickedCardId] = useState('');
+  const Navigate = useNavigate();
+  console.log(id);
+  const handleClick = id => {
+    setClickedCardId(id);
+    console.log('clickedCardId', clickedCardId);
+    Navigate(`/venue/${id}`);
+    // set clickedCartid to url parameter and redirect or set on session storage or zustang
+  };
   return (
-    <div className="flex flex-col gap-4 p-4 bg-white shadow-lg rounded-lg max-w-sm">
+    <div
+      className="flex flex-col gap-4 p-4 bg-white shadow-lg rounded-lg max-w-sm hover:shadow-xl transition-all duration-200 cursor-pointer hover:scale-105  "
+      value={id}
+      onClick={() => handleClick(id)}
+    >
       <div>
         <img
-          src="https://images.unsplash.com/photo-1541274387095-12117e6099dc?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={image}
           alt="img"
           className="w-full h-48 object-cover rounded-t-xl"
           style={{ aspectRatio: '1/1' }}
@@ -14,14 +29,19 @@ function SingleCard() {
       </div>
       <div className="p-3">
         <div className="flex justify-between items-center">
-          <p className="font-semibold">Oslo, Norway</p>
+          <div className="flex flex-col overflow-hidden">
+            <p className="line-clamp-1  font-semibold">{title}</p>
+            <p className="text-sm font-medium line-clamp-1 ">
+              {location?.city}, {location?.country}
+            </p>
+          </div>
           <div className="flex items-center  text-primary">
-            <span className="mr-1">★</span>
-            <span>4</span>
+            <span className="ml-3 mr-1">★</span>
+            <span>{rating}</span>
           </div>
         </div>
-        <p className="text-sm font-medium mt-1">1000 kr per night</p>
-        <p className="text-sm text-gray-500 mt-1">if previous stay show date</p>
+        <p className="text-sm font-medium mt-1">{price} kr per night</p>
+        {/* <p className="text-sm text-gray-500 mt-1">if previous stay show date</p> */}
       </div>
     </div>
   );
