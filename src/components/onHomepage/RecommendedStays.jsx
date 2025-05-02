@@ -9,7 +9,7 @@ function RecommendedStays() {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(6);
-  const { getVenue, searchVenues } = useVenueStore();
+  const { getVenues, searchVenues } = useVenueStore();
 
   // functions for pagination +1 and -1
   // set limit ??
@@ -17,32 +17,33 @@ function RecommendedStays() {
     async function fetchVenues() {
       setLoading(true);
       setError(null);
+
       try {
-        // const data = await getVenue('7d74e8bc-ef55-4d26-803f-753c59e8b710');
-        const { data } = await searchVenues('hotel', limit, page);
-        const formattedData = data.map(venue => ({
+        const data = await getVenues('price', limit, page, true, true);
+        const venues = data.data;
+        console.log('venues', venues);
+        const formattedData = venues.map(venue => ({
           key: venue.id,
-          id: venue.id,
-          title: venue.name,
-          media: venue.media[0].url,
-          mediaAlt: venue.media[0].alt,
-          price: venue.price,
-          rating: venue.rating,
+          id: venue?.id,
+          title: venue?.name,
+          media: venue?.media[0]?.url,
+          mediaAlt: venue?.media[0]?.alt,
+          price: venue?.price,
+          rating: venue?.rating,
           location: {
-            address: venue.location.address,
-            city: venue.location.city,
-            continent: venue.location.continent,
-            country: venue.location.country,
-            lat: venue.location.lat,
-            lng: venue.location.lng,
-            zip: venue.location.zip,
+            address: venue.location?.address,
+            city: venue.location?.city,
+            continent: venue.location?.continent,
+            country: venue.location?.country,
+            lat: venue.location?.lat,
+            lng: venue.location?.lng,
+            zip: venue.location?.zip,
           },
           maxGuests: venue.maxGuests,
         }));
         setLoading(false);
         setError(null);
         setRecommendedStays(formattedData);
-        console.log('recommendedStays', formattedData);
 
         return data;
       } catch (error) {
@@ -53,9 +54,10 @@ function RecommendedStays() {
       }
     }
     fetchVenues();
-  }, [searchVenues, page, limit]);
+  }, [getVenues, page, limit]);
 
   return (
+    // {error && <p>{error}</p>}
     <section className="container mx-auto px-4 py-8">
       <h4>Best stays -recommended for you </h4>
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">

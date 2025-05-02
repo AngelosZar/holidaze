@@ -3,10 +3,10 @@ import { useNavigate } from 'react-router-dom';
 function SingleCard({ id, title, image, price, rating, location }) {
   const [clickedCardId, setClickedCardId] = useState('');
   const Navigate = useNavigate();
-  console.log(id);
+  // console.log(id);
   const handleClick = id => {
     setClickedCardId(id);
-    console.log('clickedCardId', clickedCardId);
+    // console.log('clickedCardId', clickedCardId);
     Navigate(`/venue/${id}`);
     // set clickedCartid to url parameter and redirect or set on session storage or zustang
   };
