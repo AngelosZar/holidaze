@@ -53,7 +53,7 @@ function useGetFilteredVenues(functionName, sort = 'price') {
       }
     }
     fetchVenues();
-  }, [functionName, page, limit, sort, limit, page]);
+  }, [functionName, page, limit, sort]);
   return { stays, loading, error, setPage, setLimit };
 }
 

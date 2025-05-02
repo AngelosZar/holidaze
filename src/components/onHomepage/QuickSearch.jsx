@@ -1,5 +1,15 @@
+import { useState } from 'react';
+import useGetFilteredVenues from '../../hooks/useGetFilteredVenues';
+import useVenueStore from '../../stores/venuesStore';
 import SingleCard from '../SingleCard';
+import StaysList from '../layout/StaysList';
 function QuickSearch() {
+  const { filterQuery, setFilterQuery } = useState('summer');
+  const { getVenues } = useVenueStore();
+  const { stays, loading, error } = useGetFilteredVenues(
+    getVenues,
+    filterQuery
+  );
   return (
     <section className="container mx-auto px-4">
       <h4>Quick Search</h4>
@@ -11,15 +21,7 @@ function QuickSearch() {
           <li className="">Category 4</li>
         </ul>
       </div>
-      <div className="mt-6 mb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          <SingleCard />
-          <SingleCard />
-          <SingleCard />
-          <SingleCard />
-          <SingleCard />
-        </div>
-      </div>
+      <StaysList stays={stays} loading={loading} error={error} />
     </section>
   );
 }
