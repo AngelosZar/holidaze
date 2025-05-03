@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import Layout from '../components/layout/Layout';
 import AboutUs from '../components/onHomepage/AboutUs';
 import ChooseHolidays from '../components/onHomepage/ChooseHolidays';

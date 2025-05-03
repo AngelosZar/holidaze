@@ -10,6 +10,7 @@ const useVenueStore = create(
     venues: [],
     isLoading: false,
     error: null,
+    sortOrder: 'desc', // default sort order or asc
     setIsLoading: isLoading => set({ isLoading }),
     setError: error => set({ error }),
 
@@ -147,15 +148,22 @@ const useVenueStore = create(
         set({ error: error });
       }
     },
-    searchVenues: async (query, limit = 6, offset = 1) => {
+    searchVenues: async (
+      query,
+      limit = 6,
+      offset = 1,
+      owner = true,
+      bookings = true
+    ) => {
       set({ isLoading: true });
       try {
         const res = await fetch(
-          `${VENUES_URL}?_owner=true&_bookings=true&limit=${limit}&offset=${offset}&q=${query}`,
+          `${VENUES_URL}/search?q=${query}&limit=${limit}&offset=${offset}&_owner=${owner}&_bookings=${bookings}`,
           {
             method: 'GET',
           }
         );
+        // const url = `${VENUES_URL}?sort=${sort}&limit=${limit}&offset=${offset}&_owner=${owner}&_bookings=${bookings}`;
         const data = await res.json();
         console.log('search data', data);
         set({ venues: data });
