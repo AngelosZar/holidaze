@@ -14,10 +14,11 @@ function useGetFilteredVenues(functionName, sort = 'price') {
     async function fetchVenues() {
       setLoading(true);
       setError(null);
-
+      setStays([]);
       try {
         const data = await functionName(sort, limit, page, true, true);
         const venues = data.data;
+        // setStays([]);
         console.log('venues', venues);
         const formattedData = venues
           .map(venue => ({

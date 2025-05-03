@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import SingleCard from '../SingleCard';
 import useVenueStore from '../../stores/venuesStore';
 import useGetFilteredVenues from '../../hooks/useGetFilteredVenues';

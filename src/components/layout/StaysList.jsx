@@ -5,6 +5,7 @@ function StaysList({ stays, loading, error }) {
     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
       {loading && <p>Loading...</p>}
       {error && <p>{error}</p>}
+
       {stays &&
         stays.map(venue => {
           console.log('venue', venue.media);
