@@ -4,16 +4,36 @@ import HeroGrid from '../components/onSingleVenue/HeroGrid';
 import VenueInfoSection from '../components/onSingleVenue/VenueInfoSection';
 
 import useGetVenueWithId from '../hooks/useGetVenueWithId';
+import { useEffect, useState } from 'react';
 function SingleVenuePage() {
+  const [venueGallery, setVenueGallery] = useState([]);
   // const { setSingleVenue, singleVenue, getVenue } = useVenueStore();
   // const navigate = useNavigate();
   const { id } = useParams();
   const { venue, isLoading, error } = useGetVenueWithId(id);
-  console.log('singleVenue', venue);
 
+  useEffect(() => {
+    if (venue?.media && venue.media.length > 0) {
+      const media = venue.media.map(img => ({
+        url: img.url,
+        alt: img.alt,
+      }));
+      setVenueGallery(media);
+      console.log(media.length);
+      console.log('venue.media', venue.media);
+    }
+
+    if (venue?.media && venue.media.length > 0)
+      console.log('venue.media', venue.media.length);
+  }, [venue]);
   return (
     <Layout>
-      <HeroGrid venue={venue} isLoading={isLoading} error={error} />
+      <HeroGrid
+        venue={venue}
+        isLoading={isLoading}
+        error={error}
+        venueGallery={venueGallery}
+      />
       <VenueInfoSection venue={venue} isLoading={isLoading} error={error} />
     </Layout>
   );
