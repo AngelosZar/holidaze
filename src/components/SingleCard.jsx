@@ -1,11 +1,15 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import useVenueStore from '../stores/venuesStore';
+
 function SingleCard({ id, title, image, price, rating, location }) {
-  const [clickedCardId, setClickedCardId] = useState('');
+  // const [clickedCardId, setClickedCardId] = useState('');
+  const { setSingleVenue, SingleVenue } = useVenueStore();
   const Navigate = useNavigate();
   // console.log(id);
   const handleClick = id => {
-    setClickedCardId(id);
+    // setClickedCardId(id);
+    setSingleVenue(id);
     // console.log('clickedCardId', clickedCardId);
     Navigate(`/venue/${id}`);
     // set clickedCartid to url parameter and redirect or set on session storage or zustang
@@ -48,3 +52,12 @@ function SingleCard({ id, title, image, price, rating, location }) {
 }
 
 export default SingleCard;
+
+// at async fetchVenue (useGetVenueWithId.jsx:12:22)
+// useGetVenueWithId.jsx:13 data undefined
+// returnErrors.js:5 Error: {message: 'Invalid uuid', code: 'invalid_string', path: Array(1)}
+// venuesStore.js:73 error: Error: Invalid uuid
+//     at returnErrors (returnErrors.js:9:13)
+//     at getVenue (venuesStore.js:64:9)
+//     at async fetchVenue (useGetVenueWithId.jsx:12:22)
+// useGetVenueWithId.jsx:13 data undefined

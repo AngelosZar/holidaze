@@ -2,23 +2,23 @@ import { useEffect } from 'react';
 import useVenueStore from '../stores/venuesStore';
 
 function useGetVenueWithId(id) {
-  const { getProfileBookings, singleVenue, isLoading, error } = useVenueStore(
+  const { getVenue, singleVenue, isLoading, error } = useVenueStore(
     state => state
   );
-  useEffect(
-    function () {
-      async () => {
-        try {
-          const data = await getProfileBookings(id);
-          console.log('data', data);
-        } catch (error) {
-          console.log('error', error);
-          throw error;
-        }
-      };
-    },
-    [getProfileBookings, id]
-  );
+
+  useEffect(() => {
+    async function fetchVenue() {
+      try {
+        const data = await getVenue(id);
+        // console.log('data', data);
+        return data;
+      } catch (error) {
+        console.log('error', error);
+      }
+    }
+
+    fetchVenue();
+  }, [getVenue, id]);
   return {
     venue: singleVenue,
     isLoading,

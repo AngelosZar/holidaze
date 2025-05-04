@@ -13,6 +13,7 @@ const useVenueStore = create(
     sortOrder: 'desc', // default sort order or asc
     setIsLoading: isLoading => set({ isLoading }),
     setError: error => set({ error }),
+    setSingleVenue: singleVenue => set({ singleVenue }),
 
     getVenues: async (
       sort = '',
@@ -31,8 +32,8 @@ const useVenueStore = create(
           headers: returnHeaders(),
         });
         const data = await res.json();
-        console.log('data', data);
-        // set({ venues: data });
+        // console.log('data', data);
+        set({ venues: data });
         // or maybe not set the venues here ...
         returnErrors(
           res,
@@ -48,7 +49,7 @@ const useVenueStore = create(
       }
     },
 
-    getVenue: async (id, owner = false, bookings = false) => {
+    getVenue: async (id, owner = true, bookings = false) => {
       set({ isLoading: true });
       try {
         const res = await fetch(
@@ -58,8 +59,8 @@ const useVenueStore = create(
           }
         );
         const data = await res.json();
-        console.log('data', data);
-        set({ singleVenue: data });
+        // console.log('data', data);
+        set({ singleVenue: data.data });
         returnErrors(
           res,
           data,
@@ -86,7 +87,7 @@ const useVenueStore = create(
           }
         );
         const data = await res.json();
-        console.log('data', data);
+        // console.log('data', data);
         returnErrors(
           res,
           data,
@@ -96,7 +97,7 @@ const useVenueStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        console.log('error:', error);
+        // console.log('error:', error);
         set({ error: error });
       }
     },
@@ -110,7 +111,7 @@ const useVenueStore = create(
           body: JSON.stringify(venueData),
         });
         const data = await res.json();
-        console.log('data', data);
+        // console.log('data', data);
         returnErrors(
           res,
           data,
@@ -120,7 +121,7 @@ const useVenueStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        console.log('error:', error);
+        // console.log('error:', error);
         set({ error: error });
       }
     },
@@ -132,7 +133,7 @@ const useVenueStore = create(
           headers: returnHeaders(),
         });
         const data = await res.json();
-        console.log('data', data);
+        // console.log('data', data);
 
         returnErrors(
           res,
@@ -165,7 +166,7 @@ const useVenueStore = create(
         );
         // const url = `${VENUES_URL}?sort=${sort}&limit=${limit}&offset=${offset}&_owner=${owner}&_bookings=${bookings}`;
         const data = await res.json();
-        console.log('search data', data);
+        // console.log('search data', data);
         set({ venues: data });
         returnErrors(
           res,

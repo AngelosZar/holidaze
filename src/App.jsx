@@ -9,6 +9,7 @@ import VenueManagerView from './pages/VenueManagerView';
 import useAuthStore from './stores/authStore';
 import RegisterAs from './pages/RegisterAs';
 import { useEffect } from 'react';
+import PageNotFound from './pages/PageNotFound';
 
 //
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/profile" element={<UserProfileView />} />
           <Route path="/manager" element={<VenueManagerView />} />
           <Route path="*" element={<Navigate to="/" replace />} />
+          {/* <Route path="*" element={<PageNotFound />} /> */}
         </Routes>
       </BrowserRouter>
     </>
