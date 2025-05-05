@@ -1,5 +1,7 @@
 // import BasicDatePicker from './DatePicker';
 
+import DateRangeSelector from '../utilities/DateRangeSelector';
+
 export default function HeroSearchBar() {
   return (
     <div
@@ -24,6 +26,7 @@ export default function HeroSearchBar() {
           placeholder="Search for accommodation"
         />
       </div>
+      <DateRangeSelector />
       {/* <div className="flex flex-col lg:flex-row gap-4 ">
         <span>
           <BasicDatePicker labelMsg={'Check In'} />

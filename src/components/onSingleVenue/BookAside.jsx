@@ -10,14 +10,6 @@ function BookAside({ venue }) {
       <h6>Price {venue.price} nok</h6>
       <hr className="my-6" />
       <DateRangeSelector />
-      {/* <div className="flex flex-col lg:flex-row gap-4 ">
-        <span>
-          <BasicDatePicker labelMsg={'Check In'} />
-        </span>
-        <span>
-          <BasicDatePicker labelMsg={'Check Out'} />
-        </span>
-      </div> */}
       <hr className="my-6" />
 
       <NumberDropDown numberOfGuests={numberOfGuests} />

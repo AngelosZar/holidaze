@@ -3,10 +3,11 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-
+import 'dayjs/locale/nb';
+// check again the api format of date and time
 export default function BasicDatePickerProvider({ children }) {
   return (
-    <LocalizationProvider dateAdapter={AdapterDayjs}>
+    <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="nb">
       {/* <DemoContainer components={['DatePicker']}> */}
       {/* <DatePicker label={labelMsg} /> */}
       {/* </DemoContainer> */}

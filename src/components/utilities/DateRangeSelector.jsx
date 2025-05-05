@@ -6,12 +6,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Stack } from '@mui/material';
 
 function DateRangeSelector() {
+  // Maybe use zustand for this
   const [checkInDate, setCheckInDate] = useState(null);
   const [checkOutDate, setCheckOutDate] = useState(null);
   // const [isDateRangeAvailable, setIsDateRangeAvailable] = useState(false);
   const [nights, setNights] = useState(1);
   const [pax, setPax] = useState(1);
-
+  const today = dayjs();
   const handleCheckInChange = newValue => {
     setCheckInDate(newValue);
   };
@@ -19,6 +20,7 @@ function DateRangeSelector() {
     setCheckOutDate(newValue);
   };
   //
+
   useEffect(() => {
     if (checkInDate) {
       console.log('checkInDate', checkInDate);
@@ -37,17 +39,34 @@ function DateRangeSelector() {
   }, [checkInDate, checkOutDate]);
 
   return (
-    <div>
+    <div className="flex flex-row gap-4">
       <BasicDatePickerProvider>
         <DatePicker
           label="Check in"
           value={checkInDate}
           onChange={handleCheckInChange}
+          minDate={today}
+          maxDate={dayjs().add(1, 'year')}
+          slotProps={{
+            textField: {
+              size: 'small',
+              sx: { width: '150px' },
+            },
+          }}
         />
         <DatePicker
           label="Check out"
           value={checkOutDate}
           onChange={handleCheckOutChange}
+          minDate={checkInDate}
+          //   disabled={checkInDate ? false : true}
+          disabled={!checkInDate}
+          slotProps={{
+            textField: {
+              size: 'small',
+              sx: { width: '150px' },
+            },
+          }}
         />
       </BasicDatePickerProvider>
     </div>
