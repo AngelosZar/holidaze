@@ -26,7 +26,7 @@ export default function HeroSearchBar() {
           Select a destination
         </label> */}
       </div>
-      <DateRangeSelector />
+      {/* <DateRangeSelector /> */}
       {/* <div className="flex flex-col lg:flex-row gap-4 ">
         <span>
           <BasicDatePicker labelMsg={'Check In'} />

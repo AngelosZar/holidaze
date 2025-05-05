@@ -2,7 +2,19 @@
 
 import DateRangeSelector from '../utilities/DateRangeSelector';
 import NumberDropDown from '../utilities/NumberDropDown';
+import datePickerStore from '../../stores/datePickerStore';
+
 function BookAside({ venue }) {
+  const {
+    checkInDate,
+    setCheckInDate,
+    checkOutDate,
+    setCheckOutDate,
+    nights,
+    setNights,
+    pax,
+    setPax,
+  } = datePickerStore();
   let numberOfGuests = venue?.maxGuests;
   console.log(numberOfGuests);
   return (

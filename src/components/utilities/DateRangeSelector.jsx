@@ -1,28 +1,65 @@
-import { useEffect, useState } from 'react';
+import { forwardRef, useEffect, useMemo } from 'react';
 import dayjs from 'dayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import BasicDatePickerProvider from '../../providers/BasicDatePickerProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { Stack } from '@mui/material';
 import datePickerStore from '../../stores/datePickerStore';
 
-function DateRangeSelector() {
+// @react-refresh:247 An error occurred in the <ForwardRef(MobileDatePicker2)> component.
+
+// Consider adding an error boundary to your tree to customize error handling behavior.
+// Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
+// https://stackoverflow.com/questions/66507643/warning-function-components-cannot-be-given-refs-warning-in-react-using-forward
+
+const TextFieldWithRef = forwardRef((props, ref) => {
+  return (
+    <input
+      {...props}
+      ref={ref}
+      className={`formInput2 relative ${props.className || ''}`}
+    />
+  );
+});
+
+function DateRangeSelector({ className }) {
   // Maybe use zustand for this
   const {
-    checkInDate,
+    checkInDate: storedCheckInDate,
     setCheckInDate,
-    checkOutDate,
+    checkOutDate: storedCheckOutDate,
     setCheckOutDate,
     nights,
     setNights,
     pax,
     setPax,
   } = datePickerStore();
-  //   const [checkInDate, setCheckInDate] = useState(null);
-  //   const [checkOutDate, setCheckOutDate] = useState(null);
-  //   // const [isDateRangeAvailable, setIsDateRangeAvailable] = useState(false);
-  //   const [nights, setNights] = useState(1);
-  //   const [pax, setPax] = useState(1);
+
+  //   const checkInDate = storedCheckInDate || null;
+  //   const checkOutDate = storedCheckOutDate || null;
+
+  //   const checkInDate = storedCheckInDate
+  //     ? dayjs(storedCheckInDate).isValid()
+  //       ? dayjs(storedCheckInDate)
+  //       : null
+  //     : null;
+  const checkInDate = useMemo(() => {
+    storedCheckInDate
+      ? dayjs(storedCheckInDate).isValid()
+        ? dayjs(storedCheckInDate)
+        : null
+      : null;
+  }, [storedCheckInDate]);
+  //   const checkOutDate = storedCheckOutDate
+  //     ? dayjs(storedCheckOutDate).isValid()
+  //       ? dayjs(storedCheckOutDate)
+  //       : null
+  //     : null;
+  const checkOutDate = useMemo(() => {
+    storedCheckOutDate
+      ? dayjs(storedCheckOutDate).isValid()
+        ? dayjs(storedCheckOutDate)
+        : null
+      : null;
+  }, [storedCheckOutDate]);
   const today = dayjs();
   const handleCheckInChange = newValue => {
     setCheckInDate(newValue);
@@ -32,32 +69,48 @@ function DateRangeSelector() {
   };
   //
 
-  useEffect(() => {
-    if (checkInDate) {
-      console.log('checkInDate', checkInDate);
-    }
-    if (checkOutDate) {
-      console.log('checkOutDate', checkOutDate);
-    }
-  }, [checkInDate, checkOutDate]);
+  //   useEffect(() => {
+  //     if (checkInDate) {
+  //       console.log('checkInDate', checkInDate);
+  //     }
+  //     if (checkOutDate) {
+  //       console.log('checkOutDate', checkOutDate);
+  //     }
+  //   }, [checkInDate, checkOutDate]);
   //
   useEffect(() => {
-    if (checkInDate && checkOutDate) {
+    if (
+      checkInDate &&
+      checkOutDate &&
+      checkInDate.isValid() &&
+      checkOutDate.isValid()
+    ) {
       const diff = checkOutDate.diff(checkInDate, 'day');
-      setNights(diff);
+      //   setNights(diff);
+      if (diff !== nights) {
+        setNights(diff);
+      }
       console.log('Nights:', diff);
     }
-  }, [checkInDate, checkOutDate, setNights]);
+  }, [checkInDate, checkOutDate, nights, setNights]);
 
   return (
-    <div className="flex flex-row gap-2 justify-center items-center">
+    <div
+      className={`flex flex-col gap-2 items-center justify-around ${
+        className || ''
+      }`}
+    >
       <BasicDatePickerProvider>
         <DatePicker
           label="Check in"
-          value={checkInDate}
+          value={checkInDate || null}
           onChange={handleCheckInChange}
           minDate={today}
           maxDate={dayjs().add(1, 'year')}
+          renderInput={params => <TextFieldWithRef {...params} />}
+          //   slots={{
+          //     textField: TextFieldWithRef,
+          //   }}
           slotProps={{
             textField: {
               size: 'small',
@@ -67,11 +120,15 @@ function DateRangeSelector() {
         />
         <DatePicker
           label="Check out"
-          value={checkOutDate}
+          value={checkOutDate || null}
           onChange={handleCheckOutChange}
           minDate={checkInDate}
+          renderInput={params => <TextFieldWithRef {...params} />}
           //   disabled={checkInDate ? false : true}
           disabled={!checkInDate}
+          //   slots={{
+          //     textField: TextFieldWithRef,
+          //   }}
           slotProps={{
             textField: {
               size: 'small',
@@ -86,31 +143,15 @@ function DateRangeSelector() {
 
 export default DateRangeSelector;
 
-// checkInDate
-// Object { "$L": "en", "$u": undefined, "$d": Date Fri May 09 2025 00:00:00 GMT+0200 (Central European Summer Time), "$y": 2025, "$M": 4, "$D": 9, "$W": 5, "$H": 0, "$m": 0, "$s": 0, … }
-// ​
-// "$D": 9
-// ​
-// "$H": 0
-// ​
-// "$L": "en"
-// ​
-// "$M": 4
-// ​
-// "$W": 5
-// ​
-// "$d": Date Fri May 09 2025 00:00:00 GMT+0200 (Central European Summer Time)
-// ​
-// "$isDayjsObject": true
-// ​
-// "$m": 0
-// ​
-// "$ms": 0
-// ​
-// "$s": 0
-// ​
-// "$u": undefined
-// ​
-// "$x": Object {  }
-// ​
-// "$y": 2025
+// DateRangeSelector.jsx:40 Uncaught TypeError: storedCheckInDate.isValid is not a function
+//     at DateRangeSelector (DateRangeSelector.jsx:40:31)
+
+//
+// DateRangeSelector.jsx:16 React does not recognize the `ownerState` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `ownerstate` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+// DateRangeSelector.jsx:16 Received `false` for a non-boolean attribute `error`.
+
+// If you want to write it to the DOM, pass a string instead: error="false" or error={value.toString()}.
+
+// If you used to conditionally omit it with error={condition && value}, pass error={condition ? value : undefined} instead.
+// DateRangeSelector.jsx:16 React does not recognize the `inputProps` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `inputprops` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
+// DateRangeSelector.jsx:16 React does not recognize the `InputProps` prop on a DOM element. If you intentionally want it to appear in the DOM as a custom attribute, spell it as lowercase `inputprops` instead. If you accidentally passed it from a parent component, remove it from the DOM element.
