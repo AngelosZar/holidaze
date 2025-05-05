@@ -4,12 +4,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
-export default function BasicDatePicker({ labelMsg }) {
+export default function BasicDatePickerProvider({ children }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs}>
-      <DemoContainer components={['DatePicker']}>
-        <DatePicker label={labelMsg} />
-      </DemoContainer>
+      {/* <DemoContainer components={['DatePicker']}> */}
+      {/* <DatePicker label={labelMsg} /> */}
+      {/* </DemoContainer> */}
+      {children}
     </LocalizationProvider>
   );
 }

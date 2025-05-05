@@ -1,4 +1,6 @@
-import BasicDatePicker from '../onHomepage/DatePicker';
+// import BasicDatePicker from '../onHomepage/DatePicker';
+
+import DateRangeSelector from '../utilities/DateRangeSelector';
 import NumberDropDown from '../utilities/NumberDropDown';
 function BookAside({ venue }) {
   let numberOfGuests = venue?.maxGuests;
@@ -7,14 +9,15 @@ function BookAside({ venue }) {
     <div className="w-full max-w-lg p-8 bg-white rounded-lg shadow-md border-2 border-primary">
       <h6>Price {venue.price} nok</h6>
       <hr className="my-6" />
-      <div className="flex flex-col lg:flex-row gap-4 ">
+      <DateRangeSelector />
+      {/* <div className="flex flex-col lg:flex-row gap-4 ">
         <span>
           <BasicDatePicker labelMsg={'Check In'} />
         </span>
         <span>
           <BasicDatePicker labelMsg={'Check Out'} />
         </span>
-      </div>
+      </div> */}
       <hr className="my-6" />
 
       <NumberDropDown numberOfGuests={numberOfGuests} />

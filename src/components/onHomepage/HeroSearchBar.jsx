@@ -1,4 +1,4 @@
-import BasicDatePicker from './DatePicker';
+// import BasicDatePicker from './DatePicker';
 
 export default function HeroSearchBar() {
   return (
@@ -24,18 +24,17 @@ export default function HeroSearchBar() {
           placeholder="Search for accommodation"
         />
       </div>
-      <div className="flex flex-col lg:flex-row gap-4 ">
+      {/* <div className="flex flex-col lg:flex-row gap-4 ">
         <span>
           <BasicDatePicker labelMsg={'Check In'} />
         </span>
         <span>
           <BasicDatePicker labelMsg={'Check Out'} />
         </span>
-      </div>
+      </div> */}
       <div className="w-full flex justify-center items-center sm:col-span-2 md:col-span-1">
         <button className="btn btn-primary w-full max-w-[8rem]">Search</button>
       </div>
     </div>
   );
 }
-
