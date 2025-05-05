@@ -54,7 +54,7 @@ function VenueInfoSection({ venue, isLoading, error }) {
             </p>
             <p className="text-lg font-semibold">Sustainable</p>
           </div>
-          <p className="max-w-md pt-4">{venue.description}</p>
+          <p className="max-w-md pt-4 line-clamp-12">{venue.description}</p>
           <AccommodationIncludes venue={venue} />
         </div>
         <div className="">
@@ -63,7 +63,7 @@ function VenueInfoSection({ venue, isLoading, error }) {
       </div>
 
       {/* <CalendarAside /> */}
-      <MapSection />
+      {/* <MapSection /> */}
     </section>
   );
 }

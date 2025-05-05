@@ -5,7 +5,8 @@ import 'leaflet/dist/leaflet.css'; // Don't forget the CSS
 
 function Map() {
   return (
-    <div className="max-w-2xl mx-auto w-full">
+    <div className="max-w-4xl mx-auto z-0">
+      <h4 className="mb-12">Location </h4>
       <MyMapComponent />
     </div>
   );
@@ -22,7 +23,12 @@ function MyMapComponent() {
     <MapContainer
       center={[59.911491, 10.757933]}
       zoom={13}
-      style={{ height: 'auto', width: '100%', minHeight: '400px' }}
+      style={{
+        height: 'auto',
+        width: '100%',
+        minHeight: '400px',
+        position: 'relative',
+      }}
     >
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

@@ -5,6 +5,7 @@ import VenueInfoSection from '../components/onSingleVenue/VenueInfoSection';
 
 import useGetVenueWithId from '../hooks/useGetVenueWithId';
 import { useEffect, useState } from 'react';
+import MapSection from '../components/onSingleVenue/MapSection';
 function SingleVenuePage() {
   const [venueGallery, setVenueGallery] = useState([]);
   // const { setSingleVenue, singleVenue, getVenue } = useVenueStore();
@@ -35,6 +36,7 @@ function SingleVenuePage() {
         venueGallery={venueGallery}
       />
       <VenueInfoSection venue={venue} isLoading={isLoading} error={error} />
+      <MapSection venue={venue} />
     </Layout>
   );
 }
