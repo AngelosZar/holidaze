@@ -4,14 +4,25 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import BasicDatePickerProvider from '../../providers/BasicDatePickerProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { Stack } from '@mui/material';
+import datePickerStore from '../../stores/datePickerStore';
 
 function DateRangeSelector() {
   // Maybe use zustand for this
-  const [checkInDate, setCheckInDate] = useState(null);
-  const [checkOutDate, setCheckOutDate] = useState(null);
-  // const [isDateRangeAvailable, setIsDateRangeAvailable] = useState(false);
-  const [nights, setNights] = useState(1);
-  const [pax, setPax] = useState(1);
+  const {
+    checkInDate,
+    setCheckInDate,
+    checkOutDate,
+    setCheckOutDate,
+    nights,
+    setNights,
+    pax,
+    setPax,
+  } = datePickerStore();
+  //   const [checkInDate, setCheckInDate] = useState(null);
+  //   const [checkOutDate, setCheckOutDate] = useState(null);
+  //   // const [isDateRangeAvailable, setIsDateRangeAvailable] = useState(false);
+  //   const [nights, setNights] = useState(1);
+  //   const [pax, setPax] = useState(1);
   const today = dayjs();
   const handleCheckInChange = newValue => {
     setCheckInDate(newValue);
@@ -36,10 +47,10 @@ function DateRangeSelector() {
       setNights(diff);
       console.log('Nights:', diff);
     }
-  }, [checkInDate, checkOutDate]);
+  }, [checkInDate, checkOutDate, setNights]);
 
   return (
-    <div className="flex flex-row gap-4">
+    <div className="flex flex-row gap-2 justify-center items-center">
       <BasicDatePickerProvider>
         <DatePicker
           label="Check in"

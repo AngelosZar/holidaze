@@ -16,15 +16,15 @@ export default function HeroSearchBar() {
                     shadow-lg mx-4 sm:mx-auto sm:max-w-[90%]"
     >
       <div className="flex flex-col justify-center ">
-        <label htmlFor="searchBar" className="text-sm pl-1 pb-1">
-          Select a destination
-        </label>
         <input
           type="text"
           id="searchBar"
-          className="formInput2"
+          className="formInput2 relative"
           placeholder="Search for accommodation"
         />
+        {/* <label htmlFor="searchBar" className="text-sm absolute top-0 left-2 ">
+          Select a destination
+        </label> */}
       </div>
       <DateRangeSelector />
       {/* <div className="flex flex-col lg:flex-row gap-4 ">
