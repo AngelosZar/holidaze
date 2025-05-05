@@ -10,15 +10,15 @@ import datePickerStore from '../../stores/datePickerStore';
 // Visit https://react.dev/link/error-boundaries to learn more about error boundaries.
 // https://stackoverflow.com/questions/66507643/warning-function-components-cannot-be-given-refs-warning-in-react-using-forward
 
-const TextFieldWithRef = forwardRef((props, ref) => {
-  return (
-    <input
-      {...props}
-      ref={ref}
-      className={`formInput2 relative ${props.className || ''}`}
-    />
-  );
-});
+// const TextFieldWithRef = forwardRef((props, ref) => {
+//   return (
+//     <input
+//       {...props}
+//       ref={ref}
+//       className={`formInput2 relative ${props.className || ''}`}
+//     />
+//   );
+// });
 
 function DateRangeSelector({ className }) {
   // Maybe use zustand for this
@@ -107,7 +107,7 @@ function DateRangeSelector({ className }) {
           onChange={handleCheckInChange}
           minDate={today}
           maxDate={dayjs().add(1, 'year')}
-          renderInput={params => <TextFieldWithRef {...params} />}
+          //   renderInput={params => <TextFieldWithRef {...params} />}
           //   slots={{
           //     textField: TextFieldWithRef,
           //   }}
@@ -123,7 +123,7 @@ function DateRangeSelector({ className }) {
           value={checkOutDate || null}
           onChange={handleCheckOutChange}
           minDate={checkInDate}
-          renderInput={params => <TextFieldWithRef {...params} />}
+          //   renderInput={params => <TextFieldWithRef {...params} />}
           //   disabled={checkInDate ? false : true}
           disabled={!checkInDate}
           //   slots={{
