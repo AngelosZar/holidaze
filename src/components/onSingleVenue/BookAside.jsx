@@ -15,18 +15,28 @@ function BookAside({ venue }) {
     pax,
     setPax,
   } = datePickerStore();
-  let numberOfGuests = venue?.maxGuests;
-  console.log(numberOfGuests);
+  let maxNumberOfGuests = venue?.maxGuests;
+  // console.log(numberOfGuests);
+
+  function handleBookClick() {
+    console.log(checkInDate);
+    console.log(checkOutDate);
+    console.log(nights);
+    console.log(pax);
+  }
   return (
     <div className="w-full flex flex-col max-w-md p-8 bg-white rounded-lg shadow-md border-2 border-primary">
       <h6>Price {venue.price} nok</h6>
       <hr className="my-6" />
       <DateRangeSelector />
       <hr className="my-6" />
-      <NumberDropDown numberOfGuests={numberOfGuests} />
+      <NumberDropDown maxNumberOfGuests={maxNumberOfGuests} />
       {/* max number of guest for the venue */}
       <hr className="my-6" />
-      <button className="btn-primary mb-4 w-full max-w-[60%] mx-auto">
+      <button
+        className="btn-primary mb-4 w-full max-w-[60%] mx-auto"
+        onClick={handleBookClick}
+      >
         Book
       </button>
       {/* only when both check in and checkout are selected 

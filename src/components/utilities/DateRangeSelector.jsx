@@ -125,7 +125,7 @@ function DateRangeSelector({ className }) {
           minDate={checkInDate}
           //   renderInput={params => <TextFieldWithRef {...params} />}
           //   disabled={checkInDate ? false : true}
-          disabled={!checkInDate}
+          // disabled={!checkInDate}
           //   slots={{
           //     textField: TextFieldWithRef,
           //   }}
