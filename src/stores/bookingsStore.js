@@ -3,16 +3,106 @@ import { persist } from 'zustand/middleware';
 import { BASE_URL, BOOKINGS_ENDPOINT } from '../components/Constants';
 import returnHeaders from '../components/utilities/returnHeaders';
 const useBookingStore = create(
-  persist(set => ({
+  // persist
+  set => ({
     isLoading: false,
     error: null,
 
     setIsLoading: isLoading => set({ isLoading }),
     setError: error => set({ error }),
 
-    // getBooking: async () => {},
-    // getBookings: async () => {},
-    // postBooking: async () => {},
+    getBookings: async (customer = true, venue = true) => {
+      try {
+        set({ isLoading: true });
+        const headers = returnHeaders();
+        console.log('headers', headers);
+        const res = await fetch(
+          `${BASE_URL}${BOOKINGS_ENDPOINT}?_customer=${customer}&_venue=${venue}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              ...headers.headers,
+            },
+          }
+        );
+        console.log('res', res);
+        if (!res.ok) {
+          console.error('Failed to fetch booking:', res.statusText);
+          // or check if its object res.status. somethng
+          throw new Error('Failed to fetch booking');
+        }
+        const data = await res.json();
+        console.log('data', data);
+        set({ isLoading: false });
+        return data;
+      } catch (error) {
+        set({ isLoading: false, error: error.message });
+        console.error('Error fetching booking:', error);
+      }
+    },
+    getBooking: async (id, customer = true, venue = true) => {
+      try {
+        set({ isLoading: true });
+        const headers = returnHeaders();
+        console.log('headers', headers);
+        const res = await fetch(
+          `${BASE_URL}${BOOKINGS_ENDPOINT}?_customer=${customer}&_venue=${venue}`,
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              ...headers.headers,
+            },
+          }
+        );
+        console.log('res', res);
+        if (!res.ok) {
+          console.error('Failed to fetch booking:', res.statusText);
+          // or check if its object res.status. somethng
+          throw new Error('Failed to fetch booking');
+        }
+        const data = await res.json();
+        console.log('data', data);
+        set({ isLoading: false });
+        return data;
+      } catch (error) {
+        set({ isLoading: false, error: error.message });
+        console.error('Error fetching booking:', error);
+      }
+    },
+    postBooking: async requestObject => {
+      try {
+        set({ isLoading: true });
+        const headers = returnHeaders();
+        console.log('headers', headers);
+        const response = await fetch(
+          `${BASE_URL}${BOOKINGS_ENDPOINT}`,
+          // `${BASE_URL}${BOOKINGS_ENDPOINT}/${id}?_customer=${customer}&_venue=${venue}`,
+          // `https://v2.api.noroff.dev/holidaze/bookings/${id}?_customer=${customer}&_venue=${venue}`,
+          {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+              ...headers.headers,
+            },
+            body: JSON.stringify(requestObject),
+          }
+        );
+        console.log('response', response);
+        if (!response.ok) {
+          console.error('Failed to update booking:', response.statusText);
+          throw new Error('Failed to update booking');
+        }
+        const data = await response.json();
+        console.log(data);
+        set({ isLoading: false });
+        return data;
+      } catch (error) {
+        set({ isLoading: false, error: error.message });
+        console.error('Error updating booking:', error);
+      }
+    },
     putBooking: async (id, requestObject, customer = true, venue = true) => {
       try {
         set({ isLoading: true });
@@ -44,8 +134,31 @@ const useBookingStore = create(
         console.error('Error updating booking:', error);
       }
     },
-    // deleteBooking: async () => {},
-  }))
+    deleteBooking: async id => {
+      // Returns an empty 204 No Content response on success.
+      try {
+        set({ isLoading: true });
+        const headers = returnHeaders();
+        console.log('headers', headers);
+        const response = await fetch(`${BASE_URL}${BOOKINGS_ENDPOINT}/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            ...headers.headers,
+          },
+        });
+        console.log('response', response);
+        if (!response.ok) {
+          console.error('Failed to delete booking:', response.statusText);
+          throw new Error('Failed to delete booking');
+        }
+        set({ isLoading: false });
+      } catch (error) {
+        set({ isLoading: false, error: error.message });
+        console.error('Error deleting booking:', error);
+      }
+    },
+  })
 );
 export default useBookingStore;
 
