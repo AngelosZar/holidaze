@@ -4,24 +4,24 @@ import datePickerStore from '../../stores/datePickerStore';
 import PriceDropDown from './PriceDropDown';
 // import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
+import useUpdateBooking from '../../hooks/useUpdateBooking';
 
 function BookAside({ venue }) {
   const [alertMessage, setAlertMessage] = useState('');
   const { checkInDate, checkOutDate, nights, pax, reset } = datePickerStore();
-
+  const { updateBooking, isLoading, error, setIsLoading, setError } =
+    useUpdateBooking();
+  //
+  let id = venue?.id;
   let maxNumberOfGuests = venue?.maxGuests;
-  // let requestObject = {
-  //   dateFrom: checkInDate, // Optional - Instance of new Date()
-  //   dateTo: checkOutDate, // Optional - Instance of new Date()
-  //   guests: pax, // Optional
-  // };
+
   useEffect(() => {
     if (alertMessage && (checkInDate || checkOutDate)) {
       setAlertMessage('');
     }
   }, [checkInDate, checkOutDate, alertMessage]);
 
-  function handleButtonClick() {
+  const handleButtonClick = async () => {
     if (!checkInDate || !checkOutDate) {
       setAlertMessage('No inputs');
       return;
@@ -44,6 +44,7 @@ function BookAside({ venue }) {
       pax,
       price: venue?.price,
     });
+
     const requestObject = {
       dateFrom: checkInDate ? checkInDate.toISOString() : undefined,
       dateTo: checkOutDate ? checkOutDate.toISOString() : undefined,
@@ -53,15 +54,28 @@ function BookAside({ venue }) {
     console.log('requestObject', requestObject);
     // submirt booking data
     // reset();
-  }
-  // or just disable the button???
-  // const isBookButtonDisabled = !checkInDate || !checkOutDate;
-  // {
-  //   "dateFrom": "string", // Required - Instance of new Date()
-  //   "dateTo": "string", // Required - Instance of new Date()
-  //   "guests": 0, // Required
-  //   "venueId": "string" // Required - The id of the venue to book
-  // }
+    try {
+      console.log('Booking ID:', id);
+      console.log('Booking request:', requestObject);
+      const res = await updateBooking(id, requestObject);
+      console.log('Booking response:', res);
+      if (res) {
+        console.log('Booking updated successfully:', res);
+        alert('Booking updated successfully');
+        // create a component to show success message or a simple div with the message a a five second timeout
+        reset();
+      } else {
+        // Handle error
+        console.error('Failed to update booking');
+        alert('Failed to update booking');
+        // setAlertMessage('Failed to update booking');
+        // use other state to show error message
+      }
+    } catch (error) {
+      console.error('Error updating booking:', error);
+    }
+  };
+
   return (
     <div className="w-full flex flex-col max-w-md p-8 bg-white rounded-lg shadow-md border-2 border-primary">
       <h6>Price {venue.price} nok</h6>
