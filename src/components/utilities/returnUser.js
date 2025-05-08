@@ -4,7 +4,8 @@ const returnUser = function () {
   if (userData) {
     return JSON.parse(userData);
   } else {
-    throw new Error('No user found');
+    return null;
+    // throw new Error('No user found');
   }
 };
 

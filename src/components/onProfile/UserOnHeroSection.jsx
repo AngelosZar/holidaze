@@ -6,36 +6,34 @@ import useGetUserBookings from '../../hooks/useGetUserBookings';
 
 export function UserOnHeroSection() {
   const { userData, isLoading, error } = useUserData();
-  const { setUserForVenues, listOfVenues } = useGetUserVenues();
-  const { setUserForBookings, listOfBookings } = useGetUserBookings();
-  const handleSelectUserForVenues = userName => {
-    setUserForVenues(userName);
-  };
-  const handleSelectUserForBookings = userName => {
-    setUserForBookings(userName);
-  };
-  // handle fetching venues
+  // const { setUserForVenues, listOfVenues } = useGetUserVenues();
+  // const { setUserForBookings, listOfBookings } = useGetUserBookings();
 
+  // const handleSelectUserForVenues = userName => {
+  //   setUserForVenues(userName);
+  // };
+  // const handleSelectUserForBookings = userName => {
+  //   setUserForBookings(userName);
+  // };
+  // console.log('userData', userData);
   if (isLoading) return <div>is loading ... add spinner</div>;
 
   if (error) return <div>error promt :{error.message}</div>;
-  // console.log('userData', userData);
-  // console.log(error);
 
   return (
-    <section className="w-full mt-[90px] mb-64">
-      <div className="relative w-full h-48">
+    <section className="w-full mt-[90px] mb-64 ">
+      <div className="relative w-full h-48 ">
         <img
-          src={userData?.bannerUrl}
+          src={userData?.bannerUrl || 'img'}
           alt={userData?.bannerAlt}
           className="w-full h-full object-cover"
-          onClick={() => handleSelectUserForVenues(userData?.userName)}
+          // onClick={() => handleSelectUserForVenues(userData?.userName)}
           // onClick={() => handleSelectUserForBookings(userData?.userName)}
         />
         <div className="absolute -bottom-16 left-12">
           <div className="rounded-full w-32 h-32 border-4 border-white overflow-hidden">
             <img
-              src={userData?.avatarUrl}
+              src={userData?.avatarUrl || 'img'}
               alt={userData?.avatarAlt}
               className="w-full h-full object-cover"
             />

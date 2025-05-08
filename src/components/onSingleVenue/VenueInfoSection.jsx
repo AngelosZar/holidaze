@@ -13,8 +13,8 @@ import private_entrance from '../../assets/accommodation_icons/private_entrance.
 
 function VenueInfoSection({ venue, isLoading, error }) {
   // const { venueLocation, setVenueLocation } = useState();
-  console.log('venue', venue);
-  console.log('venue', venue.id);
+  // console.log('venue', venue);
+  // console.log('venue', venue.id);
   return (
     <section className="px-8">
       <div className="grid grid-cols-1 xl:grid-cols-2">

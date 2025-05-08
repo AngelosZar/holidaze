@@ -26,7 +26,7 @@ function SingleVenuePage() {
 
     // if (venue?.media && venue.media.length > 0)
     //   console.log('venue.media', venue.media.length);
-    console.log('venue', venue);
+    // console.log('venue', venue);
   }, [venue]);
   return (
     <Layout>

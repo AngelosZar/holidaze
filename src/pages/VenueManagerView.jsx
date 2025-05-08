@@ -4,14 +4,16 @@ import CurrentBookingsSection from '../components/onManagerView/CurrentBookingsS
 //
 import { EditVenueDropDown } from '../components/onManagerView/EditVenueDropDown';
 import ManageMyAccount from '../components/onManagerView/ManageMyAccount';
+import CreateAVenue from '../components/onManagerView/CreateAVenue';
 
 function VenueManagerView() {
   return (
     <Layout>
       <UserOnHeroSection />
-      <CurrentBookingsSection />
-      <EditVenueDropDown />
-      <ManageMyAccount />
+      {/* <CurrentBookingsSection /> */}
+      {/* <EditVenueDropDown /> */}
+      <CreateAVenue />
+      {/* <ManageMyAccount /> */}
     </Layout>
   );
 }
