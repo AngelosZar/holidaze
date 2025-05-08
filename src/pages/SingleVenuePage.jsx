@@ -20,12 +20,12 @@ function SingleVenuePage() {
         alt: img.alt,
       }));
       setVenueGallery(media);
-      console.log(media.length);
-      console.log('venue.media', venue.media);
+      // console.log(media.length);
+      // console.log('venue.media', venue.media);
     }
 
-    if (venue?.media && venue.media.length > 0)
-      console.log('venue.media', venue.media.length);
+    // if (venue?.media && venue.media.length > 0)
+    //   console.log('venue.media', venue.media.length);
   }, [venue]);
   return (
     <Layout>

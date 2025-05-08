@@ -1,29 +1,38 @@
-// import BasicDatePicker from '../onHomepage/DatePicker';
-
 import DateRangeSelector from '../utilities/DateRangeSelector';
 import NumberDropDown from '../utilities/NumberDropDown';
 import datePickerStore from '../../stores/datePickerStore';
+import dayjs from 'dayjs';
 
 function BookAside({ venue }) {
-  const {
-    checkInDate,
-    setCheckInDate,
-    checkOutDate,
-    setCheckOutDate,
-    nights,
-    setNights,
-    pax,
-    setPax,
-  } = datePickerStore();
-  let maxNumberOfGuests = venue?.maxGuests;
-  // console.log(numberOfGuests);
+  const { checkInDate, checkOutDate, nights, pax, reset } = datePickerStore();
 
-  function handleBookClick() {
-    console.log(checkInDate);
-    console.log(checkOutDate);
-    console.log(nights);
-    console.log(pax);
+  let maxNumberOfGuests = venue?.maxGuests;
+
+  function handleButtonClick() {
+    // Format dates safely
+    const formattedCheckIn =
+      checkInDate && typeof checkInDate.format === 'function'
+        ? checkInDate.format('YYYY-MM-DD') //check again api format
+        : undefined;
+
+    const formattedCheckOut =
+      checkOutDate && typeof checkOutDate.format === 'function'
+        ? checkOutDate.format('YYYY-MM-DD')
+        : undefined;
+
+    console.log('Booking Data:', {
+      checkInDate: formattedCheckIn,
+      checkOutDate: formattedCheckOut,
+      nights,
+      pax,
+      price: venue?.price,
+    });
+    // submirt booking data
+    // reset();
   }
+
+  const isBookButtonDisabled = !checkInDate || !checkOutDate;
+
   return (
     <div className="w-full flex flex-col max-w-md p-8 bg-white rounded-lg shadow-md border-2 border-primary">
       <h6>Price {venue.price} nok</h6>
@@ -31,18 +40,17 @@ function BookAside({ venue }) {
       <DateRangeSelector />
       <hr className="my-6" />
       <NumberDropDown maxNumberOfGuests={maxNumberOfGuests} />
-      {/* max number of guest for the venue */}
       <hr className="my-6" />
       <button
         className="btn-primary mb-4 w-full max-w-[60%] mx-auto"
-        onClick={handleBookClick}
+        onClick={handleButtonClick}
+        disabled={isBookButtonDisabled}
       >
         Book
       </button>
-      {/* only when both check in and checkout are selected 
-      how ?
-      zustand ?
-       */}
+      {isBookButtonDisabled && (
+        <p>Please select both check-in and check-out dates to book.</p>
+      )}
       <PriceDropDown venue={venue} />
     </div>
   );

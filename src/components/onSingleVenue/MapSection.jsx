@@ -1,7 +1,7 @@
 import Map from '../Map';
 
 function MapSection({ venue }) {
-  console.log(venue);
+  // console.log(venue);
   return (
     <section className="relative z-0">
       {/* <h4 className="px-24 absolute top-4 left-0">Location </h4> */}

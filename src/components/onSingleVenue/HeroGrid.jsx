@@ -33,21 +33,16 @@ function HeroGrid({ venueGallery }) {
         </div>
         {/* <div className="flex flex-row gap-4 p-4 bg-white shadow-md rounded-lg "> */}
         <div className=" flex-row gap-4 p-4 bg-white shadow-md rounded-lg justify-around relative hidden overflow-hidden sm:flex">
-          {venueGallery.slice(1, 5).map(
-            (image, index) => (
-              console.log(image),
-              (
-                <div className="gap-4 hidden sm:grid">
-                  <SingleImgOnGrid
-                    key={index + 1}
-                    img={image.url}
-                    alt={image.alt || 'Venue image'}
-                    index={index}
-                  />{' '}
-                </div>
-              )
-            )
-          )}
+          {venueGallery.slice(1, 5).map((image, index) => (
+            // console.log(image),
+            <div className="gap-4 hidden sm:grid" key={index + 1}>
+              <SingleImgOnGrid
+                img={image.url}
+                alt={image.alt || 'Venue image'}
+                index={index}
+              />
+            </div>
+          ))}
         </div>
       </div>
       {/* venueGallery.length >= 1 */}

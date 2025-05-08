@@ -8,7 +8,6 @@ function StaysList({ stays, loading, error }) {
 
       {stays &&
         stays.map(venue => {
-          console.log('venue', venue.media);
           return (
             <SingleCard
               key={venue.id}

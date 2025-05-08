@@ -4,18 +4,17 @@ import datePickerStore from '../../stores/datePickerStore';
 function NumberDropDown({ maxNumberOfGuests }) {
   // const maxNumberGuests = 6; // this should be from the api
   const [selectedNumber, setSelectedNumber] = useState(1);
-  // const {
-  //   checkInDate,
-  //   setCheckInDate,
-  //   checkOutDate,
-  //   setCheckOutDate,
-  //   nights,
-  //   setNights,
-  //   pax,
-  //   setPax,
-  // } = datePickerStore();
-  const pax = datePickerStore(state => state.pax);
-  const setPax = datePickerStore(state => state.setPax);
+  const {
+    checkInDate,
+    setCheckInDate,
+    checkOutDate,
+    setCheckOutDate,
+    nights,
+    setNights,
+    pax,
+    setPax,
+  } = datePickerStore();
+
   const handleChange = e => {
     setPax(e.target.value);
     // move to zustang ?
