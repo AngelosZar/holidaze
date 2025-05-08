@@ -30,6 +30,12 @@ const datePickerStore = create(
     totalPrice: 0,
 
     setTotalPrice: total => set({ totalPrice: total }),
+
+    calculateTotalPrice: () => {
+      const { pricePerNight, nights } = get();
+      const total = pricePerNight * nights;
+      set({ totalPrice: total });
+    },
     setPricePerNight: price => set({ pricePerNight: price }),
 
     setCheckInDate: date => {

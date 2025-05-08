@@ -13,11 +13,6 @@ import private_entrance from '../../assets/accommodation_icons/private_entrance.
 import { useState } from 'react';
 function VenueInfoSection({ venue, isLoading, error }) {
   // const { venueLocation, setVenueLocation } = useState();
-  function returnTotalAmmount(nights, price) {
-    // const price = venue.price;
-    // const nights = 2;
-    // return guests * price;
-  }
 
   return (
     <section className="px-8">
@@ -55,7 +50,11 @@ function VenueInfoSection({ venue, isLoading, error }) {
             <p className="text-lg font-semibold">Sustainable</p>
           </div>
           <p className="max-w-md pt-4 line-clamp-12">{venue.description}</p>
-          <AccommodationIncludes venue={venue} />
+          <AccommodationIncludes
+            venue={venue}
+            isLoading={isLoading}
+            error={error}
+          />
         </div>
         <div className="">
           <BookAside venue={venue} />
@@ -70,7 +69,7 @@ function VenueInfoSection({ venue, isLoading, error }) {
 
 export default VenueInfoSection;
 
-function AccommodationIncludes(venue) {
+function AccommodationIncludes({ venue, isLoading, error }) {
   return (
     <div className="w-full mb-8 py-12">
       <h5 className="mb-4">Accommodation includes </h5>

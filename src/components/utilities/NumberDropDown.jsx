@@ -1,26 +1,18 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import datePickerStore from '../../stores/datePickerStore';
 
 function NumberDropDown({ maxNumberOfGuests }) {
-  // const maxNumberGuests = 6; // this should be from the api
-  const [selectedNumber, setSelectedNumber] = useState(1);
-  const {
-    checkInDate,
-    setCheckInDate,
-    checkOutDate,
-    setCheckOutDate,
-    nights,
-    setNights,
-    pax,
-    setPax,
-  } = datePickerStore();
+  const { pax, setPax } = datePickerStore();
 
   const handleChange = e => {
     setPax(e.target.value);
-    // move to zustang ?
-
-    console.log(`Selected number of guests: ${e.target.value}`);
   };
+  useEffect(() => {
+    if (pax) {
+      setPax(pax);
+    }
+  }, [pax, setPax]);
+
   return (
     <div className="flex justify-between mt-4">
       <label htmlFor="guests" className="text-lg ">

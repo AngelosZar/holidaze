@@ -9,7 +9,6 @@ function BookAside({ venue }) {
   let maxNumberOfGuests = venue?.maxGuests;
 
   function handleButtonClick() {
-    // Format dates safely
     const formattedCheckIn =
       checkInDate && typeof checkInDate.format === 'function'
         ? checkInDate.format('YYYY-MM-DD') //check again api format
