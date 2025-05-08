@@ -29,6 +29,7 @@ const createVenueStore = create((set, get) => ({
     set(state => ({
       venueData: { ...state.venueData, ...newData },
     }));
+    console.log('newData', newData);
   },
   updateMetaData(newData) {
     set(state => ({
@@ -45,6 +46,7 @@ const createVenueStore = create((set, get) => ({
         location: { ...state.venueData.location, ...newData },
       },
     }));
+    console.log('newData', newData);
   },
   reset: () =>
     set({
