@@ -10,10 +10,11 @@ import pets from '../../assets/accommodation_icons/pets.svg';
 import smart_tv from '../../assets/accommodation_icons/smart_tv.svg';
 import shower from '../../assets/accommodation_icons/shower.svg';
 import private_entrance from '../../assets/accommodation_icons/private_entrance.svg';
-import { useState } from 'react';
+
 function VenueInfoSection({ venue, isLoading, error }) {
   // const { venueLocation, setVenueLocation } = useState();
-
+  console.log('venue', venue);
+  console.log('venue', venue.id);
   return (
     <section className="px-8">
       <div className="grid grid-cols-1 xl:grid-cols-2">
@@ -69,7 +70,7 @@ function VenueInfoSection({ venue, isLoading, error }) {
 
 export default VenueInfoSection;
 
-function AccommodationIncludes({ venue, isLoading, error }) {
+function AccommodationIncludes({ venue }) {
   return (
     <div className="w-full mb-8 py-12">
       <h5 className="mb-4">Accommodation includes </h5>
@@ -77,20 +78,47 @@ function AccommodationIncludes({ venue, isLoading, error }) {
         <div className="flex flex-col gap-2">
           <div className="flex flex-row gap-2 items-center">
             <img src={wifi} alt="Wifi" className="w-8 h-8" />
-            <p className="text-">Wifi</p>
-            {/* set line across to what is not offered */}
+            <p
+              className={`text-md  ${
+                venue?.meta?.wifi !== true ? 'line-through text-gray-400' : ''
+              }`}
+            >
+              Wifi
+            </p>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <img src={breakfast} alt="breakfast" className="w-8 h-8" />
-            <p className="text- color-primary">Breakfast</p>
+            <p
+              className={`text-md  ${
+                venue?.meta?.breakfast !== true
+                  ? 'line-through text-gray-400'
+                  : ''
+              }`}
+            >
+              Breakfast
+            </p>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <img src={parking} alt="parking" className="w-8 h-8" />
-            <p className="text- color-primary">Parking</p>
+            <p
+              className={`text-md  ${
+                venue?.meta?.parking !== true
+                  ? 'line-through  text-gray-400'
+                  : ''
+              }`}
+            >
+              Parking
+            </p>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <img src={pets} alt="pets" className="w-8 h-8" />
-            <p className="text- color-primary">Pets</p>
+            <p
+              className={`text-md  ${
+                venue?.meta?.pets !== true ? 'line-through text-gray-400' : ''
+              }`}
+            >
+              Pets
+            </p>
           </div>
         </div>
         <div className="flex flex-col gap-2">
@@ -100,11 +128,11 @@ function AccommodationIncludes({ venue, isLoading, error }) {
               alt="private entrance"
               className="w-8 h-8"
             />
-            <p className="text- color-primary">Private entrance</p>
+            <p className="text-md color-primary">Private entrance</p>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <img src={shower} alt="shower" className="w-8 h-8" />
-            <p className="text- color-primary">Shower</p>
+            <p className="text-md color-primary">Shower</p>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <img
@@ -112,11 +140,11 @@ function AccommodationIncludes({ venue, isLoading, error }) {
               alt="air conditioner"
               className="w-8 h-8"
             />
-            <p className="text- color-primary">Air conditioner</p>
+            <p className="text-md color-primary">Air conditioner</p>
           </div>
           <div className="flex flex-row gap-2 items-center">
             <img src={smart_tv} alt="smart tv" className="w-8 h-8" />
-            <p className="text- color-primary">Smart tv</p>
+            <p className="text-md color-primary">Smart tv</p>
           </div>
         </div>
       </div>

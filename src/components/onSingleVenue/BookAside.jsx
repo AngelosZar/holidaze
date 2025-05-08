@@ -1,15 +1,20 @@
 import DateRangeSelector from '../utilities/DateRangeSelector';
 import NumberDropDown from '../utilities/NumberDropDown';
 import datePickerStore from '../../stores/datePickerStore';
-import dayjs from 'dayjs';
-import { use, useEffect, useState } from 'react';
+import PriceDropDown from './PriceDropDown';
+// import dayjs from 'dayjs';
+import { useEffect, useState } from 'react';
 
 function BookAside({ venue }) {
   const [alertMessage, setAlertMessage] = useState('');
   const { checkInDate, checkOutDate, nights, pax, reset } = datePickerStore();
 
   let maxNumberOfGuests = venue?.maxGuests;
-
+  // let requestObject = {
+  //   dateFrom: checkInDate, // Optional - Instance of new Date()
+  //   dateTo: checkOutDate, // Optional - Instance of new Date()
+  //   guests: pax, // Optional
+  // };
   useEffect(() => {
     if (alertMessage && (checkInDate || checkOutDate)) {
       setAlertMessage('');
@@ -39,12 +44,24 @@ function BookAside({ venue }) {
       pax,
       price: venue?.price,
     });
+    const requestObject = {
+      dateFrom: checkInDate ? checkInDate.toISOString() : undefined,
+      dateTo: checkOutDate ? checkOutDate.toISOString() : undefined,
+      guests: pax || 1,
+    };
+
+    console.log('requestObject', requestObject);
     // submirt booking data
     // reset();
   }
   // or just disable the button???
   // const isBookButtonDisabled = !checkInDate || !checkOutDate;
-
+  // {
+  //   "dateFrom": "string", // Required - Instance of new Date()
+  //   "dateTo": "string", // Required - Instance of new Date()
+  //   "guests": 0, // Required
+  //   "venueId": "string" // Required - The id of the venue to book
+  // }
   return (
     <div className="w-full flex flex-col max-w-md p-8 bg-white rounded-lg shadow-md border-2 border-primary">
       <h6>Price {venue.price} nok</h6>
@@ -72,48 +89,3 @@ function BookAside({ venue }) {
 }
 
 export default BookAside;
-
-function PriceDropDown({ venue }) {
-  const {
-    nights,
-    pax,
-    pricePerNight,
-    setPricePerNight,
-    totalPrice,
-    calculateTotalPrice,
-  } = datePickerStore();
-  useEffect(() => {
-    if (venue?.price) {
-      setPricePerNight(venue.price);
-    }
-  }, [venue?.price, setPricePerNight]);
-
-  useEffect(() => {
-    calculateTotalPrice();
-  }, [nights, pricePerNight, calculateTotalPrice]);
-
-  return (
-    <div className="w-full flex flex-col text-center max-w-sm mx-auto">
-      <span className="flex flex-row justify-between mt-4">
-        <p>Price per night</p> <p>{pricePerNight} nok</p>
-      </span>
-      <span className="flex flex-row justify-between mt-4">
-        <p>Booked days</p> <p>{nights} </p>
-      </span>
-      <span className="flex flex-row justify-between mt-4 mb-4">
-        <p>Number of guests</p> <p>{pax} </p>
-      </span>
-      <hr />
-      <span className="flex flex-row justify-between mt-4">
-        <p>Cleaning fee</p> <p> 0 nok</p>
-      </span>
-      <span className="flex flex-row justify-between mt-4">
-        <p>Taxes </p> <p>0 nok </p>
-      </span>
-      <hr className="my-6" />
-      <span className="flex flex-row justify-between mt-4">
-        <p>Total </p> <p>{totalPrice}</p>
-      </span>
-    </div>
-  );
-}
