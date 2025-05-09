@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import createVenueStore from '../../stores/createVenueStore';
+import useVenueStore from '../../stores/venuesStore';
 
 export default function BasicInfoForForm() {
   const { updateVenueData } = createVenueStore();
@@ -45,32 +46,54 @@ export default function BasicInfoForForm() {
           onChange={e => updateVenueData({ maxGuests: e.target.value })}
         />
       </div>
+      <AddMediaSection />
     </div>
   );
 }
 
-// {
-//   "name": "string",
-//   "description": "string",
-//   "media": [
-//     "string"
-//   ],
-//   "price": 0,
-//   "maxGuests": 100,
-//   "rating": 5,
-//   "meta": {
-//     "wifi": true,
-//     "parking": true,
-//     "breakfast": true,
-//     "pets": true
-//   },
-//   "location": {
-//     "address": "string",
-//     "city": "string",
-//     "zip": "string",
-//     "country": "string",
-//     "continent": "string",
-//     "lat": 0,
-//     "lng": 0
-//   }
-// }
+function AddMediaSection() {
+  const [mediaUrl, setMediaUrl] = useState('');
+  const [mediaAlt, setMediaAlt] = useState('');
+  const { addMedia } = createVenueStore();
+  const [error, setError] = useState(null);
+
+  const handleAddMedia = e => {
+    e.preventDefault();
+    console.log('click');
+    console.log(e.target.value);
+    // handle if no media url or media alt
+    // trim and check if mediaUrl is a valid image url regex ?
+    // display error if not valid
+    // else
+    // addMedia({ url: mediaUrl, alt: mediaAlt });
+    // setMediaUrl('');
+    // setMediaAlt('');
+    //  reset errorand  reset media
+  };
+
+  return (
+    <>
+      <h6>add images here</h6>
+      <div className="flex flex-col gap-4 mt-8 max-w-sm">
+        <div>
+          <label htmlFor="imgUrl">Url for images</label>
+          <input
+            type="text"
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Enter valid image url"
+            onChange={e => handleAddMedia(e)}
+          />
+        </div>
+        <div>
+          <label htmlFor="Description">Description</label>
+          <input
+            type="text"
+            className="w-full p-2 border border-gray-300 rounded-md"
+            placeholder="Enter description for image"
+            onChange={e => handleAddMedia(e)}
+          ></input>
+        </div>
+      </div>
+    </>
+  );
+}

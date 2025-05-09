@@ -4,6 +4,12 @@ import useVenueStore from './venuesStore';
 const createVenueStore = create((set, get) => ({
   // const { postVenue } = useVenueStore();
   //
+  //   "media": [
+  //     {
+  //       "url": "https://url.com/image.jpg",
+  //       "alt": "string"
+  //     }
+  //   ],
   venueData: {
     name: '', //'string',
     description: '', //'string',
@@ -27,15 +33,17 @@ const createVenueStore = create((set, get) => ({
       lng: 0,
     },
   },
-  updateMediaData: newData => {
+  addMedia: newMedia => {
     set(state => ({
       venueData: {
         ...state.venueData,
-        media: [...state.venueData.media, newData],
+        media: [...state.venueData.media, newMedia],
       },
     }));
-    console.log('newData', newData);
+    console.log('newMedia', newMedia);
   },
+  //   removeMedia:
+  //   updateMedia:
   updateVenueData: newData => {
     set(state => ({
       venueData: { ...state.venueData, ...newData },

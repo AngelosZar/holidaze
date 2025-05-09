@@ -12,7 +12,6 @@ function CreateAVenue() {
             <BasicInfoForForm />
             <SetLocationInformation />
             <SetAccommodationIncludes />
-            {/* component to add img */}
           </div>
         </form>
       </div>
@@ -21,28 +20,3 @@ function CreateAVenue() {
 }
 
 export default CreateAVenue;
-// {
-//   "name": "string",
-//   "description": "string",
-//   "media": [
-//     "string"
-//   ],
-//   "price": 0,
-//   "maxGuests": 100,
-//   "rating": 5,
-//   "meta": {
-//     "wifi": true,
-//     "parking": true,
-//     "breakfast": true,
-//     "pets": true
-//   },
-//   "location": {
-//     "address": "string",
-//     "city": "string",
-//     "zip": "string",
-//     "country": "string",
-//     "continent": "string",
-//     "lat": 0,
-//     "lng": 0
-//   }
-// }
