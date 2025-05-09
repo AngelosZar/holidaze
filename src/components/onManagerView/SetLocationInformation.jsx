@@ -74,12 +74,3 @@ export default function SetLocationInformation() {
     </div>
   );
 }
-// location: {
-//   address: 'string',
-//   city: 'string',
-//   zip: 'string',
-//   country: 'string',
-//   continent: 'string',
-//   lat: 0,
-//   lng: 0,
-// },

@@ -12,6 +12,7 @@ function CreateAVenue() {
             <BasicInfoForForm />
             <SetLocationInformation />
             <SetAccommodationIncludes />
+            {/* component to add img */}
           </div>
         </form>
       </div>

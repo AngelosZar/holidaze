@@ -1,6 +1,8 @@
 import { create } from 'zustand';
+import useVenueStore from './venuesStore';
 
 const createVenueStore = create((set, get) => ({
+  // const { postVenue } = useVenueStore();
   //
   venueData: {
     name: '', //'string',
@@ -25,6 +27,15 @@ const createVenueStore = create((set, get) => ({
       lng: 0,
     },
   },
+  updateMediaData: newData => {
+    set(state => ({
+      venueData: {
+        ...state.venueData,
+        media: [...state.venueData.media, newData],
+      },
+    }));
+    console.log('newData', newData);
+  },
   updateVenueData: newData => {
     set(state => ({
       venueData: { ...state.venueData, ...newData },
@@ -39,6 +50,21 @@ const createVenueStore = create((set, get) => ({
       },
     }));
   },
+  toggleMetaValue: field => {
+    set(state => {
+      const newState = {
+        venueData: {
+          ...state.venueData,
+          meta: {
+            ...state.venueData.meta,
+            [field]: !state.venueData.meta[field],
+          },
+        },
+      };
+      console.log('Updated meta state:', newState.venueData.meta);
+      return newState;
+    });
+  },
   updateLocationData(newData) {
     set(state => ({
       venueData: {
@@ -52,11 +78,26 @@ const createVenueStore = create((set, get) => ({
     set({
       venueData: {},
     }),
+
   // submit to api event handler ?
   submitVenueData: async () => {
     const { venueData } = get();
+    const { postVenue } = useVenueStore.getState();
     console.log('venueData', venueData);
-    //  do the api call
+    //      postVenue: async (venueData, owner = true, bookings = true) => {
+    try {
+      await postVenue(venueData, true, true)
+        .then(res => {
+          console.log('res', res);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      //   allready from api call
+      // set({ isLoading: false });
+    } catch (error) {
+      console.error('Error:', error);
+    }
   },
 }));
 export default createVenueStore;
