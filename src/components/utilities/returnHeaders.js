@@ -8,10 +8,9 @@ const returnHeaders = function () {
     throw new Error('No access token found');
   }
   return {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-      'X-Noroff-API-Key': API_KEY,
-    },
+    Authorization: `Bearer ${accessToken}`,
+    'X-Noroff-API-Key': API_KEY,
+    'Content-Type': 'application/json',
   };
 };
 export default returnHeaders;

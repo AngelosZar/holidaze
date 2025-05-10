@@ -10,9 +10,12 @@ import useCreateVenueStore from '../../stores/createVenueStore';
 export default function SetAccommodationIncludes() {
   // const { updateMetaData } = useCreateVenueStore();
   const { updateMetaData, toggleMetaValue } = useCreateVenueStore();
-  const { wifi, breakfast, parking, pets } = useCreateVenueStore(
-    state => state.venueData.meta
-  );
+  const {
+    wifi = false,
+    breakfast = false,
+    parking = false,
+    pets = false,
+  } = useCreateVenueStore(state => state.venueData.meta);
   // only for show // maybe create a toggle later
   const privateEntrance = true;
   const airConditioner = true;

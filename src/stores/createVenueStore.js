@@ -24,11 +24,11 @@ const createVenueStore = create((set, get) => ({
       pets: true,
     },
     location: {
-      address: 'string',
-      city: 'string',
-      zip: 'string',
-      country: 'string',
-      continent: 'string',
+      address: '',
+      city: '',
+      zip: '',
+      country: '',
+      continent: '',
       lat: 0,
       lng: 0,
     },
@@ -94,17 +94,10 @@ const createVenueStore = create((set, get) => ({
     console.log('venueData', venueData);
     //      postVenue: async (venueData, owner = true, bookings = true) => {
     try {
-      await postVenue(venueData, true, true)
-        .then(res => {
-          console.log('res', res);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-      //   allready from api call
-      // set({ isLoading: false });
+      await postVenue(venueData, true, true);
     } catch (error) {
       console.error('Error:', error);
+      throw error;
     }
   },
 }));

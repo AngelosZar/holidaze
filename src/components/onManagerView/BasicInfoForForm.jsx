@@ -56,7 +56,9 @@ function AddMediaSection() {
   const [mediaAlt, setMediaAlt] = useState('');
   const { addMedia } = createVenueStore();
   const [error, setError] = useState(null);
+  const [isUrlValid, setIsUrlValid] = useState(false);
 
+  // const regex=
   const handleAddMedia = e => {
     e.preventDefault();
     console.log('click');

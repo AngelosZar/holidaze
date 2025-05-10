@@ -77,17 +77,19 @@ const useVenueStore = create(
     // create a venueData object for api call
     postVenue: async (venueData, owner = true, bookings = true) => {
       set({ isLoading: true });
+      console.log('venueData', venueData);
+      const headers = returnHeaders();
       try {
         const res = await fetch(
           `${VENUES_URL}?_owner=${owner}&_bookings=${bookings}`,
           {
             method: 'POST',
-            headers: returnHeaders(),
+            headers,
             body: JSON.stringify(venueData),
           }
         );
         const data = await res.json();
-        // console.log('data', data);
+
         returnErrors(
           res,
           data,
@@ -97,7 +99,6 @@ const useVenueStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        // console.log('error:', error);
         set({ error: error });
       }
     },
@@ -121,7 +122,6 @@ const useVenueStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        // console.log('error:', error);
         set({ error: error });
       }
     },
@@ -133,8 +133,6 @@ const useVenueStore = create(
           headers: returnHeaders(),
         });
         const data = await res.json();
-        // console.log('data', data);
-
         returnErrors(
           res,
           data,
@@ -164,7 +162,7 @@ const useVenueStore = create(
             method: 'GET',
           }
         );
-        // const url = `${VENUES_URL}?sort=${sort}&limit=${limit}&offset=${offset}&_owner=${owner}&_bookings=${bookings}`;
+
         const data = await res.json();
         // console.log('search data', data);
         set({ venues: data });

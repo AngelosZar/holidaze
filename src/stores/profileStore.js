@@ -97,10 +97,7 @@ const useProfileStore = create(
       try {
         const res = await fetch(`${GET_USER_URL}${name}`, {
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            ...headers.headers,
-          },
+          headers,
         });
         const { data } = await res.json();
 
