@@ -7,13 +7,7 @@ function CurrentBookingsSection() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { getProfileVenues, getProfileBookings } = useProfileStore();
-  // const user = returnUser();
-  // const name = user.name;
-  // console.log('user', user);
-  // const name = user.name;
-  // console.log('name', name);
-  // console.log();
-
+  const [venues, setVenues] = useState([]);
   useEffect(() => {
     const user = returnUser();
     const userName = user.name;
@@ -29,8 +23,10 @@ function CurrentBookingsSection() {
         const venues = await getProfileVenues(userName);
         console.log('venues:', venues.data);
         if (venues.data.length === 0) {
-          setError('You have no venues to show');
+          setError('No venues');
         }
+        // Error: {message: 'No profile with this name'}
+        setVenues(venues.data);
       } catch (err) {
         setError('Failed to fetch venues');
         console.error('Error fetching venues:', err);
@@ -45,19 +41,36 @@ function CurrentBookingsSection() {
       setIsLoading(false);
       setError(null);
     };
-  }, [getProfileVenues]);
+  }, [getProfileVenues, getProfileBookings]);
 
   return (
     <>
       {isLoading && <p>Loading...</p>}
+      {error === 'No venues' && (
+        <div className="grid grid-cols-1 mt-14 gap-4 ">
+          <p className="text-center text-gray-500">
+            You have no venues to show
+          </p>
+        </div>
+      )}
       {error && <p>{error}</p>}
       {/* if array of object is empty return message that you have no venues */}
       {!isLoading && !error && (
-        <section className="w-full mt-12 mb-12">
-          <div className="grid grid-cols-1 mt-14 gap-4 ">
-            <ManagersUpcomingBooking />
-            <ManagersUpcomingBooking />
-            <ManagersUpcomingBooking />
+        <section className="w-full  mb-12">
+          <div className="grid grid-cols-1  gap-4 ">
+            {venues.length > 0 && (
+              <p className="text-center text-primary60  mb-4">
+                You have {venues.length} venues.
+              </p>
+            )}
+            {venues.map(venue => (
+              <ManagersUpcomingBooking
+                key={venue.id}
+                venue={venue}
+                loading={isLoading}
+                error={error}
+              />
+            ))}
           </div>
         </section>
       )}

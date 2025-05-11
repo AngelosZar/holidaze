@@ -14,8 +14,8 @@ function VenueManagerView() {
       <UsersVenueSection />
       <CurrentBookingsSection />
       {/* <EditVenueDropDown /> */}
-      <CreateAVenue />
-      {/* <ManageMyAccount />s */}
+      {/* <CreateAVenue /> */}
+      {/* <ManageMyAccount /> */}
     </Layout>
   );
 }
@@ -24,8 +24,8 @@ export default VenueManagerView;
 
 function UsersVenueSection() {
   return (
-    <section className="w-full mt-12 mb-12">
-      <div className="grid grid-cols-1 mt-14 gap-4 ">
+    <section className="w-full ">
+      <div className="grid grid-cols-1  gap-4 ">
         {/* Managers venue published */}
         {/* <ManagersUpcomingBooking />
         <ManagersUpcomingBooking />
