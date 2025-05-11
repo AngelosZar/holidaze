@@ -11,6 +11,8 @@ function CreateAVenue() {
     console.log('handleSubmitVenueData');
     submitVenueData();
     reset();
+    // reset is not working
+    // img is not uploaded
   }
   return (
     <section className="w-full my-12 mx-8">

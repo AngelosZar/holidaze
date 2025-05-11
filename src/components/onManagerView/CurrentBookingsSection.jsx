@@ -11,8 +11,6 @@ function CurrentBookingsSection() {
   useEffect(() => {
     const user = returnUser();
     const userName = user.name;
-    // console.log(typeof userName); // why is it returning as  an object
-    // have to return it as string
     console.log('user', userName);
     console.log(typeof userName);
     // const fetchVenues = async (userName = 'angZar') => {

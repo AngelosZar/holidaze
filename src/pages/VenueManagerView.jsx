@@ -14,7 +14,7 @@ function VenueManagerView() {
       <UsersVenueSection />
       <CurrentBookingsSection />
       {/* <EditVenueDropDown /> */}
-      {/* <CreateAVenue /> */}
+      <CreateAVenue />
       {/* <ManageMyAccount /> */}
     </Layout>
   );

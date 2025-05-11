@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import createVenueStore from '../../stores/createVenueStore';
 import useVenueStore from '../../stores/venuesStore';
+import { set } from 'date-fns';
 
 export default function BasicInfoForForm() {
   const { updateVenueData } = createVenueStore();
@@ -59,11 +60,31 @@ function AddMediaSection() {
   const [isUrlValid, setIsUrlValid] = useState(false);
 
   // const regex=
+
+  const handleAddUrl = e => {
+    const url = e.target.value;
+    setMediaUrl(url);
+  };
+  const handleAddAlt = e => {
+    setMediaAlt(e.target.value);
+  };
   const handleAddMedia = e => {
     e.preventDefault();
     console.log('click');
     console.log(e.target.value);
     // handle if no media url or media alt
+    if (!mediaUrl || !mediaAlt) {
+      setError('Please add media url and alt text');
+      return;
+    }
+    if (!mediaUrl) setError('Please add media url');
+    if (!mediaAlt) setError('Please add media Alternative text');
+    const trimmedUrl = mediaUrl.trim();
+    const trimmedAlt = mediaAlt.trim();
+    if (!trimmedUrl) {
+      setError('Please enter a vali url');
+      return;
+    }
     // trim and check if mediaUrl is a valid image url regex ?
     // display error if not valid
     // else
@@ -71,6 +92,15 @@ function AddMediaSection() {
     // setMediaUrl('');
     // setMediaAlt('');
     //  reset errorand  reset media
+    addMedia({
+      url: trimmedUrl,
+      alt: trimmedAlt,
+    });
+    // reset media
+    setMediaUrl('');
+    setMediaAlt('');
+    setError(null);
+    setIsUrlValid(false);
   };
 
   return (
@@ -82,8 +112,14 @@ function AddMediaSection() {
           <input
             type="text"
             className="w-full p-2 border border-gray-300 rounded-md"
+            // validate if url is valid image ur  add same on alt ? but alt not needed?
+            // className={`w-full p-2 border rounded-md ${
+            //   error ? 'border-red-500' : ''
+            // }`}
             placeholder="Enter valid image url"
-            onChange={e => handleAddMedia(e)}
+            // onChange={e => handleAddMedia(e)}
+            value={mediaUrl}
+            onChange={e => handleAddUrl(e)}
           />
         </div>
         <div>
@@ -92,9 +128,14 @@ function AddMediaSection() {
             type="text"
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="Enter description for image"
-            onChange={e => handleAddMedia(e)}
+            // onChange={e => handleAddMedia(e)}
+            value={mediaAlt}
+            onChange={e => handleAddAlt(e)}
           ></input>
         </div>
+        <button className="btn-primary" type="button" onClick={handleAddMedia}>
+          Add media
+        </button>
       </div>
     </>
   );
