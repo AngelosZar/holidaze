@@ -33,7 +33,7 @@ export default function BasicInfoForForm() {
           min="0"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Price per night"
-          onChange={e => updateVenueData({ price: e.target.value })}
+          onChange={e => updateVenueData({ price: Number(e.target.value) })}
         />
       </div>
       <div>
@@ -43,7 +43,7 @@ export default function BasicInfoForForm() {
           min="1"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Price per night"
-          onChange={e => updateVenueData({ maxGuests: e.target.value })}
+          onChange={e => updateVenueData({ maxGuests: Number(e.target.value) })}
         />
       </div>
       <AddMediaSection />

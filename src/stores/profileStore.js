@@ -134,10 +134,7 @@ const useProfileStore = create(
       try {
         const res = await fetch(`PUT_USER_URL${name}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            ...headers.headers,
-          },
+          headers,
           body: JSON.stringify(userInput),
           // body: JSON.stringify({
           //   bio: 'New bio',
@@ -168,10 +165,7 @@ const useProfileStore = create(
       try {
         const res = await fetch(`${PUT_USER_URL}${name}${MEDIA_ENDPOINT}`, {
           method: 'PUT',
-          headers: {
-            'Content-Type': 'application/json',
-            ...headers.headers,
-          },
+          headers,
           body: JSON.stringify(media),
         });
         const { data } = await res.json();
@@ -195,10 +189,7 @@ const useProfileStore = create(
       try {
         const res = await fetch(`${GET_USER_URL}${name}${VENUES_ENDPOINT}`, {
           method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            ...headers.headers,
-          },
+          headers,
         });
         const data = await res.json();
         console.log('data', data);
@@ -226,10 +217,7 @@ const useProfileStore = create(
           `${GET_USER_URL}${userName}${BOOKINGS_ENDPOINT}`,
           {
             method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              ...headers.headers,
-            },
+            headers,
           }
         );
         const data = await res.json();

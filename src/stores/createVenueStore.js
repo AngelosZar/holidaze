@@ -2,14 +2,6 @@ import { create } from 'zustand';
 import useVenueStore from './venuesStore';
 
 const createVenueStore = create((set, get) => ({
-  // const { postVenue } = useVenueStore();
-  //
-  //   "media": [
-  //     {
-  //       "url": "https://url.com/image.jpg",
-  //       "alt": "string"
-  //     }
-  //   ],
   venueData: {
     name: '', //'string',
     description: '', //'string',
@@ -94,7 +86,9 @@ const createVenueStore = create((set, get) => ({
     console.log('venueData', venueData);
     //      postVenue: async (venueData, owner = true, bookings = true) => {
     try {
-      await postVenue(venueData, true, true);
+      const data = await postVenue(venueData, true, true);
+      console.log('data', data);
+      return data;
     } catch (error) {
       console.error('Error:', error);
       throw error;

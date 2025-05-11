@@ -89,7 +89,8 @@ const useVenueStore = create(
           }
         );
         const data = await res.json();
-
+        console.log('data', data);
+        console.log('res', res);
         returnErrors(
           res,
           data,

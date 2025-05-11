@@ -5,17 +5,32 @@ import CurrentBookingsSection from '../components/onManagerView/CurrentBookingsS
 import { EditVenueDropDown } from '../components/onManagerView/EditVenueDropDown';
 import ManageMyAccount from '../components/onManagerView/ManageMyAccount';
 import CreateAVenue from '../components/onManagerView/CreateAVenue';
+import ManagersUpcomingBooking from '../components/onManagerView/ManagersUpcomingBooking';
 
 function VenueManagerView() {
   return (
     <Layout>
       <UserOnHeroSection />
-      {/* <CurrentBookingsSection /> */}
+      <UsersVenueSection />
+      <CurrentBookingsSection />
       {/* <EditVenueDropDown /> */}
       <CreateAVenue />
-      {/* <ManageMyAccount /> */}
+      {/* <ManageMyAccount />s */}
     </Layout>
   );
 }
 
 export default VenueManagerView;
+
+function UsersVenueSection() {
+  return (
+    <section className="w-full mt-12 mb-12">
+      <div className="grid grid-cols-1 mt-14 gap-4 ">
+        {/* Managers venue published */}
+        {/* <ManagersUpcomingBooking />
+        <ManagersUpcomingBooking />
+        <ManagersUpcomingBooking /> */}
+      </div>
+    </section>
+  );
+}
