@@ -14,8 +14,6 @@ function UsersVenueSection() {
   useEffect(() => {
     const user = returnUser();
     const userName = user.name;
-    console.log('user', userName);
-    console.log(typeof userName);
 
     const fetchVenues = async () => {
       setIsLoading(true);
@@ -75,9 +73,9 @@ function UsersVenueSection() {
       {isLoading && <p className="text-center">Loading...</p>}
       {error === 'No venues' && (
         <div className="grid grid-cols-1 mt-14 gap-4">
-          <p className="text-center text-gray-500">
+          <h4 className="text-center text-gray-500">
             You have no venues to show
-          </p>
+          </h4>
         </div>
       )}
       {error && <p className="text-center text-primary60 mb-8">{error}</p>}
