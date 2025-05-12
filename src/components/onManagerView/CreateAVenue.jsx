@@ -10,8 +10,13 @@ function CreateAVenue() {
   async function handleSubmitVenueData(e) {
     e.preventDefault();
     console.log('handleSubmitVenueData');
-    submitVenueData();
-    reset();
+    try {
+      await submitVenueData();
+      console.log('submitVenueData');
+      reset();
+    } catch (error) {
+      console.error('Error submitting venue data:', error);
+    }
     // reset is not working
     // img is not uploaded
   }

@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import createVenueStore from '../../stores/createVenueStore';
-import useVenueStore from '../../stores/venuesStore';
-import { set } from 'date-fns';
 
 export default function BasicInfoForForm() {
   const { updateVenueData } = createVenueStore();
+  const venueData = createVenueStore(state => state.venueData);
+
+  const handleInputChange = (field, value) => {
+    updateVenueData({ [field]: value });
+  };
 
   return (
     <div className="flex flex-col gap-4 mt-8 max-w-sm">
@@ -15,7 +18,8 @@ export default function BasicInfoForForm() {
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter label"
-          onChange={e => updateVenueData({ name: e.target.value })}
+          value={venueData.name || ''}
+          onChange={e => handleInputChange('name', e.target.value)}
         />
       </div>
       <div>
@@ -23,7 +27,10 @@ export default function BasicInfoForForm() {
         <textarea
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter description"
-          onChange={e => updateVenueData({ description: e.target.value })}
+          value={venueData.description || ''}
+          onChange={e => handleInputChange('description', e.target.value)}
+          maxLength={500}
+          rows={4}
         ></textarea>
       </div>
 
@@ -34,17 +41,18 @@ export default function BasicInfoForForm() {
           min="0"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Price per night"
-          onChange={e => updateVenueData({ price: Number(e.target.value) })}
+          value={venueData.price || ''}
+          onChange={e => handleInputChange('price', Number(e.target.value))}
         />
       </div>
       <div>
         <label htmlFor="maxGuests">Maximum number of guests</label>
         <input
           type="number"
-          min="1"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Price per night"
-          onChange={e => updateVenueData({ maxGuests: Number(e.target.value) })}
+          value={venueData.maxGuests || '6'}
+          onChange={e => handleInputChange('maxGuests', Number(e.target.value))}
         />
       </div>
       <AddMediaSection />
@@ -76,6 +84,7 @@ function AddMediaSection() {
     } else {
       setError(null);
       setIsUrlValid(true);
+      setMediaUrl(url);
     }
   };
 
@@ -85,30 +94,31 @@ function AddMediaSection() {
 
   const handleAddMedia = e => {
     e.preventDefault();
-    console.log('click');
-    console.log(e.target.value);
-    // handle if no media url or media alt
-    if (!mediaUrl || !mediaAlt) {
-      setError('Please add media url and alt text');
-      return;
-    }
     if (!mediaUrl) setError('Please add media url');
-    if (!mediaAlt) setError('Please add media Alternative text');
+    // should the url be needed to post venue \?
     const trimmedUrl = mediaUrl.trim();
     const trimmedAlt = mediaAlt.trim();
     if (!trimmedUrl) {
       setError('Please enter a valid url');
       return;
     }
-    addMedia({
-      url: trimmedUrl,
-      alt: trimmedAlt,
-    });
-    // reset media
-    setMediaUrl('');
-    setMediaAlt('');
-    setError(null);
-    setIsUrlValid(false);
+    try {
+      if (isUrlValid) {
+        addMedia({
+          url: trimmedUrl,
+          alt: trimmedAlt,
+        });
+        setMediaUrl('');
+        setMediaAlt('');
+        setError(null);
+        setIsUrlValid(false);
+      } else {
+        setError('Please enter a valid url');
+      }
+    } catch (error) {
+      console.log(error);
+      setError(error || 'Failed to add media');
+    }
   };
 
   return (
@@ -120,15 +130,13 @@ function AddMediaSection() {
           <input
             type="text"
             className="w-full p-2 border border-gray-300 rounded-md"
-            // validate if url is valid image ur  add same on alt ? but alt not needed?
-            // className={`w-full p-2 border rounded-md ${
-            //   error ? 'border-red-500' : ''
-            // }`}
             placeholder="Enter valid image url"
-            // onChange={e => handleAddMedia(e)}
-            value={mediaUrl}
+            value={mediaUrl || ''}
             onChange={e => handleAddUrl(e)}
           />
+          {error === 'Please enter a valid url' && (
+            <p className="text-red-500">{error}</p>
+          )}
         </div>
         <div>
           <label htmlFor="Description">Description</label>
@@ -136,8 +144,7 @@ function AddMediaSection() {
             type="text"
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="Enter description for image"
-            // onChange={e => handleAddMedia(e)}
-            value={mediaAlt}
+            value={mediaAlt || ''}
             onChange={e => handleAddAlt(e)}
           ></input>
         </div>
@@ -148,4 +155,3 @@ function AddMediaSection() {
     </>
   );
 }
-// still not clearing input fields on submit

@@ -34,6 +34,7 @@ const createVenueStore = create((set, get) => ({
     }));
     console.log('newMedia', newMedia);
   },
+  // if time
   //   removeMedia:
   //   updateMedia:
   updateVenueData: newData => {

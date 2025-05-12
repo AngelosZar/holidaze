@@ -2,6 +2,12 @@ import createVenueStore from '../../stores/createVenueStore';
 
 export default function SetLocationInformation() {
   const { updateLocationData } = createVenueStore();
+  const location = createVenueStore(state => state.venueData.location);
+
+  const handleLocationChange = (field, value) => {
+    updateLocationData({ [field]: value });
+  };
+
   return (
     <div className="flex flex-col gap-4 mt-8 max-w-sm">
       <h6>Location</h6>
@@ -11,7 +17,8 @@ export default function SetLocationInformation() {
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter Address"
-          onChange={e => updateLocationData({ address: e.target.value })}
+          value={location?.address || ''}
+          onChange={e => handleLocationChange('address', e.target.value)}
         />
       </div>
       <div>
@@ -20,17 +27,18 @@ export default function SetLocationInformation() {
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter city"
-          onChange={e => updateLocationData({ city: e.target.value })}
+          value={location?.city || ''}
+          onChange={e => handleLocationChange('city', e.target.value)}
         />
       </div>
       <div>
         <label htmlFor="zip-code">Zip Code</label>
         <input
-          type="text"
+          type="number"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter Zip code"
-          onChange={e => updateLocationData({ zip: e.target.value })}
-          // maybe turn this into a number
+          value={location?.zip || ''}
+          onChange={e => handleLocationChange('zip', e.target.value)}
         />
       </div>
       <div>
@@ -39,7 +47,8 @@ export default function SetLocationInformation() {
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter country"
-          onChange={e => updateLocationData({ country: e.target.value })}
+          value={location?.country || ''}
+          onChange={e => handleLocationChange('country', e.target.value)}
         />
       </div>
       <div>
@@ -48,27 +57,28 @@ export default function SetLocationInformation() {
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter continent"
-          onChange={e => updateLocationData({ continent: e.target.value })}
+          value={location?.continent || ''}
+          onChange={e => handleLocationChange('continent', e.target.value)}
         />
       </div>
       <div>
         <label htmlFor="longitude">longitude</label>
         <input
-          type="text"
+          type="number"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter longitude"
+          value={location?.lng || ''}
           onChange={e => updateLocationData({ lng: e.target.value })}
-          // maybe turn this into a number
         />
       </div>
       <div>
         <label htmlFor="latitude">latitude</label>
         <input
-          type="text"
+          type="number"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter latitude"
-          onChange={e => updateLocationData({ lat: e.target.value })}
-          // maybe turn this into a number
+          value={location?.lat || ''}
+          onChange={e => updateLocationData({ lat: e.target.value })} //
         />
       </div>
     </div>
