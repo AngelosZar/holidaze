@@ -76,7 +76,29 @@ const createVenueStore = create((set, get) => ({
   },
   reset: () =>
     set({
-      venueData: {},
+      venueData: {
+        name: '', //'string',
+        description: '', //'string',
+        media: [], //['string'],
+        price: 0,
+        maxGuests: 6, //100,
+        rating: 5,
+        meta: {
+          wifi: true,
+          parking: true,
+          breakfast: true,
+          pets: true,
+        },
+        location: {
+          address: '',
+          city: '',
+          zip: '',
+          country: '',
+          continent: '',
+          lat: 0,
+          lng: 0,
+        },
+      },
     }),
 
   // submit to api event handler ?

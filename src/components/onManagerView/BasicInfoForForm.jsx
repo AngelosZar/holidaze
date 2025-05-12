@@ -59,15 +59,30 @@ function AddMediaSection() {
   const [error, setError] = useState(null);
   const [isUrlValid, setIsUrlValid] = useState(false);
 
-  // const regex=
+  const validateUrl = url => {
+    const regex = /^https:\/\/[\w\-\.]+\/.*[\w\-]+$/;
+    return regex.test(url);
+  };
 
   const handleAddUrl = e => {
     const url = e.target.value;
     setMediaUrl(url);
+    if (url.trim() === '') {
+      setError(null);
+      setIsUrlValid(false);
+    } else if (!validateUrl(url)) {
+      setError('Please enter a valid url link)');
+      setIsUrlValid(false);
+    } else {
+      setError(null);
+      setIsUrlValid(true);
+    }
   };
+
   const handleAddAlt = e => {
     setMediaAlt(e.target.value);
   };
+
   const handleAddMedia = e => {
     e.preventDefault();
     console.log('click');
@@ -82,16 +97,9 @@ function AddMediaSection() {
     const trimmedUrl = mediaUrl.trim();
     const trimmedAlt = mediaAlt.trim();
     if (!trimmedUrl) {
-      setError('Please enter a vali url');
+      setError('Please enter a valid url');
       return;
     }
-    // trim and check if mediaUrl is a valid image url regex ?
-    // display error if not valid
-    // else
-    // addMedia({ url: mediaUrl, alt: mediaAlt });
-    // setMediaUrl('');
-    // setMediaAlt('');
-    //  reset errorand  reset media
     addMedia({
       url: trimmedUrl,
       alt: trimmedAlt,
@@ -140,3 +148,4 @@ function AddMediaSection() {
     </>
   );
 }
+// still not clearing input fields on submit

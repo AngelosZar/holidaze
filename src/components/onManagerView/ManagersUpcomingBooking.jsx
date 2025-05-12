@@ -10,8 +10,8 @@ function ManagersUpcomingBooking({ venue, loading, error }) {
     <div className="grid grid-cols-2 gap-4 p-4 bg-white shadow-lg rounded-lg max-w-md">
       <div>
         <img
-          src={venue?.media?.url || 'https://via.placeholder.com/150'}
-          alt={venue?.media?.url || ' Image'}
+          src={venue?.media?.[0]?.url || 'https://via.placeholder.com/150'}
+          alt={venue?.name || 'Venue Image'}
           className="w-full h-48 object-cover rounded-t-xl"
           style={{ aspectRatio: '1/1' }}
           loading="lazy"
@@ -24,7 +24,7 @@ function ManagersUpcomingBooking({ venue, loading, error }) {
           <div>
             <p className="font-semibold">{venue?.name}</p>
             <p className="font-semibold">{venue?.description}</p>
-            <p>{venue?._count.bookings}</p>
+            <p>{venue?._count?.bookings}</p>
           </div>
           <div>
             <button
