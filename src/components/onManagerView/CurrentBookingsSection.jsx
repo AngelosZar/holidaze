@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import ManagersUpcomingBooking from '../../components/onManagerView/ManagersUpcomingBooking';
 import useProfileStore from '../../stores/profileStore';
 import returnUser from '../utilities/returnUser';
-
+import venuesStore from '../../stores/venuesStore';
 function CurrentBookingsSection() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const { getProfileBookings } = useProfileStore();
   const [venues, setVenues] = useState([]);
   const [numberOfVenues, setNumberOfVenues] = useState(0);
+
   useEffect(() => {
     const user = returnUser();
     const userName = user.name;
@@ -41,6 +42,7 @@ function CurrentBookingsSection() {
       setError(null);
     };
   }, [getProfileBookings, numberOfVenues]);
+
   return (
     <>
       {isLoading && <p>Loading...</p>}
@@ -54,12 +56,12 @@ function CurrentBookingsSection() {
       {error && <p>{error}</p>}
       {/* if array of object is empty return message that you have no venues */}
       {!isLoading && !error && (
-        <section className="w-full  mb-12">
-          <div className="grid grid-cols-1  gap-4 ">
+        <section className="w-full mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
             {venues.length > 0 && (
-              <p className="text-center text-primary60  mb-4">
+              <h5 className="text-center text-primary60  mb-4">
                 You have {venues.length} venues.
-              </p>
+              </h5>
             )}
             {venues.map(venue => (
               <ManagersUpcomingBooking

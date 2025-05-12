@@ -1,22 +1,12 @@
-import venuesStore from '../../stores/venuesStore';
-
-function ManagersUpcomingBooking({ venue, loading, error }) {
+function ManagersUpcomingBooking({
+  venue,
+  handleEditVenue,
+  handleRemoveVenue,
+}) {
   // console.log('venue:', venue);
-  const { deleteVenue } = venuesStore();
-  const handleEditVenue = () => {
-    console.log('Edit venue');
-  };
-  const handleRemoveVenue = async () => {
-    console.log('Remove venue');
-    await deleteVenue(venue.id);
-    console.log('Venue removed');
-    // pop up message are you sure wou want to delete this venue ?
-    // then confirm and delete the venue
 
-    // then refresh and show a message that the venue was removed
-  };
   return (
-    <div className="grid grid-cols-2 gap-4 p-4 bg-white shadow-lg rounded-lg max-w-md">
+    <div className="p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto w-full">
       <div>
         <img
           src={venue?.media?.[0]?.url || 'https://via.placeholder.com/150'}
@@ -32,19 +22,20 @@ function ManagersUpcomingBooking({ venue, loading, error }) {
         <div className="mt-1 text-start flex flex-col justify-between w-full h-full">
           <div>
             <p className="font-semibold">{venue?.name}</p>
-            <p className="font-semibold">{venue?.description}</p>
+            {/* <p className="font-semibold">{venue?.description}</p> */}
+            <p className="font-semibold">{venue?.price}</p>
             <p>{venue?._count?.bookings}</p>
           </div>
-          <div>
+          <div className="flex flex-row gap-4 mt-4 text-start">
             <button
               className="text-primary hover:text-primary80"
-              onClick={handleEditVenue}
+              onClick={() => handleEditVenue(venue.id)}
             >
               Edit venue
             </button>
             <button
-              className="text-red-500 hover:text-red-700"
-              onClick={handleRemoveVenue}
+              className="text-red-500 hover:text-red-700 rounded-lg px-2 py-1"
+              onClick={() => handleRemoveVenue(venue.id)}
             >
               Remove Venue
             </button>
