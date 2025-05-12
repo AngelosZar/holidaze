@@ -2,8 +2,7 @@ import BasicInfoForForm from './BasicInfoForForm';
 import SetLocationInformation from './SetLocationInformation';
 import SetAccommodationIncludes from './SetAccommodationIncludes';
 import createVenueStore from '../../stores/createVenueStore';
-import { useEffect } from 'react';
-// import { useState } from 'react';
+
 function CreateAVenue() {
   const { submitVenueData, reset } = createVenueStore();
 
@@ -17,10 +16,8 @@ function CreateAVenue() {
     } catch (error) {
       console.error('Error submitting venue data:', error);
     }
-    // reset is not working
-    // img is not uploaded
   }
-  // useEffect(() => {});
+
   return (
     <section className="w-full my-12 mx-8">
       <div className="py-12 border border-gray-200">

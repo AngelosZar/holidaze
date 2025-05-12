@@ -1,14 +1,13 @@
 import { useEffect, useState } from 'react';
-import ManagersUpcomingBooking from '../../components/onManagerView/ManagersUpcomingBooking';
-import useProfileStore from '../../stores/profileStore';
 import returnUser from '../utilities/returnUser';
+import useProfileStore from '../../stores/profileStore';
+import ManagersUpcomingBooking from './ManagersUpcomingBooking';
 
-function CurrentBookingsSection() {
+function UsersVenueSection() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { getProfileBookings } = useProfileStore();
+  const { getProfileVenues } = useProfileStore();
   const [venues, setVenues] = useState([]);
-  const [numberOfVenues, setNumberOfVenues] = useState(0);
   useEffect(() => {
     const user = returnUser();
     const userName = user.name;
@@ -19,14 +18,13 @@ function CurrentBookingsSection() {
       setIsLoading(true);
       try {
         // const venues = await getProfileVenues('angzar49');
-        const venues = await getProfileBookings(userName);
+        const venues = await getProfileVenues(userName);
         console.log('venues:', venues.data);
         if (venues.data.length === 0) {
           setError('No venues');
         }
         // Error: {message: 'No profile with this name'}
         setVenues(venues.data);
-        setNumberOfVenues(venues.data.length);
       } catch (err) {
         setError('Failed to fetch venues');
         console.error('Error fetching venues:', err);
@@ -34,13 +32,15 @@ function CurrentBookingsSection() {
         setIsLoading(false);
       }
     };
+
     fetchVenues();
     // CurrentBookingsSection.jsx?t=1746899500547:37 Error fetching venues: Error: No profile with this name
     return () => {
       setIsLoading(false);
       setError(null);
     };
-  }, [getProfileBookings, numberOfVenues]);
+  }, [getProfileVenues]);
+
   return (
     <>
       {isLoading && <p>Loading...</p>}
@@ -57,7 +57,7 @@ function CurrentBookingsSection() {
         <section className="w-full  mb-12">
           <div className="grid grid-cols-1  gap-4 ">
             {venues.length > 0 && (
-              <p className="text-center text-primary60  mb-4">
+              <p className="text-center text-primary60  mb-8 ">
                 You have {venues.length} venues.
               </p>
             )}
@@ -75,5 +75,4 @@ function CurrentBookingsSection() {
     </>
   );
 }
-
-export default CurrentBookingsSection;
+export default UsersVenueSection;

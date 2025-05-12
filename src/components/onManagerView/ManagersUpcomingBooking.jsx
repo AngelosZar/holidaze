@@ -1,10 +1,19 @@
+import venuesStore from '../../stores/venuesStore';
+
 function ManagersUpcomingBooking({ venue, loading, error }) {
   // console.log('venue:', venue);
+  const { deleteVenue } = venuesStore();
   const handleEditVenue = () => {
     console.log('Edit venue');
   };
-  const handleRemoveVenue = () => {
+  const handleRemoveVenue = async () => {
     console.log('Remove venue');
+    await deleteVenue(venue.id);
+    console.log('Venue removed');
+    // pop up message are you sure wou want to delete this venue ?
+    // then confirm and delete the venue
+
+    // then refresh and show a message that the venue was removed
   };
   return (
     <div className="grid grid-cols-2 gap-4 p-4 bg-white shadow-lg rounded-lg max-w-md">

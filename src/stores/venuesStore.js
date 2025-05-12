@@ -129,20 +129,19 @@ const useVenueStore = create(
     deleteVenue: async id => {
       set({ isLoading: true });
       try {
-        const res = await fetch(`${VENUES_URL}/${id}`, {
+        await fetch(`${VENUES_URL}/${id}`, {
           method: 'DELETE',
           headers: returnHeaders(),
         });
-        const data = await res.json();
-        returnErrors(
-          res,
-          data,
-          set => msg => set({ error: msg }),
-          val => set({ isLoading: val })
-        );
+        // const data = await res.json();
+        // returnErrors(
+        //   res,
+        //   data,
+        //   set => msg => set({ error: msg }),
+        //   val => set({ isLoading: val })
+        // );
 
         set({ isLoading: false });
-        return data;
       } catch (error) {
         console.log('error:', error);
         set({ error: error });
