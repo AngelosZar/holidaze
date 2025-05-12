@@ -1,10 +1,4 @@
-function ManagersUpcomingBooking({
-  venue,
-  handleEditVenue,
-  handleRemoveVenue,
-}) {
-  // console.log('venue:', venue);
-
+function ManagersVenue({ venue, handleEditVenue, handleRemoveVenue }) {
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto w-full">
       <div>
@@ -31,13 +25,13 @@ function ManagersUpcomingBooking({
               className="text-primary hover:text-primary80"
               onClick={() => handleEditVenue(venue.id)}
             >
-              Edit venue / edit dates
+              Edit venue
             </button>
             <button
               className="text-red-500 hover:text-red-700 rounded-lg px-2 py-1"
               onClick={() => handleRemoveVenue(venue.id)}
             >
-              Remove Venue/ cancel booking
+              Remove Venue
             </button>
           </div>
         </div>
@@ -45,4 +39,5 @@ function ManagersUpcomingBooking({
     </div>
   );
 }
-export default ManagersUpcomingBooking;
+
+export default ManagersVenue;

@@ -7,15 +7,15 @@ import ManageMyAccount from '../components/onManagerView/ManageMyAccount';
 import CreateAVenue from '../components/onManagerView/CreateAVenue';
 import ManagersUpcomingBooking from '../components/onManagerView/ManagersUpcomingBooking';
 import UsersVenueSection from '../components/onManagerView/UsersVenueSection';
-import { useState } from 'react';
+
 function VenueManagerView() {
   // const [isLoading, setIsLoading] = useState(false);
   // const [error, setError] = useState(null);
   return (
     <Layout>
       <UserOnHeroSection />
-      <UsersVenueSection />
-      {/* <CurrentBookingsSection /> */}
+      {/* <UsersVenueSection /> */}
+      <CurrentBookingsSection />
       {/* <EditVenueDropDown /> */}
       {/* <CreateAVenue /> */}
       {/* <ManageMyAccount /> */}

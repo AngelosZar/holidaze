@@ -3,6 +3,7 @@ import returnUser from '../utilities/returnUser';
 import useProfileStore from '../../stores/profileStore';
 import ManagersUpcomingBooking from './ManagersUpcomingBooking';
 import venuesStore from '../../stores/venuesStore';
+import ManagersVenue from './ManagersVenue';
 
 function UsersVenueSection() {
   const [isLoading, setIsLoading] = useState(false);
@@ -82,7 +83,7 @@ function UsersVenueSection() {
       {error && <p className="text-center text-primary60 mb-8">{error}</p>}
 
       {!isLoading && !error && (
-        <section className="w-full mb-12 flex flex-col items-center">
+        <section className="w-full mb-22 flex flex-col items-center">
           {venues.length > 0 && (
             <h6 className="text-center text-primary80 mb-8">
               You own {venues.length} venues.
@@ -90,7 +91,7 @@ function UsersVenueSection() {
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 mx-auto w-full">
             {venues.map(venue => (
-              <ManagersUpcomingBooking
+              <ManagersVenue
                 key={venue.id}
                 venue={venue}
                 loading={isLoading}

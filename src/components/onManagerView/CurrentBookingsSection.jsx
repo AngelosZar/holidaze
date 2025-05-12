@@ -3,10 +3,11 @@ import ManagersUpcomingBooking from '../../components/onManagerView/ManagersUpco
 import useProfileStore from '../../stores/profileStore';
 import returnUser from '../utilities/returnUser';
 import venuesStore from '../../stores/venuesStore';
+import ManagersVenue from './ManagersVenue';
 function CurrentBookingsSection() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { getProfileBookings } = useProfileStore();
+  const { getProfileBookings, getProfileVenues } = useProfileStore();
   const [venues, setVenues] = useState([]);
   const [numberOfVenues, setNumberOfVenues] = useState(0);
 
@@ -20,7 +21,7 @@ function CurrentBookingsSection() {
       setIsLoading(true);
       try {
         // const venues = await getProfileVenues('angzar49');
-        const venues = await getProfileBookings(userName);
+        const venues = await getProfileVenues(userName);
         console.log('venues:', venues.data);
         if (venues.data.length === 0) {
           setError('No venues');
@@ -41,7 +42,8 @@ function CurrentBookingsSection() {
       setIsLoading(false);
       setError(null);
     };
-  }, [getProfileBookings, numberOfVenues]);
+    // delete
+  }, [getProfileBookings, numberOfVenues, getProfileVenues]);
 
   return (
     <>
@@ -56,13 +58,13 @@ function CurrentBookingsSection() {
       {error && <p>{error}</p>}
       {/* if array of object is empty return message that you have no venues */}
       {!isLoading && !error && (
-        <section className="w-full mb-12">
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
-            {venues.length > 0 && (
-              <h5 className="text-center text-primary60  mb-4">
-                You have {venues.length} venues.
-              </h5>
-            )}
+        <section className="w-full mb-22 flex flex-col items-center">
+          {venues.length > 0 && (
+            <h5 className="text-center text-primary60  mb-4">
+              You have {venues.length} upcoming stays.
+            </h5>
+          )}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 mx-auto w-full">
             {venues.map(venue => (
               <ManagersUpcomingBooking
                 key={venue.id}
