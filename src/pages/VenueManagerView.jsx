@@ -8,25 +8,37 @@ import CreateAVenue from '../components/onManagerView/CreateAVenue';
 import ManagersUpcomingBooking from '../components/onManagerView/ManagersUpcomingBooking';
 import UsersVenueSection from '../components/onManagerView/UsersVenueSection';
 import { useState } from 'react';
-
+import {
+  TabComponent,
+  TabContent,
+} from '.././components/onManagerView/tabComponent';
 function VenueManagerView() {
-  // const [isLoading, setIsLoading] = useState(false);
-  // const [error, setError] = useState(null);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [activeTab, setActiveTab] = useState('venues');
   // tab component
-  // const [activeTab, setActiveTab] = useState('venues');
-  // const tabs = {
-  //   venues: { label: 'My Venues', component: UsersVenueSection },
-  //   bookings: { label: 'My Bookings', component: CurrentBookingsSection },
-  //   create: { label: 'Create a Venue', component: CreateAVenue },
-  //   edit: { label: 'Edit a Venue', component: EditVenueDropDown },
-  //   account: { label: 'Manage my Account', component: ManageMyAccount },
-  // };
+
+  const tabs = {
+    venues: { label: 'My Venues', component: UsersVenueSection },
+    bookings: { label: 'My Bookings', component: CurrentBookingsSection },
+    create: { label: 'Create a Venue', component: CreateAVenue },
+    edit: { label: 'Edit a Venue', component: EditVenueDropDown },
+    account: { label: 'Manage my Account', component: ManageMyAccount },
+  };
 
   return (
     <Layout>
       <UserOnHeroSection />
-      <UsersVenueSection />
+      <>
+        <TabComponent
+          tabs={tabs}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+        />
+        <TabContent tabs={tabs} activeTab={activeTab} />
+      </>
+
+      {/* <UsersVenueSection /> */}
       {/* <CurrentBookingsSection /> */}
       {/* <EditVenueDropDown /> */}
       {/* <CreateAVenue /> */}
