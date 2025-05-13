@@ -10,7 +10,8 @@ function UsersVenueSection() {
   const [error, setError] = useState(null);
   const { getProfileVenues } = useProfileStore();
   const [venues, setVenues] = useState([]);
-  const { deleteVenue } = venuesStore();
+  const { deleteVenue, setSingleVenue } = venuesStore();
+
   useEffect(() => {
     const user = returnUser();
     const userName = user.name;
@@ -41,8 +42,11 @@ function UsersVenueSection() {
     };
   }, [getProfileVenues]);
 
-  const handleEditVenue = () => {
+  const handleEditVenue = id => {
     console.log('Edit venue');
+    setSingleVenue(id);
+    console.log('singleVenue', id);
+    // reroute to edit page /component with react router
   };
 
   const handleRemoveVenue = async id => {
