@@ -6,7 +6,7 @@ import { EditVenueDropDown } from './EditVenueDropDown';
 import ManageMyAccount from './ManageMyAccount';
 import { tableContainerClasses } from '@mui/material';
 
-export function TabComponent({ tabs, activeTab, setActiveTab }) {
+export function TabComponent({ tabs, activeTab, handleTabChange }) {
   //   const [activeTab, setActiveTab] = useState('venues');
 
   //   const tabs = {
@@ -25,7 +25,8 @@ export function TabComponent({ tabs, activeTab, setActiveTab }) {
             // activeTab === key ? 'bg-primary text-white' : 'bg-primary40'
             activeTab === key ? 'bg-primary text-white' : 'bg-gray-200'
           }`}
-          onClick={() => setActiveTab(key)}
+          // onClick={() => setActiveTab(key)}
+          onClick={() => handleTabChange(key)}
         >
           {label}
         </button>

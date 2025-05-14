@@ -4,6 +4,7 @@ import useProfileStore from '../../stores/profileStore';
 import ManagersUpcomingBooking from './ManagersUpcomingBooking';
 import venuesStore from '../../stores/venuesStore';
 import ManagersVenue from './ManagersVenue';
+import { useNavigate } from 'react-router-dom';
 
 function UsersVenueSection() {
   const [isLoading, setIsLoading] = useState(false);
@@ -11,7 +12,7 @@ function UsersVenueSection() {
   const { getProfileVenues } = useProfileStore();
   const [venues, setVenues] = useState([]);
   const { deleteVenue, setSingleVenue } = venuesStore();
-
+  const navigate = useNavigate();
   useEffect(() => {
     const user = returnUser();
     const userName = user.name;
@@ -45,7 +46,8 @@ function UsersVenueSection() {
   const handleEditVenue = id => {
     console.log('Edit venue');
     setSingleVenue(id);
-    console.log('singleVenue', id);
+    // console.log('singleVenue', id);
+    navigate(`/manager/edit/${id}`); // reroute to edit page /component with react router
     // reroute to edit page /component with react router
   };
 

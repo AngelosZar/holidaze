@@ -10,6 +10,11 @@ import useAuthStore from './stores/authStore';
 import RegisterAs from './pages/RegisterAs';
 import { useEffect } from 'react';
 import PageNotFound from './pages/PageNotFound';
+import UsersVenueSection from './components/onManagerView/UsersVenueSection';
+import CurrentBookingsSection from './components/onManagerView/CurrentBookingsSection';
+import CreateAVenue from './components/onManagerView/CreateAVenue';
+import { EditVenueDropDown } from './components/onManagerView/EditVenueDropDown';
+import ManageMyAccount from './components/onManagerView/ManageMyAccount';
 
 //
 function App() {
@@ -33,9 +38,16 @@ function App() {
 
           <Route path="/login" element={<LogInPage />} />
           <Route path="/profile" element={<UserProfileView />} />
-          <Route path="/manager" element={<VenueManagerView />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-          {/* <Route path="*" element={<PageNotFound />} /> */}
+          <Route path="/manager" element={<VenueManagerView />}>
+            <Route path="venues" element={<UsersVenueSection />} />
+            <Route path="bookings" element={<CurrentBookingsSection />} />
+            <Route path="create" element={<CreateAVenue />} />
+            <Route path="edit/:id" element={<EditVenueDropDown />} />
+            <Route path="account" element={<ManageMyAccount />} />
+            <Route index element={<UsersVenueSection />} />
+          </Route>
+          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </BrowserRouter>
     </>

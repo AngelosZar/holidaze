@@ -12,31 +12,64 @@ import {
   TabComponent,
   TabContent,
 } from '.././components/onManagerView/tabComponent';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 function VenueManagerView() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
-  const [activeTab, setActiveTab] = useState('venues');
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [error, setError] = useState(null);
+  // const [activeTab, setActiveTab] = useState('venues');
   // tab component
 
-  const tabs = {
-    venues: { label: 'My Venues', component: UsersVenueSection },
-    bookings: { label: 'My Bookings', component: CurrentBookingsSection },
-    create: { label: 'Create a Venue', component: CreateAVenue },
-    edit: { label: 'Edit a Venue', component: EditVenueDropDown },
-    account: { label: 'Manage my Account', component: ManageMyAccount },
-  };
+  const location = useLocation();
+  const navigate = useNavigate();
+  // const handleTabChange = tab => {
+  //   setActiveTab(tab);
+  //   navigate(`/manager/${tab}`);
+  // };
+  // const currentPath = location.pathname.split('/manager/')[1] || '';
+  const currentPath = location.pathname.split('/manager/')[1] || 'venues';
 
+  console.log('currentPath:', currentPath);
+  const tabs = [
+    { key: 'venues', label: 'My Venues', path: '/manager/venues' },
+    { key: 'bookings', label: 'My Bookings', path: '/manager/bookings' },
+    { key: 'create', label: 'Create a Venue', path: '/manager/create' },
+    // { key: 'edit', label: 'Edit a Venue', path: '/manager/edit' },
+    { key: 'edit/:id', label: 'Edit a Venue', path: '/manager/edit/:id' },
+    {
+      key: 'account',
+      label: 'Manage my Account',
+      path: '/manager/account',
+    },
+  ];
   return (
     <Layout>
       <UserOnHeroSection />
-      <>
+      <TabComponent2 tabs={tabs} currentPath={currentPath} />
+      {/* <>
         <TabComponent
           tabs={tabs}
           activeTab={activeTab}
           setActiveTab={setActiveTab}
+          handleTabChange={handleTabChange}
         />
         <TabContent tabs={tabs} activeTab={activeTab} />
-      </>
+      </> */}
+
+      {/* <div className="flex -col gap-2 mt-2 pb-8 border-b-4 border-primary px-8">
+        {tabs.map(tab => (
+          <button
+            key={tab.key}
+            // <div className="flex gap-2 mt-2 pb-8 border-b-4 border-primary px-8">
+            className={`px-4 py-2 rounded-lg hover:bg-primary20 ${
+              currentPath === tab.key ? 'bg-primary text-white' : 'bg-primary20'
+            }`}
+            onClick={() => navigate(tab.path)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div> */}
+      {/* <Outlet /> */}
 
       {/* <UsersVenueSection /> */}
       {/* <CurrentBookingsSection /> */}
@@ -48,3 +81,25 @@ function VenueManagerView() {
 }
 
 export default VenueManagerView;
+function TabComponent2({ tabs, currentPath }) {
+  const navigate = useNavigate();
+  return (
+    <>
+      <div className="flex -col gap-2 mt-2 pb-8 border-b-4 border-primary px-8">
+        {tabs.map(tab => (
+          <button
+            key={tab.key}
+            // <div className="flex gap-2 mt-2 pb-8 border-b-4 border-primary px-8">
+            className={`px-4 py-2 rounded-lg hover:bg-primary20 ${
+              currentPath === tab.key ? 'bg-primary text-white' : 'bg-primary20'
+            }`}
+            onClick={() => navigate(tab.path)}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
+      <Outlet />
+    </>
+  );
+}
