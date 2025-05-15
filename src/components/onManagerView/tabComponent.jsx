@@ -1,47 +1,28 @@
-import { useState } from 'react';
 import UsersVenueSection from './UsersVenueSection';
 import CurrentBookingsSection from './CurrentBookingsSection';
 import CreateAVenue from './CreateAVenue';
 import { EditVenueDropDown } from './EditVenueDropDown';
 import ManageMyAccount from './ManageMyAccount';
-import { tableContainerClasses } from '@mui/material';
 
-export function TabComponent({ tabs, activeTab, handleTabChange }) {
-  //   const [activeTab, setActiveTab] = useState('venues');
+import { useNavigate } from 'react-router-dom';
 
-  //   const tabs = {
-  //     venues: { label: 'My Venues', component: UsersVenueSection },
-  //     bookings: { label: 'My Bookings', component: CurrentBookingsSection },
-  //     create: { label: 'Create a Venue', component: CreateAVenue },
-  //     edit: { label: 'Edit a Venue', component: EditVenueDropDown },
-  //     account: { label: 'Manage my Account', component: ManageMyAccount },
-  //   };
+export function TabComponent({ currentPath, tabs }) {
+  const navigate = useNavigate();
   return (
-    <div className="flex gap-2 mt-2 pb-8 border-b-4 border-primary px-8">
-      {Object.entries(tabs).map(([key, { label }]) => (
+    <div className="flex -col gap-2 mt-2 pb-8 border-b-4 border-primary px-8">
+      {tabs.map(tab => (
         <button
-          key={key}
-          className={`px-4 py-2 rounded-lg hover:bg-primary20 ${
-            // activeTab === key ? 'bg-primary text-white' : 'bg-primary40'
-            activeTab === key ? 'bg-primary text-white' : 'bg-gray-200'
+          key={tab.key}
+          // <div className="flex gap-2 mt-2 pb-8 border-b-4 border-primary px-8">
+          className={`px-4 py-2 rounded-lg hover:bg-primary60 ${
+            currentPath === tab.key ? 'bg-primary text-white' : 'bg-primary20'
           }`}
-          // onClick={() => setActiveTab(key)}
-          onClick={() => handleTabChange(key)}
+          onClick={() => navigate(tab.path)}
         >
-          {label}
+          {tab.label}
         </button>
       ))}
     </div>
   );
 }
-
-export function TabContent({ tabs, activeTab }) {
-  const ActiveComponent = tabs[activeTab].component;
-  if (!ActiveComponent) return <div>Component not found</div>;
-  // or just return >??
-  return (
-    <div className="px-8">
-      <ActiveComponent />
-    </div>
-  );
-}
+export default TabComponent;
