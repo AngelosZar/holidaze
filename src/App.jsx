@@ -46,8 +46,8 @@ function App() {
             <Route path="account" element={<ManageMyAccount />} />
             <Route index element={<UsersVenueSection />} />
           </Route>
-          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
-          <Route path="*" element={<PageNotFound />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+          {/* <Route path="*" element={<PageNotFound />} /> */}
         </Routes>
       </BrowserRouter>
     </>
