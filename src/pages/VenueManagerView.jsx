@@ -33,9 +33,9 @@ function VenueManagerView() {
       <UserOnHeroSection />
       <TabComponent tabs={tabs} currentPath={currentPath} />
       <Outlet />
-      {/* <UsersVenueSection /> */}
+      <UsersVenueSection />
       {/* <CurrentBookingsSection /> */}
-      {/* <EditVenueDropDown /> */}
+      <EditVenueDropDown />
       {/* <CreateAVenue /> */}
       {/* <ManageMyAccount /> */}
     </Layout>

@@ -14,7 +14,7 @@ const useVenueStore = create(
     setIsLoading: isLoading => set({ isLoading }),
     setError: error => set({ error }),
     setSingleVenue: singleVenue => set({ singleVenue }),
-
+    clearSingleVenue: () => set({ singleVenue: {} }),
     getVenues: async (
       sort = '',
       limit = 6,

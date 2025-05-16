@@ -4,8 +4,13 @@ import SetAccommodationIncludes from './SetAccommodationIncludes';
 import createVenueStore from '../../stores/createVenueStore';
 
 function CreateAVenue() {
-  const { submitVenueData, reset } = createVenueStore();
+  const { submitVenueData, reset, updateVenueData } = createVenueStore();
+  // const { updateVenueData } = createVenueStore();
+  const venueData = createVenueStore(state => state.venueData);
 
+  const handleInputChange = (field, value) => {
+    updateVenueData({ [field]: value });
+  };
   async function handleSubmitVenueData(e) {
     e.preventDefault();
     console.log('handleSubmitVenueData');
@@ -24,7 +29,10 @@ function CreateAVenue() {
         <h3 className="mb-12">Create a venue</h3>
         <form onSubmit={handleSubmitVenueData}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            <BasicInfoForForm />
+            <BasicInfoForForm
+              handleInputChange={handleInputChange}
+              venueData={venueData}
+            />
             <SetLocationInformation />
             <SetAccommodationIncludes />
           </div>
