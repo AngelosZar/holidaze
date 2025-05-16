@@ -3,16 +3,42 @@ import SetLocationInformation from './SetLocationInformation';
 import SetAccommodationIncludes from './SetAccommodationIncludes';
 import updateVenueStore from '../../stores/updateVenueStore';
 import useGetVenueWithId from '../../hooks/useGetVenueWithId';
-import useEffect from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+// const { submitVenueData, reset, updateVenueData, updateLocationData } =
+//     createVenueStore();
+
+//   const venueData = createVenueStore(state => state.venueData);
+
+//   const location = createVenueStore(state => state.venueData.location);
+
+//   const handleLocationChange = (field, value) => {
+//     updateLocationData({ [field]: value });
+//   };
+
+//   const handleInputChange = (field, value) => {
+//     updateVenueData({ [field]: value });
+//   };
 export function EditVenueDropDown() {
   const { id } = useParams();
   const { venue: venueData, isLoading, error } = useGetVenueWithId(id);
-  const { submitVenueData, reset, updateVenueData } = updateVenueStore();
+  const { submitVenueData, reset, updateVenueData, updateLocationData } =
+    updateVenueStore();
   console.log('venueData', venueData);
-
+  const location = updateVenueStore(state => state.venueData.location);
+  // console.log('location', location);
+  // const location = updateVenueStore(venueData => venueData.venueData.location);
+  useEffect(() => {
+    if (venueData && venueData.location) {
+      updateVenueData(venueData);
+      updateVenueData(venueData);
+    }
+  }, [venueData, updateVenueData, updateLocationData]);
   const handleInputChange = (field, value) => {
     updateVenueData({ [field]: value });
+  };
+  const handleLocationChange = (field, value) => {
+    updateLocationData({ [field]: value });
   };
   {
     isLoading && <p>Loading...</p>;
@@ -51,7 +77,10 @@ export function EditVenueDropDown() {
               venueData={venueData}
               handleInputChange={handleInputChange}
             />
-            <SetLocationInformation />
+            <SetLocationInformation
+              location={location}
+              handleLocationChange={handleLocationChange}
+            />
             <SetAccommodationIncludes />
           </div>
           <button className="btn-primary" type="submit">
