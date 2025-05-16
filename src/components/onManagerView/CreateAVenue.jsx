@@ -4,13 +4,21 @@ import SetAccommodationIncludes from './SetAccommodationIncludes';
 import createVenueStore from '../../stores/createVenueStore';
 
 function CreateAVenue() {
-  const { submitVenueData, reset, updateVenueData } = createVenueStore();
-  // const { updateVenueData } = createVenueStore();
+  const { submitVenueData, reset, updateVenueData, updateLocationData } =
+    createVenueStore();
+
   const venueData = createVenueStore(state => state.venueData);
+
+  const location = createVenueStore(state => state.venueData.location);
+
+  const handleLocationChange = (field, value) => {
+    updateLocationData({ [field]: value });
+  };
 
   const handleInputChange = (field, value) => {
     updateVenueData({ [field]: value });
   };
+
   async function handleSubmitVenueData(e) {
     e.preventDefault();
     console.log('handleSubmitVenueData');
@@ -33,7 +41,10 @@ function CreateAVenue() {
               handleInputChange={handleInputChange}
               venueData={venueData}
             />
-            <SetLocationInformation />
+            <SetLocationInformation
+              location={location}
+              handleLocationChange={handleLocationChange}
+            />
             <SetAccommodationIncludes />
           </div>
           <button className="btn-primary" type="submit">

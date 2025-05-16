@@ -1,18 +1,19 @@
 import BasicInfoForForm from './BasicInfoForForm';
 import SetLocationInformation from './SetLocationInformation';
 import SetAccommodationIncludes from './SetAccommodationIncludes';
-import venuesStore from '../../stores/venuesStore';
+import updateVenueStore from '../../stores/updateVenueStore';
 import useGetVenueWithId from '../../hooks/useGetVenueWithId';
 import useEffect from 'react';
 import { useParams } from 'react-router-dom';
 export function EditVenueDropDown() {
-  // const { deleteVenue, setSingleVenue, singleVenue, getVenue } = venuesStore();
-  // console.log('singleVenue', singleVenue);
-  // console.log(typeof singleVenue);
   const { id } = useParams();
-  // console.log('id', id);
-  const { venue, isLoading, error } = useGetVenueWithId(id);
-  // console.log('venue', venue);
+  const { venue: venueData, isLoading, error } = useGetVenueWithId(id);
+  const { submitVenueData, reset, updateVenueData } = updateVenueStore();
+  console.log('venueData', venueData);
+
+  const handleInputChange = (field, value) => {
+    updateVenueData({ [field]: value });
+  };
   {
     isLoading && <p>Loading...</p>;
   }
@@ -20,7 +21,7 @@ export function EditVenueDropDown() {
     error && <p>{error}</p>;
   }
   {
-    !venue && <p>No venue found</p>;
+    !venueData && <p>No venue found</p>;
     // show image or something
   }
 
@@ -30,8 +31,8 @@ export function EditVenueDropDown() {
       <div className="flex flex-col md:flex-row justify-evenly items-center">
         <div className="max-w-sm ">
           <img
-            src={venue?.media?.[0]?.url}
-            alt={venue?.media?.[0]?.alt}
+            src={venueData?.media?.[0]?.url}
+            alt={venueData?.media?.[0]?.alt}
             className="w-full object-cover rounded-xl"
             style={{ aspectRatio: '1/1' }}
             loading="lazy"
@@ -39,17 +40,23 @@ export function EditVenueDropDown() {
             height="auto"
           />
         </div>
-        {/* <div>
+        {/* <div>s
           <h1>calendar</h1>
         </div> */}
       </div>
       <section className="py-12 border border-gray-200">
         <form action="">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {/* <BasicInfoForForm /> */}
+            <BasicInfoForForm
+              venueData={venueData}
+              handleInputChange={handleInputChange}
+            />
             <SetLocationInformation />
             <SetAccommodationIncludes />
           </div>
+          <button className="btn-primary" type="submit">
+            Submit
+          </button>
         </form>
       </section>
     </section>

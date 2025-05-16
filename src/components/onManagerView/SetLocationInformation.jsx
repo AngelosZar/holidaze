@@ -1,12 +1,15 @@
 import createVenueStore from '../../stores/createVenueStore';
 
-export default function SetLocationInformation() {
-  const { updateLocationData } = createVenueStore();
-  const location = createVenueStore(state => state.venueData.location);
+export default function SetLocationInformation({
+  location,
+  handleLocationChange,
+}) {
+  // const { updateLocationData } = createVenueStore();
+  // const location = createVenueStore(state => state.venueData.location);
 
-  const handleLocationChange = (field, value) => {
-    updateLocationData({ [field]: value });
-  };
+  // const handleLocationChange = (field, value) => {
+  //   updateLocationData({ [field]: value });
+  // };
 
   return (
     <div className="flex flex-col gap-4 mt-8 max-w-sm">
