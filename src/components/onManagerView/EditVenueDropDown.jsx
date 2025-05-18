@@ -3,42 +3,67 @@ import SetLocationInformation from './SetLocationInformation';
 import SetAccommodationIncludes from './SetAccommodationIncludes';
 import updateVenueStore from '../../stores/updateVenueStore';
 import useGetVenueWithId from '../../hooks/useGetVenueWithId';
-import { useEffect } from 'react';
+import { use, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-// const { submitVenueData, reset, updateVenueData, updateLocationData } =
-//     createVenueStore();
 
-//   const venueData = createVenueStore(state => state.venueData);
-
-//   const location = createVenueStore(state => state.venueData.location);
-
-//   const handleLocationChange = (field, value) => {
-//     updateLocationData({ [field]: value });
-//   };
-
-//   const handleInputChange = (field, value) => {
-//     updateVenueData({ [field]: value });
-//   };
 export function EditVenueDropDown() {
   const { id } = useParams();
-  const { venue: venueData, isLoading, error } = useGetVenueWithId(id);
-  const { submitVenueData, reset, updateVenueData, updateLocationData } =
-    updateVenueStore();
-  console.log('venueData', venueData);
-  const location = updateVenueStore(state => state.venueData.location);
-  // console.log('location', location);
-  // const location = updateVenueStore(venueData => venueData.venueData.location);
+  const { venue: fetchedVenueData, isLoading, error } = useGetVenueWithId(id);
+  const {
+    submitVenueData,
+    reset,
+    updateVenueData,
+    updateLocationData,
+    setVenueData,
+    toggleMetaValue,
+    venueData,
+  } = updateVenueStore();
+  const [storeActions] = useState(() => ({
+    updateVenueData: updateVenueStore.getState().updateVenueData,
+    updateLocationData: updateVenueStore.getState().updateLocationData,
+    toggleMetaValue: updateVenueStore.getState().toggleMetaValue,
+    submitVenueData: updateVenueStore.getState().submitVenueData,
+  }));
+  const storeVenueData = updateVenueStore(state => state.venueData);
+  console.log('storeVenueData', storeVenueData);
+  // const location = updateVenueStore(state => state.venueData.location);
+
   useEffect(() => {
-    if (venueData && venueData.location) {
-      updateVenueData(venueData);
-      updateVenueData(venueData);
+    if (fetchedVenueData) {
+      setVenueData(fetchedVenueData);
     }
-  }, [venueData, updateVenueData, updateLocationData]);
+  }, [setVenueData, toggleMetaValue, fetchedVenueData]);
+
   const handleInputChange = (field, value) => {
-    updateVenueData({ [field]: value });
+    storeActions.updateVenueData({ [field]: value });
   };
   const handleLocationChange = (field, value) => {
-    updateLocationData({ [field]: value });
+    storeActions.updateLocationData({ [field]: value });
+  };
+  //
+
+  const handleMetaDataChange = field => {
+    storeActions.toggleMetaValue(field);
+    setVenueData({
+      ...storeVenueData,
+      meta: {
+        ...storeVenueData.meta,
+        [field]: !storeVenueData.meta?.[field],
+      },
+    });
+  };
+  //
+  const handleSubmitVenueData = async (e, id, venueData) => {
+    e.preventDefault();
+    // console.log('handleSubmitVenueData');
+    // console.log(id);
+    try {
+      await submitVenueData(id, venueData);
+      // console.log('submitVenueData');
+      reset();
+    } catch (error) {
+      console.error('Error submitting venue data:', error);
+    }
   };
   {
     isLoading && <p>Loading...</p>;
@@ -71,7 +96,7 @@ export function EditVenueDropDown() {
         </div> */}
       </div>
       <section className="py-12 border border-gray-200">
-        <form action="">
+        <form onSubmit={e => handleSubmitVenueData(e, id, venueData)}>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
             <BasicInfoForForm
               venueData={venueData}
@@ -81,7 +106,10 @@ export function EditVenueDropDown() {
               location={location}
               handleLocationChange={handleLocationChange}
             />
-            <SetAccommodationIncludes />
+            <SetAccommodationIncludes
+              handleMetaDataChange={handleMetaDataChange}
+              venueData={venueData}
+            />
           </div>
           <button className="btn-primary" type="submit">
             Submit

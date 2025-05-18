@@ -2,15 +2,6 @@ import { useState } from 'react';
 import createVenueStore from '../../stores/createVenueStore';
 
 export default function BasicInfoForForm({ venueData, handleInputChange }) {
-  console.log('BasicInfoForForm', venueData);
-  console.log(typeof venueData);
-  // const { updateVenueData } = createVenueStore();
-  // const venueData = createVenueStore(state => state.venueData);
-  // // console.log('venueData', venueData);
-  // const handleInputChange = (field, value) => {
-  //   updateVenueData({ [field]: value });
-  // };
-
   return (
     <div className="flex flex-col gap-4 mt-8 max-w-sm">
       <h6>Basic information</h6>

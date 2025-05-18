@@ -6,20 +6,18 @@ import private_entrance_img from '../../assets/accommodation_icons/private_entra
 import shower_img from '../../assets/accommodation_icons/shower.svg';
 import smart_tv_img from '../../assets/accommodation_icons/smart_tv.svg';
 import wifi_img from '../../assets/accommodation_icons/wifi.svg';
-import useCreateVenueStore from '../../stores/createVenueStore';
 
-export default function SetAccommodationIncludes() {
-  const { toggleMetaValue } = useCreateVenueStore();
+export default function SetAccommodationIncludes({
+  handleMetaDataChange,
+  venueData,
+}) {
+  //
+  // const { toggleMetaValue } = useCreateVenueStore();
 
-  const venueData = useCreateVenueStore(state => state.venueData || {});
+  // const venueData = useCreateVenueStore(state => state.venueData || {});
 
-  const meta = venueData.meta || {};
-  const {
-    wifi = false,
-    parking = false,
-    breakfast = false,
-    pets = false,
-  } = meta;
+  const meta = venueData?.meta || {};
+  const { wifi, parking, breakfast, pets } = meta;
 
   // Only for show - maybe create a toggle later
   const privateEntrance = true;
@@ -27,10 +25,10 @@ export default function SetAccommodationIncludes() {
   const shower = true;
   const smartTv = true;
 
-  function handleMetaDataChange(key) {
-    toggleMetaValue(key);
-    console.log('key', key);
-  }
+  // function handleMetaDataChange(key) {
+  //   toggleMetaValue(key);
+  //   console.log('key', key);
+  // }
 
   return (
     <div className="flex flex-col gap-4 max-w-sm mt-8">

@@ -62,7 +62,7 @@ export default function SetLocationInformation({
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter longitude"
           value={location?.lng || ''}
-          onChange={e => updateLocationData({ lng: e.target.value })}
+          onChange={e => handleLocationChange({ lng: e.target.value })}
         />
       </div>
       <div>
@@ -72,7 +72,7 @@ export default function SetLocationInformation({
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter latitude"
           value={location?.lat || ''}
-          onChange={e => updateLocationData({ lat: e.target.value })} //
+          onChange={e => handleLocationChange({ lat: e.target.value })} //
         />
       </div>
     </div>

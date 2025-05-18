@@ -26,6 +26,9 @@ const updateVenueStore = create((set, get) => ({
       lng: 0,
     },
   },
+  setVenueData: data => {
+    set({ venueData: data });
+  },
   addMedia: newMedia => {
     set(state => ({
       venueData: {
@@ -52,21 +55,22 @@ const updateVenueStore = create((set, get) => ({
       },
     }));
   },
-  toggleMetaValue: field => {
+  toggleMetaValue: field =>
     set(state => {
-      const newState = {
+      const currentValue = state.venueData.meta?.[field] || false;
+      console.log(`Toggling ${field} from ${currentValue} to ${!currentValue}`);
+
+      return {
         venueData: {
           ...state.venueData,
+          location: { ...state.venueData.location },
           meta: {
             ...state.venueData.meta,
-            [field]: !state.venueData.meta[field],
+            [field]: !currentValue,
           },
         },
       };
-      console.log('Updated meta state:', newState.venueData.meta);
-      return newState;
-    });
-  },
+    }),
   updateLocationData(newData) {
     set(state => ({
       venueData: {
@@ -104,8 +108,8 @@ const updateVenueStore = create((set, get) => ({
     }),
 
   // submit to api event handler ?
-  submitVenueData: async id => {
-    const { venueData } = get();
+  submitVenueData: async (id, venueData) => {
+    // const { venueData } = get();
     const { putVenue } = useVenueStore.getState();
     console.log('venueData', venueData);
     //      postVenue: async (venueData, owner = true, bookings = true) => {
