@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import air_conditioner_img from '../../assets/accommodation_icons/air_conditioner.svg';
 import breakfast_img from '../../assets/accommodation_icons/breakfast.svg';
 import parking_img from '../../assets/accommodation_icons/parking.svg';
@@ -15,7 +16,9 @@ export default function SetAccommodationIncludes({
   // const { toggleMetaValue } = useCreateVenueStore();
 
   // const venueData = useCreateVenueStore(state => state.venueData || {});
-
+  useEffect(() => {
+    console.log('venueData', venueData);
+  }, [venueData]);
   const meta = venueData?.meta || {};
   const { wifi, parking, breakfast, pets } = meta;
 

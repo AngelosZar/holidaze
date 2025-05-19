@@ -3,17 +3,19 @@ import SetLocationInformation from './SetLocationInformation';
 import SetAccommodationIncludes from './SetAccommodationIncludes';
 import updateVenueStore from '../../stores/updateVenueStore';
 import useGetVenueWithId from '../../hooks/useGetVenueWithId';
-import { use, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export function EditVenueDropDown() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { venue: fetchedVenueData, isLoading, error } = useGetVenueWithId(id);
   const {
     submitVenueData,
     reset,
     updateVenueData,
     updateLocationData,
+    updateMetaData,
     setVenueData,
     toggleMetaValue,
     venueData,
@@ -55,14 +57,16 @@ export function EditVenueDropDown() {
   //
   const handleSubmitVenueData = async (e, id, venueData) => {
     e.preventDefault();
-    // console.log('handleSubmitVenueData');
-    // console.log(id);
     try {
       await submitVenueData(id, venueData);
-      // console.log('submitVenueData');
-      reset();
+      //  reset();
     } catch (error) {
       console.error('Error submitting venue data:', error);
+    } finally {
+      reset();
+      alert('Venue updated successfully');
+      navigate('/manager/venues');
+      // or redirect to the veniew itself ?
     }
   };
   {
@@ -72,7 +76,8 @@ export function EditVenueDropDown() {
     error && <p>{error}</p>;
   }
   {
-    !venueData && <p>No venue found</p>;
+    if (!storeVenueData.id && !fetchedVenueData)
+      return <div>Venue not found</div>;
     // show image or something
   }
 
