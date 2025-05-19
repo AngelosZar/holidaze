@@ -1,18 +1,50 @@
 import { use, useEffect } from 'react';
 import useUserData from '../../hooks/useUserData';
+import useProfileStore from '../../stores/profileStore';
 
 function ManageMyAccount() {
-  const {
-    setUserData,
-    getUser,
-    getUserNameFromStorage,
-    userData,
-    error,
-    isLoading,
-    setError,
-    setIsLoading,
-  } = useUserData();
+  const { userData, error, isLoading } = useUserData();
   console.log(userData);
+  const { putProfileMedia, putProfile } = useProfileStore(state => state);
+
+  async function handleSubmitUserChanges(e) {
+    //     {
+    //   "bio": "string",
+    //   "avatar": {
+    //     "url": "https://url.com/image.jpg",
+    //     "alt": "string"
+    //   },
+    //   "banner": {
+    //     "url": "https://url.com/image.jpg",
+    //     "alt": "string"
+    //   },
+    //   "venueManager": true
+    // }
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const updatedUserData = {
+      bio: formData.get('bio'),
+      avatar: {
+        url: formData.get('avatarUrl') || '',
+        ult: formData.get('avatarAlt') || '',
+      },
+      banner: {
+        url: formData.get('bannerUrl') || '',
+        alt: formData.get('bannerAlt') || '',
+      },
+      venueManager: userData?.venueManager,
+    };
+
+    console.log('Updated  data:', updatedUserData);
+    // try {
+    //   const data = await putProfile(userData.userName, updatedUserData);
+    //   console.log('Updated data:', data);
+    //   console.log('User data updated successfully');
+    // } catch (error) {
+    //   console.error('Error updating user data:', error);
+    // }
+    // setUserData(updatedUserData);
+  }
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
@@ -39,7 +71,11 @@ function ManageMyAccount() {
                   ? 'You have currently a Venue owner account'
                   : ''}
               </p>
-              <form action="" className="flex flex-col gap-4 mt-8 max-w-sm">
+
+              <form
+                className="flex flex-col gap-4 mt-8 max-w-sm"
+                onSubmit={e => handleSubmitUserChanges(e)}
+              >
                 {/* <div>
                   <label htmlFor="name">Name</label>
                   <input
@@ -50,6 +86,7 @@ function ManageMyAccount() {
                     placeholder={userData?.userName || 'Username'}
                   />
                 </div> */}
+
                 <div className="flex flex-col gap-2">
                   <p className="text-xl">User's Avatar</p>
                   <div>
@@ -58,6 +95,7 @@ function ManageMyAccount() {
                       type="text"
                       className="w-full p-2 border border-gray-300 rounded-md"
                       id="avatarUrl"
+                      name="avatarUrl"
                       placeholder="Url must be a valid url link"
                     />
                   </div>
@@ -67,6 +105,7 @@ function ManageMyAccount() {
                       type="text"
                       className="w-full p-2 border border-gray-300 rounded-md"
                       id="avatarAlt"
+                      name="avatarAlt"
                       placeholder="Avatar alt text"
                     />
                   </div>
@@ -79,6 +118,7 @@ function ManageMyAccount() {
                       type="text"
                       className="w-full p-2 border border-gray-300 rounded-md"
                       id="bannerUrl"
+                      name="bannerUrl"
                       placeholder="Url must be a valid url link"
                     />
                   </div>
@@ -86,6 +126,7 @@ function ManageMyAccount() {
                     <label htmlFor="bannerAlt">Insert banner alt text</label>
                     <input
                       type="text"
+                      name="bannerAlt"
                       className="w-full p-2 border border-gray-300 rounded-md"
                       id="bannerAlt"
                       placeholder="Avatar alt text"
@@ -112,9 +153,21 @@ function ManageMyAccount() {
                     placeholder="Optional"
                   />
                 </div> */}
+                <div>
+                  <label htmlFor="bio">Bio</label>
+                  <textarea
+                    className="w-full p-2 border border-gray-300 rounded-md"
+                    id="bio"
+                    rows="4"
+                    cols="50"
+                    name="bio"
+                    placeholder={userData?.bio || 'Start by setting your Bio'}
+                    // defaultValue={userData?.bio || 'Start by setting your Bio'}
+                  />
+                </div>
                 <div className="flex flex-col text-start gap-4">
-                  <button className="btn-primary">Abort Editing</button>
-                  <button className="btn-secondary">Apply changes</button>
+                  {/* <button className="btn-primary">Abort Editing</button> */}
+                  <button className="btn-primary">Apply changes</button>
                 </div>
               </form>
             </div>

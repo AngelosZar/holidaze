@@ -128,6 +128,7 @@ const useProfileStore = create(
     putProfile: async (name, userInput) => {
       set({ isLoading: true, error: null });
       const headers = returnHeaders();
+      console.log('headers', headers);
       // create a function to return an object with it
       // Update or set bio, venueManager, banner and avatar properties.
 
@@ -136,20 +137,22 @@ const useProfileStore = create(
           method: 'PUT',
           headers,
           body: JSON.stringify(userInput),
-          // body: JSON.stringify({
-          //   bio: 'New bio',
-          //   venueManager: true,
-          //   bannerUrl: { url: '', alt: '' },
-          //   avatarUrl: { url: '', alt: '' },
-          // }),
         });
-        const { data } = await res.json();
+        const data = await res.json();
         returnErrors(
           res,
           data,
           set => msg => set({ error: msg }),
           val => set({ isLoading: val })
         );
+        if (!res.ok) {
+          const errorText = await res.text();
+          throw new Error(
+            `API error: ${res.status} - ${
+              errorText || 'No error details provided'
+            }`
+          );
+        }
         // error handlling
         console.log('data', data);
       } catch (error) {
