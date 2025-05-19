@@ -16,6 +16,7 @@ import {
 // import returnUser from '../components/utilities/returnUser';
 // import returnHeaders from '../components/utilities';
 import returnHeaders from '../components/utilities/returnHeaders';
+
 // holidaze-profiles
 // Holidaze profiles related endpoints
 
@@ -133,11 +134,15 @@ const useProfileStore = create(
       // Update or set bio, venueManager, banner and avatar properties.
 
       try {
-        const res = await fetch(`PUT_USER_URL${name}`, {
+        console.log(`PUT_USER_URL${name}`);
+        const url = `${PUT_USER_URL}${name}`;
+        console.log('url', url);
+        const res = await fetch(url, {
           method: 'PUT',
           headers,
           body: JSON.stringify(userInput),
         });
+        console.log(res);
         const data = await res.json();
         returnErrors(
           res,
@@ -145,15 +150,8 @@ const useProfileStore = create(
           set => msg => set({ error: msg }),
           val => set({ isLoading: val })
         );
-        if (!res.ok) {
-          const errorText = await res.text();
-          throw new Error(
-            `API error: ${res.status} - ${
-              errorText || 'No error details provided'
-            }`
-          );
-        }
-        // error handlling
+
+        // // error handlling
         console.log('data', data);
       } catch (error) {
         console.log('error', error);
