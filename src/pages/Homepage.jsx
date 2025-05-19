@@ -11,9 +11,9 @@ function Homepage() {
   return (
     <Layout>
       <HomeHero />
-      <QuickSearch />
+      {/* <QuickSearch /> */}
       {/* <ChooseHolidays /> */}
-      <RecommendedStays />
+      {/* <RecommendedStays /> */}
       <AboutUs />
       <TestimonialsSection />
     </Layout>

@@ -18,11 +18,17 @@ import ManageMyAccount from './components/onManagerView/ManageMyAccount';
 
 //
 function App() {
-  const { initAuth } = useAuthStore();
+  const { initAuth, isAuthenticated } = useAuthStore();
   useEffect(() => {
     initAuth();
   }, [initAuth]);
-
+  const ProtectedRoutes = ({ children }) => {
+    if (!isAuthenticated) {
+      // maybe show a message first
+      return <Navigate to="/login" replace />;
+    }
+    return children;
+  };
   return (
     <>
       <BrowserRouter>
@@ -38,7 +44,14 @@ function App() {
 
           <Route path="/login" element={<LogInPage />} />
           <Route path="/profile" element={<UserProfileView />} />
-          <Route path="/manager" element={<VenueManagerView />}>
+          <Route
+            path="/manager"
+            element={
+              <ProtectedRoutes requiredRole="manager">
+                <VenueManagerView />
+              </ProtectedRoutes>
+            }
+          >
             <Route path="venues" element={<UsersVenueSection />} />
             <Route path="bookings" element={<CurrentBookingsSection />} />
             <Route path="create" element={<CreateAVenue />} />

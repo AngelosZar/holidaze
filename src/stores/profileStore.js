@@ -101,27 +101,15 @@ const useProfileStore = create(
           headers,
         });
         const { data } = await res.json();
-
-        // console.log('data', data);
-        //
-        // if (!res.ok) {
-        //   if (data.errors && Array.isArray(data.errors)) {
-        //     const error = data.errors[0];
-        //     set({ error: error.message, isLoading: false });
-        //     alert(`${error.message}`);
-        //     throw new Error(error.message);
-        //   }
-        // }
         returnErrors(
           res,
           data,
           set => msg => set({ error: msg }),
           val => set({ isLoading: val })
         );
-
         return { data };
       } catch (error) {
-        console.log('error', error);
+        // console.log('error', error);
         set({ error: error.message, isLoading: false });
         throw error;
       }
