@@ -1,13 +1,20 @@
 import { create } from 'zustand';
 import { SIGN_IN_URL } from '../components/Constants';
 import { REGISTER_URL } from '../components/Constants';
+import returnToken from '../components/utilities/returnToken';
+import returnUser from '../components/utilities/returnUser';
+import useProfileStore from './profileStore';
 
-const useAuthStore = create(set => ({
+const useAuthStore = create((set, get) => ({
   user: null,
   isAuthenticated: false,
   isLoading: false,
   error: [],
-  isManager: JSON.parse(localStorage.getItem('isManager')) || false,
+  isManager: false,
+  // isManager:
+  //   localStorage.getItem('isManager') ||
+  //   sessionStorage.getItem('isManager') ||
+  //   false,
 
   setIsManager: isManager => {
     set({ isManager });
@@ -70,7 +77,7 @@ const useAuthStore = create(set => ({
       const data = await response.json();
       console.log('data', data);
       if (!response.ok) {
-        // console.log('response', response);
+        console.log('response', response);
         if (data.errors && Array.isArray(data.errors)) {
           const errorMessages = data.errors.map(error => error.message);
           set({ error: errorMessages.join(', '), isLoading: false });
@@ -98,6 +105,7 @@ const useAuthStore = create(set => ({
     localStorage.removeItem('accessToken');
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('profile-storage');
+    localStorage.removeItem('isManager');
   },
   // check if password and repeat password is same
   //   confirmPassword: function(){
@@ -107,9 +115,68 @@ const useAuthStore = create(set => ({
   initAuth: () => {
     const user =
       JSON.parse(localStorage.getItem('user')) ||
-      JSON.parse(sessionStorage.getItem('user') || null);
+      JSON.parse(sessionStorage.getItem('user') || 'null');
+
+    let isManager = false;
+    try {
+      const storedIsManager =
+        localStorage.getItem('isManager') ||
+        sessionStorage.getItem('isManager');
+      if (storedIsManager) {
+        isManager = JSON.parse(storedIsManager);
+      }
+    } catch (e) {
+      console.error('Error parsing isManager from storage:', e);
+    }
+
     if (user) {
-      set({ user, isAuthenticated: true });
+      set({
+        user,
+        isAuthenticated: true,
+        isManager: Boolean(isManager),
+      });
+    }
+
+    const token = returnToken();
+    if (user && token) {
+      console.log('returnToken', token);
+    }
+  },
+
+  isInitialized: false,
+
+  initUser: async () => {
+    set({ isInitialized: false });
+
+    try {
+      const { getUser } = useProfileStore.getState();
+      const user = returnUser();
+      const token = returnToken();
+
+      if (user && token) {
+        const data = await getUser(user.name);
+        console.log('data', data.data);
+
+        let status = Boolean(data.data.venueManager);
+        console.log('Manager status:', status);
+
+        localStorage.setItem('isManager', JSON.stringify(status));
+        // sessionStorage.setItem('isManager', JSON.stringify(status));
+
+        set({
+          isManager: status,
+          isInitialized: true,
+        });
+      } else {
+        set({ isInitialized: true });
+      }
+    } catch (error) {
+      console.error('Error in initUser:', error);
+      set({
+        isManager: false,
+        isInitialized: true,
+        error: [error.message || 'Failed to load user data'],
+      });
     }
   },
   //

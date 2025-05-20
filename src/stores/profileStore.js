@@ -10,33 +10,8 @@ import {
   BOOKINGS_ENDPOINT,
   VENUES_ENDPOINT,
 } from '../components/Constants';
-// import PUT_USER_URL from '../components/Constants';
-//
-// import returnToken from '../components/utilities/returnToken';
-// import returnUser from '../components/utilities/returnUser';
-// import returnHeaders from '../components/utilities';
+
 import returnHeaders from '../components/utilities/returnHeaders';
-
-// holidaze-profiles
-// Holidaze profiles related endpoints
-
-// GET
-// /api/v1/holidaze/profiles
-
-// GET
-// /api/v1/holidaze/profiles/{name}
-
-// PUT
-// /api/v1/holidaze/profiles/{name}
-
-// PUT
-// /api/v1/holidaze/profiles/{name}/media
-
-// GET
-// /api/v1/holidaze/profiles/{name}/venues
-
-// GET
-// /api/v1/holidaze/profiles/{name}/bookings
 
 const useProfileStore = create(
   (set, get) => ({

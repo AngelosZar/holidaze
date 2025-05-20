@@ -18,10 +18,16 @@ import ManageMyAccount from './components/onManagerView/ManageMyAccount';
 
 //
 function App() {
-  const { initAuth, isAuthenticated } = useAuthStore();
+  const { initAuth, isAuthenticated, initUser, isManager } = useAuthStore();
   useEffect(() => {
     initAuth();
-  }, [initAuth]);
+  }, [initAuth, isAuthenticated, isManager]);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      initUser();
+    }
+  }, [initUser, isAuthenticated]);
   const ProtectedRoutes = ({ children }) => {
     if (!isAuthenticated) {
       // maybe show a message first
