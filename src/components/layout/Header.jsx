@@ -2,12 +2,11 @@ import React, { useEffect, useState } from 'react';
 import logo1 from '../../assets/logos/logo1.svg';
 import { NavLink } from 'react-router-dom';
 import useAuthStore from '../../stores/authStore';
-import { is } from 'date-fns/locale';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolling, setIsScrolling] = useState(false);
-  const { isAuthenticated, logout } = useAuthStore();
+  const { isAuthenticated, isManager, logout } = useAuthStore();
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY >= 0) {
@@ -48,12 +47,14 @@ export default function Header() {
             setIsOpen={setIsOpen}
             handleLogout={handleLogout}
             isAuthenticated={isAuthenticated}
+            isManager={isManager}
           />
         </div>
         <div className="hidden md:block">
           <DesktopMenu
             handleLogout={handleLogout}
             isAuthenticated={isAuthenticated}
+            isManager={isManager}
           />
         </div>
       </nav>
@@ -61,7 +62,13 @@ export default function Header() {
   );
 }
 
-function HamburgerMenu({ isOpen, setIsOpen, handleLogout, isAuthenticated }) {
+function HamburgerMenu({
+  isOpen,
+  setIsOpen,
+  handleLogout,
+  isAuthenticated,
+  isManager,
+}) {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -102,22 +109,34 @@ function HamburgerMenu({ isOpen, setIsOpen, handleLogout, isAuthenticated }) {
             isOpen ? 'translate-x-0' : '-translate-x-full'
           }`}
         >
-          <ul className=" flex flex-col items-center space-y-4 py-4 text-lg font-semibold">
+          <ul className="flex gap-4 mx-4">
             <li>
-              <NavLink to="login">Log in</NavLink>
+              <NavLink to="aboutUs">About us</NavLink>
             </li>
             <li>
-              <NavLink to="register">Register</NavLink>
+              <NavLink to="contactUs">Contact us</NavLink>
             </li>
-            <li>
-              <NavLink to="profile">Profile</NavLink>
-            </li>
-            <li>
-              <NavLink to="manager">Manager</NavLink>
-            </li>
-            <li>
-              <NavLink to="venue">Venue</NavLink>
-            </li>
+            {!isAuthenticated && (
+              <>
+                <li>
+                  <NavLink to="login">Log in</NavLink>
+                </li>
+                <li>
+                  <NavLink to="register">Register</NavLink>
+                </li>
+              </>
+            )}
+            {!isManager && isAuthenticated && (
+              <li>
+                <NavLink to="profile">Profile</NavLink>
+              </li>
+            )}
+            {isAuthenticated && isManager && (
+              <li>
+                <NavLink to="manager">Manager</NavLink>
+              </li>
+            )}
+
             {isAuthenticated && (
               <li>
                 <button onClick={handleLogout}>Log out</button>
@@ -130,24 +149,36 @@ function HamburgerMenu({ isOpen, setIsOpen, handleLogout, isAuthenticated }) {
   );
 }
 
-function DesktopMenu({ handleLogout, isAuthenticated }) {
+function DesktopMenu({ handleLogout, isAuthenticated, isManager }) {
   return (
     <ul className="flex gap-4 mx-4">
       <li>
-        <NavLink to="login">Log in</NavLink>
+        <NavLink to="aboutUs">About us</NavLink>
       </li>
       <li>
-        <NavLink to="register">Register</NavLink>
+        <NavLink to="contactUs">Contact us</NavLink>
       </li>
-      <li>
-        <NavLink to="profile">Profile</NavLink>
-      </li>
-      <li>
-        <NavLink to="manager">Manager</NavLink>
-      </li>
-      <li>
-        <NavLink to="venue">Venue</NavLink>
-      </li>
+      {!isAuthenticated && (
+        <>
+          <li>
+            <NavLink to="login">Log in</NavLink>
+          </li>
+          <li>
+            <NavLink to="register">Register</NavLink>
+          </li>
+        </>
+      )}
+      {!isManager && isAuthenticated && (
+        <li>
+          <NavLink to="profile">Profile</NavLink>
+        </li>
+      )}
+      {isAuthenticated && isManager && (
+        <li>
+          <NavLink to="manager">Manager</NavLink>
+        </li>
+      )}
+
       {isAuthenticated && (
         <li>
           <button onClick={handleLogout}>Log out</button>
