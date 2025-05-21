@@ -1,8 +1,19 @@
 // import BasicDatePicker from './DatePicker';
 
+import { useState } from 'react';
 import DateRangeSelector from '../utilities/DateRangeSelector';
+import useSearchVenues from '../../hooks/useSearchVenues';
 
 export default function HeroSearchBar() {
+  const [searchQuery, setSearchQuery] = useState('');
+  const { stays, loading, error, setPage, setLimit, setSort, searchVenues } =
+    useSearchVenues();
+  const handleSubmitSearchQuery = async function (e) {
+    console.log(e.target.value);
+    const data = await searchVenues(searchQuery, 12, 1);
+    console.log(data);
+    // api call with search queryy
+  };
   return (
     <div
       className="grid grid-rows-3 grid-cols-1 gap-4 border-2 
@@ -21,6 +32,13 @@ export default function HeroSearchBar() {
           id="searchBar"
           className="formInput2 relative"
           placeholder="Search for accommodation"
+          value={searchQuery}
+          onChange={e => setSearchQuery(e.target.value)}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              handleSubmitSearchQuery(e);
+            }
+          }}
         />
         {/* <label htmlFor="searchBar" className="text-sm absolute top-0 left-2 ">
           Select a destination
@@ -36,7 +54,12 @@ export default function HeroSearchBar() {
         </span>
       </div> */}
       <div className="w-full flex justify-center items-center sm:col-span-2 md:col-span-1">
-        <button className="btn btn-primary w-full max-w-[8rem]">Search</button>
+        <button
+          className="btn btn-primary w-full max-w-[8rem]"
+          onClick={handleSubmitSearchQuery}
+        >
+          Search
+        </button>
       </div>
     </div>
   );

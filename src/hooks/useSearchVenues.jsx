@@ -67,7 +67,7 @@ function useSearchVenues(searchTerm) {
     }
   }, [searchTerm, searchVenues, limit, page, sort]);
 
-  return { stays, loading, error, setPage, setLimit, setSort };
+  return { stays, loading, error, setPage, setLimit, setSort, searchVenues };
 }
 
 export default useSearchVenues;
