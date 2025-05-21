@@ -5,7 +5,7 @@ import HeroSearchBar from '../components/onHomepage/HeroSearchBar';
 import { HomeHero } from '../components/onHomepage/HomeHero';
 import QuickSearch from '../components/onHomepage/QuickSearch';
 import RecommendedStays from '../components/onHomepage/RecommendedStays';
-import { TestimonialsSection } from '../components/Testimonials';
+import { TestimonialsSection } from '../components/onHomepage/Testimonials';
 
 function Homepage() {
   return (
