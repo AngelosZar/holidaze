@@ -6,6 +6,7 @@ import VenueInfoSection from '../components/onSingleVenue/VenueInfoSection';
 import useGetVenueWithId from '../hooks/useGetVenueWithId';
 import { useEffect, useState } from 'react';
 import MapSection from '../components/onSingleVenue/MapSection';
+// import useBookingStore from '../stores/bookingsStore';
 function SingleVenuePage() {
   const [venueGallery, setVenueGallery] = useState([]);
   // const { setSingleVenue, singleVenue, getVenue } = useVenueStore();

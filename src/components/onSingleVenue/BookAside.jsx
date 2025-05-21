@@ -5,13 +5,16 @@ import PriceDropDown from './PriceDropDown';
 // import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
 import useUpdateBooking from '../../hooks/useUpdateBooking';
+import useBookingStore from '../../stores/bookingsStore';
 
 function BookAside({ venue }) {
   const [alertMessage, setAlertMessage] = useState('');
   const { checkInDate, checkOutDate, nights, pax, reset } = datePickerStore();
-  const { updateBooking, isLoading, error, setIsLoading, setError } =
-    useUpdateBooking();
+  // const { updateBooking, isLoading, error, setIsLoading, setError } =
+  //   useUpdateBooking();
   //
+  const { postBooking, isLoading, error, setIsLoading, setError } =
+    useBookingStore();
   let id = venue?.id;
   let maxNumberOfGuests = venue?.maxGuests;
 
@@ -45,19 +48,25 @@ function BookAside({ venue }) {
       price: venue?.price,
     });
 
+    // const requestObject = {
+    //   dateFrom: checkInDate ? checkInDate.toISOString() : undefined,
+    //   dateTo: checkOutDate ? checkOutDate.toISOString() : undefined,
+    //   guests: pax || 1,
+    // };
     const requestObject = {
       dateFrom: checkInDate ? checkInDate.toISOString() : undefined,
       dateTo: checkOutDate ? checkOutDate.toISOString() : undefined,
-      guests: pax || 1,
+      guests: Number(pax || 1),
+      venueId: id,
     };
-
     console.log('requestObject', requestObject);
     // submirt booking data
     // reset();
+    console.log('Booking request:', requestObject);
     try {
       console.log('Booking ID:', id);
       console.log('Booking request:', requestObject);
-      const res = await updateBooking(id, requestObject);
+      const res = await postBooking(requestObject);
       console.log('Booking response:', res);
       if (res) {
         console.log('Booking updated successfully:', res);

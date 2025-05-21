@@ -75,17 +75,12 @@ const useBookingStore = create(
       try {
         set({ isLoading: true });
         const headers = returnHeaders();
-        console.log('headers', headers);
         const response = await fetch(
-          `${BASE_URL}${BOOKINGS_ENDPOINT}`,
-          // `${BASE_URL}${BOOKINGS_ENDPOINT}/${id}?_customer=${customer}&_venue=${venue}`,
-          // `https://v2.api.noroff.dev/holidaze/bookings/${id}?_customer=${customer}&_venue=${venue}`,
+          'https://v2.api.noroff.dev/holidaze/bookings',
+
           {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              ...headers.headers,
-            },
+            method: 'POST',
+            headers: headers,
             body: JSON.stringify(requestObject),
           }
         );
@@ -169,3 +164,11 @@ export default useBookingStore;
 
 // curl -X 'PUT' \
 //   'https://api.noroff.dev/api/v1/holidaze/bookings/2ac9cef7-caee-47ce-b1a0-1a9e4dd6b0ea?_customer=false&_venue=false' \
+// {
+//   "errors": [
+//     {
+//       "message": "The selected dates and guests either overlap with an existing booking or exceed the maximum guests for this venue."
+//     }
+//   ],
+//   "status": "Conflict",
+//   "statusCode": 409}
