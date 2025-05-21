@@ -66,11 +66,11 @@ h4 {
   font-family: 'Playfair Display', serif;
 }
 h5 {
-  @apply text-4xl;
+  @apply text-3xl;
   font-family: 'Playfair Display', serif;
 }
 h6 {
-  @apply text-3xl;
+  @apply text-2xl;
   font-family: 'Playfair Display', serif;
 }
 

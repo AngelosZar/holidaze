@@ -29,7 +29,7 @@ const useVenueStore = create(
         const url = `${VENUES_URL}?sort=${sort}&limit=${limit}&offset=${offset}&_owner=${owner}&_bookings=${bookings}`;
         const res = await fetch(url, {
           method: 'GET',
-          headers: returnHeaders(),
+          // headers: returnHeaders(),
         });
         const data = await res.json();
         // console.log('data', data);
