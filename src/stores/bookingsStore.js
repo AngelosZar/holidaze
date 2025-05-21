@@ -92,8 +92,8 @@ const useBookingStore = create(
             error:
               'Ops the venues is already booked for the selected dates \n Please try with different dates',
           });
-        }
-        if (!response.ok) {
+        } else if (!response.ok) {
+          set({ error: response.statusText });
           throw new Error('Ops something went wrong');
         }
 

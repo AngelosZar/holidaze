@@ -63,7 +63,6 @@ function VenueInfoSection({ venue, isLoading, error }) {
       </div>
 
       {/* <CalendarAside /> */}
-      {/* <MapSection /> */}
     </section>
   );
 }
