@@ -1,6 +1,10 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import { BASE_URL, BOOKINGS_ENDPOINT } from '../components/Constants';
+import {
+  BASE_URL,
+  BOOKINGS_URL,
+  BOOKINGS_ENDPOINT,
+} from '../components/Constants';
 import returnHeaders from '../components/utilities/returnHeaders';
 const useBookingStore = create(
   // persist
@@ -75,20 +79,24 @@ const useBookingStore = create(
       try {
         set({ isLoading: true });
         const headers = returnHeaders();
-        const response = await fetch(
-          'https://v2.api.noroff.dev/holidaze/bookings',
-
-          {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify(requestObject),
-          }
-        );
+        const response = await fetch(BOOKINGS_URL, {
+          method: 'POST',
+          headers: headers,
+          body: JSON.stringify(requestObject),
+        });
         console.log('response', response);
-        if (!response.ok) {
-          console.error('Failed to update booking:', response.statusText);
-          throw new Error('Failed to update booking');
+        if (!response.ok && response.status === 409) {
+          alert('Ops the venue is already booked for the selected dates');
+          set({
+            isLoading: false,
+            error:
+              'Ops the venues is already booked for the selected dates \n Please try with different dates',
+          });
         }
+        if (!response.ok) {
+          throw new Error('Ops something went wrong');
+        }
+
         const data = await response.json();
         console.log(data);
         set({ isLoading: false });

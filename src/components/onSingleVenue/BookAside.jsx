@@ -75,8 +75,6 @@ function BookAside({ venue }) {
         reset();
       } else {
         // Handle error
-        console.error('Failed to update booking');
-        alert('Failed to update booking');
         // setAlertMessage('Failed to update booking');
         // use other state to show error message
       }
