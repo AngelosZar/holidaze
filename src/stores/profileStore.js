@@ -71,6 +71,7 @@ const useProfileStore = create(
       const headers = returnHeaders();
 
       try {
+        console.log(name);
         const res = await fetch(`${GET_USER_URL}${name}`, {
           method: 'GET',
           headers,

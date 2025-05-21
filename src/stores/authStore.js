@@ -152,6 +152,7 @@ const useAuthStore = create((set, get) => ({
       const { getUser } = useProfileStore.getState();
       const user = returnUser();
       const token = returnToken();
+      console.log('user', user);
 
       if (user && token) {
         const data = await getUser(user.name);

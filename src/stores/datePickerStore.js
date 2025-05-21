@@ -24,7 +24,7 @@ const datePickerStore = create(
   devtools((set, get) => ({
     checkInDate: null,
     checkOutDate: null,
-    nights: 1,
+    nights: 0,
     pax: 1,
     pricePerNight: 0,
     totalPrice: 0,

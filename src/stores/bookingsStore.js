@@ -77,29 +77,40 @@ const useBookingStore = create(
     },
     postBooking: async requestObject => {
       try {
-        set({ isLoading: true });
+        set({ isLoading: true, error: null, isResponseOk: false });
         const headers = returnHeaders();
         const response = await fetch(BOOKINGS_URL, {
           method: 'POST',
           headers: headers,
           body: JSON.stringify(requestObject),
         });
-        console.log('response', response);
+
         if (!response.ok && response.status === 409) {
-          alert('Ops the venue is already booked for the selected dates');
+          const errorMsg =
+            'Ops the venue is already booked for the selected dates \nPlease try with different dates';
+          alert(errorMsg);
           set({
             isLoading: false,
             error:
-              'Ops the venues is already booked for the selected dates \n Please try with different dates',
+              errorMsg ||
+              'The selected dates and guests either overlap with an existing booking or exceed the maximum guests for this venue.',
           });
         } else if (!response.ok) {
-          set({ error: response.statusText });
-          throw new Error('Ops something went wrong');
+          const errorMsg = response.statusText || 'Ops something went wrong';
+          alert(errorMsg);
+          set({
+            isLoading: false,
+            error: errorMsg,
+          });
+          return { ok: false, error: errorMsg };
         }
-
+        if (response.ok)
+          alert(
+            'Booking Created successfully \nYou will soon receive an email confirmation soon\n Thank you for booking with us'
+          );
         const data = await response.json();
-        console.log(data);
-        set({ isLoading: false });
+
+        set({ isLoading: false, setError: null });
         return data;
       } catch (error) {
         set({ isLoading: false, error: error.message });
