@@ -1,6 +1,6 @@
 // import BasicDatePicker from './DatePicker';
 
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import DateRangeSelector from '../utilities/DateRangeSelector';
 import useSearchVenues from '../../hooks/useSearchVenues';
 import datePickerStore from '../../stores/datePickerStore';
@@ -20,6 +20,7 @@ export default function HeroSearchBar() {
     setCheckOutDate,
     nights,
     setNights,
+    reset,
   } = datePickerStore();
 
   useEffect(() => {
@@ -131,6 +132,8 @@ export default function HeroSearchBar() {
         <SearchPopUp
           searchResults={searchResults}
           setIsSearchPopupOpen={setIsSearchPopupOpen}
+          setSearchQuery={setSearchQuery}
+          reset={reset}
           loading={loading}
           error={error}
         />
@@ -144,17 +147,18 @@ function SearchPopUp({
   loading,
   error,
   setIsSearchPopupOpen,
-  isSearchPopupOpen,
+  reset,
+  setSearchQuery,
 }) {
   console.log('searchResults', stays);
-  // useEffect(() => {
-  //   if (stays.length > 0) {
-  //     console.log(stays);
-  //     // map over the stays and display them use card component
-  //   } else {
-  //     console.log('No search results found.');
-  //   }
-  // }, [stays]);
+
+  const handleClick = function () {
+    console.log('clicked');
+    setSearchQuery('');
+    // not reseting the search query
+    reset();
+    setIsSearchPopupOpen(false);
+  };
 
   return (
     <section className="fixed inset-0 bg-white z-50 mx-auto">
@@ -166,8 +170,7 @@ function SearchPopUp({
               Available Properties
             </h2>
             <button
-              onClick={() => setIsSearchPopupOpen(false)}
-              // clear all fileds after closing the popup
+              onClick={handleClick}
               className="text-gray-600 hover:text-gray-800 text-4xl font-light"
             >
               ×
