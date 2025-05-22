@@ -2,8 +2,10 @@ import { useEffect, useState } from 'react';
 import ManagersUpcomingBooking from '../../components/onManagerView/ManagersUpcomingBooking';
 import useProfileStore from '../../stores/profileStore';
 import returnUser from '../utilities/returnUser';
+import { UpComingBookingCard } from '../onProfile/UpComingBookingCard';
 import venuesStore from '../../stores/venuesStore';
 import ManagersVenue from './ManagersVenue';
+import returnUserStatus from '../utilities/returnUserStatus';
 function CurrentBookingsSection() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -49,6 +51,7 @@ function CurrentBookingsSection() {
   return (
     <>
       {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       {error === 'No venues' && (
         <div className="grid grid-cols-1 mt-14 gap-4 ">
           <p className="text-center text-gray-500">
@@ -56,7 +59,7 @@ function CurrentBookingsSection() {
           </p>
         </div>
       )}
-      {error && <p>{error}</p>}
+
       {/* if array of object is empty return message that you have no venues */}
       {!isLoading && !error && (
         <section className="w-full mb-22 flex flex-col items-center">
@@ -66,14 +69,24 @@ function CurrentBookingsSection() {
             </h5>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 mx-auto w-full">
-            {venues.map(venue => (
-              <ManagersUpcomingBooking
-                key={venue.id}
-                venue={venue}
-                loading={isLoading}
-                error={error}
-              />
-            ))}
+            {returnUserStatus() &&
+              venues.map(venue => (
+                <ManagersUpcomingBooking
+                  key={venue.id}
+                  venue={venue}
+                  loading={isLoading}
+                  error={error}
+                />
+              ))}
+            {!returnUserStatus() &&
+              venues.map(venue => (
+                <UpComingBookingCard
+                  key={venue.id}
+                  venue={venue}
+                  loading={isLoading}
+                  error={error}
+                />
+              ))}
           </div>
         </section>
       )}

@@ -1,4 +1,4 @@
-export function UpComingBookingCard() {
+export function UpComingBookingCard({ venue, loading, error }) {
   return (
     <div className="flex flex-row gap-4 p-4 bg-white shadow-lg rounded-lg max-w-md">
       <div>
