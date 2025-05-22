@@ -4,9 +4,11 @@ import { useState } from 'react';
 import DateRangeSelector from '../utilities/DateRangeSelector';
 import useSearchVenues from '../../hooks/useSearchVenues';
 import datePickerStore from '../../stores/datePickerStore';
+import { is } from 'date-fns/locale';
 
 export default function HeroSearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
   const { stays, loading, error, setPage, setLimit, setSort, searchVenues } =
     useSearchVenues();
   const {
@@ -34,57 +36,45 @@ export default function HeroSearchBar() {
 
     return newStart < existingEnd && newEnd > existingStart;
   };
-  const checkVenuesAvailability = (venueBookings, checkIn, checkOut) => {
-    if (!checkIn || !checkOut || !venueBookings) return true;
-    const hasConflict = venueBookings.some(booking => {
+  const checkVenuesAvailability = (venue, checkIn, checkOut) => {
+    if (!checkIn || !checkOut || !venue) return true;
+    // or
+    // if (checkIn || !checkOut ){return false}
+    if (!venue.bookings || venue.bookings.length === 0) return true;
+    const hasConflict = venue.bookings.some(booking => {
       checkDatesOverlap(booking.dateFrom, booking.dateTo, checkIn, checkOut);
     });
     return !hasConflict;
   };
 
   const handleSubmitSearchQuery = async function (e) {
-    // all data else not submit
-    console.log(e.target.value);
-    const data = await searchVenues(searchQuery, 12, 1);
-    console.log('search data', data);
-    // async /?? try and catch maybe
-    // checkVenuesAvailability(data?.data[0]?.data, checkInDate, checkOutDate);
-    // filter out venues that are not available
-    console.log(data.data);
-    // console.log(data.data.data);  undefined
-    if (data?.data) {
-      const availableVenues = data.data.filter(venue => {
-        // one more layer of data in
-        const venueBookings = venue.bookings || [];
-        return checkVenuesAvailability(
-          venueBookings,
-          checkInDate,
-          checkOutDate
+    try {
+      const data = await searchVenues(searchQuery, 99, 1);
+      console.log('search data', data);
+
+      if (data?.data) {
+        const availableVenues = data.data.filter(venue =>
+          checkVenuesAvailability(venue, checkInDate, checkOutDate)
         );
-      });
-      console.log('available venues', availableVenues);
+
+        // console.log('availableVenues', availableVenues);
+
+        // data.data.forEach(venue => {
+        //   const isAvailable = checkVenuesAvailability(
+        //     venue,
+        //     checkInDate,
+        //     checkOutDate
+        //   );
+        //   console.log(venue);
+        // });
+
+        return availableVenues;
+      }
+      return [];
+    } catch (error) {
+      console.error('Error searching venues:', error);
+      return [];
     }
-    // console.log(data.data[0].bookings);
-    //     {data: Array(12), meta: {…}}
-    // data
-    // :
-    // Array(12)
-    // 0
-    // :
-    // bookings
-    // :
-    // Array(1)
-    // 0
-    // :
-    // {id: '69212f7f-fd79-44f4-ab62-b54945286872', dateFrom: '2025-05-04T22:00:00.000Z', dateTo: '2025-05-05T22:00:00.000Z', guests: 1, created: '2025-05-04T12:42:58.016Z', …}
-    // length
-    // :
-    // 1
-    // [[Prototype]]
-    // :
-    // Array(0)
-    // created
-    // :
   };
   return (
     <div
