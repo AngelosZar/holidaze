@@ -49,7 +49,7 @@ const useVenueStore = create(
       }
     },
 
-    getVenue: async (id, owner = true, bookings = false) => {
+    getVenue: async (id, owner = true, bookings = true) => {
       set({ isLoading: true });
       try {
         const res = await fetch(

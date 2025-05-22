@@ -13,6 +13,7 @@ function BookAside({ venue }) {
   const { checkInDate, checkOutDate, nights, pax, reset } = datePickerStore();
   let id = venue?.id;
   let maxNumberOfGuests = venue?.maxGuests;
+  // const venueBookings = venue?.bookings || [];
   const requestObject = {
     dateFrom: checkInDate ? checkInDate.toISOString() : undefined,
     dateTo: checkOutDate ? checkOutDate.toISOString() : undefined,
@@ -44,7 +45,7 @@ function BookAside({ venue }) {
     <div className="w-full flex flex-col max-w-md p-8 bg-white rounded-lg shadow-md border-2 border-primary">
       <h6>Price {venue.price} nok</h6>
       <hr className="my-6" />
-      <DateRangeSelector />
+      <DateRangeSelector venueBookings={venue?.bookings || []} />
       <hr className="my-6" />
       <NumberDropDown maxNumberOfGuests={maxNumberOfGuests} />
       <hr className="my-6" />
