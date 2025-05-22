@@ -179,7 +179,7 @@ const useProfileStore = create(
       const headers = returnHeaders();
       try {
         const res = await fetch(
-          `${GET_USER_URL}${userName}${BOOKINGS_ENDPOINT}`,
+          `${GET_USER_URL}${userName}/${BOOKINGS_ENDPOINT}?_owner=true&_bookings=true`,
           {
             method: 'GET',
             headers,
@@ -211,3 +211,4 @@ const useProfileStore = create(
 );
 
 export default useProfileStore;
+// ('Route GET:/holidaze/profiles/adminUser1/bookings%7C?_venue not found');

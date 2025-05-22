@@ -21,7 +21,8 @@ function CurrentBookingsSection() {
       setIsLoading(true);
       try {
         // const venues = await getProfileVenues('angzar49');
-        const venues = await getProfileVenues(userName);
+        const venues = await getProfileBookings(userName);
+        // must make an api call to get the venues img map the array of objects
         console.log('venues:', venues.data);
         if (venues.data.length === 0) {
           setError('No venues');

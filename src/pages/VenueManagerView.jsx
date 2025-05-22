@@ -21,7 +21,7 @@ function VenueManagerView() {
     { key: 'bookings', label: 'My Bookings', path: '/manager/bookings' },
     { key: 'create', label: 'Create a Venue', path: '/manager/create' },
     // { key: 'edit', label: 'Edit a Venue', path: '/manager/edit' },
-    { key: 'edit/:id', label: 'Edit a Venue', path: '/manager/edit/:id' },
+    // { key: 'edit/:id', label: 'Edit a Venue', path: '/manager/edit/:id' },
     {
       key: 'account',
       label: 'Manage my Account',

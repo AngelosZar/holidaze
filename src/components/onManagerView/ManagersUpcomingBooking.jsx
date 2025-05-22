@@ -3,13 +3,15 @@ function ManagersUpcomingBooking({
   handleEditVenue,
   handleRemoveVenue,
 }) {
-  // console.log('venue:', venue);
+  console.log('venue:', venue);
 
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto w-full">
       <div>
         <img
-          src={venue?.media?.[0]?.url || 'https://via.placeholder.com/150'}
+          src={venue?.media || 'https://via.placeholder.com/150'}
+          // src={venue.media[0].url || venue.media}
+          // image={venue.media[0].url || venue.media}
           alt={venue?.name || 'Venue Image'}
           className="w-full h-48 object-cover rounded-t-xl"
           style={{ aspectRatio: '1/1' }}
