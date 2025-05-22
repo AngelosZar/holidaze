@@ -13,7 +13,7 @@ function StaysList({ stays, loading, error }) {
               key={venue.id}
               id={venue.id}
               title={venue.title}
-              image={venue.media}
+              image={venue.media[0].url || venue.media}
               // image={venue.media[0].url}
               imageAlt={venue.mediaAlt}
               price={venue.price}

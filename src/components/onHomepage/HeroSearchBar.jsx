@@ -4,7 +4,7 @@ import { use, useEffect, useState } from 'react';
 import DateRangeSelector from '../utilities/DateRangeSelector';
 import useSearchVenues from '../../hooks/useSearchVenues';
 import datePickerStore from '../../stores/datePickerStore';
-import { is } from 'date-fns/locale';
+
 import StaysList from '../layout/StaysList';
 
 export default function HeroSearchBar() {
@@ -60,7 +60,7 @@ export default function HeroSearchBar() {
         );
         setSearchResults(availableVenues);
         console.log('availableVenues', availableVenues);
-
+        setIsSearchPopupOpen(true);
         // return availableVenues;
       }
       console.log(searchResults);
@@ -119,26 +119,32 @@ export default function HeroSearchBar() {
           </button>
         </div>
       </div>
-      {isSearchPopupOpen && <SearchPopUp searchResults={searchResults} />}
+      {isSearchPopupOpen && (
+        <SearchPopUp
+          searchResults={searchResults}
+          loading={loading}
+          error={error}
+        />
+      )}
       {/* <SearchPopUp searchResults={searchResults} /> */}
     </>
   );
 }
-function SearchPopUp({ searchResults }) {
-  console.log('searchResults', searchResults);
+function SearchPopUp({ searchResults: stays, loading, error }) {
+  console.log('searchResults', stays);
   useEffect(() => {
-    if (searchResults.length > 0) {
-      console.log(searchResults);
-      // <StaysList stays={stays} loading={loading} error={error} />;
-      // map over the searchResults and display them use card component
+    if (stays.length > 0) {
+      console.log(stays);
+      // map over the stays and display them use card component
     } else {
       console.log('No search results found.');
     }
-  }, [searchResults]);
+  }, [stays]);
 
   return (
     <section className="fixed inset-0 bg-white z-50">
       <h1>Search results </h1>
+      <StaysList stays={stays} loading={loading} error={error} />
     </section>
   );
 }
