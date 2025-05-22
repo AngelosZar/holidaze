@@ -3,16 +3,88 @@
 import { useState } from 'react';
 import DateRangeSelector from '../utilities/DateRangeSelector';
 import useSearchVenues from '../../hooks/useSearchVenues';
+import datePickerStore from '../../stores/datePickerStore';
 
 export default function HeroSearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
   const { stays, loading, error, setPage, setLimit, setSort, searchVenues } =
     useSearchVenues();
+  const {
+    checkInDate,
+    setCheckInDate,
+    checkOutDate,
+    setCheckOutDate,
+    nights,
+    setNights,
+  } = datePickerStore();
+
+  const checkDatesOverlap = (
+    existingCheckIn,
+    existingCheckOut,
+    newCheckIn,
+    newCheckOut
+  ) => {
+    // if (!checkInDate || !checkOutDate) {
+    //   return false;
+    // }
+    const existingStart = new Date(existingCheckIn);
+    const existingEnd = new Date(existingCheckOut);
+    const newStart = new Date(newCheckIn);
+    const newEnd = new Date(newCheckOut);
+
+    return newStart < existingEnd && newEnd > existingStart;
+  };
+  const checkVenuesAvailability = (venueBookings, checkIn, checkOut) => {
+    if (!checkIn || !checkOut || !venueBookings) return true;
+    const hasConflict = venueBookings.some(booking => {
+      checkDatesOverlap(booking.dateFrom, booking.dateTo, checkIn, checkOut);
+    });
+    return !hasConflict;
+  };
+
   const handleSubmitSearchQuery = async function (e) {
+    // all data else not submit
     console.log(e.target.value);
     const data = await searchVenues(searchQuery, 12, 1);
-    console.log(data);
-    // api call with search queryy
+    console.log('search data', data);
+    // async /?? try and catch maybe
+    // checkVenuesAvailability(data?.data[0]?.data, checkInDate, checkOutDate);
+    // filter out venues that are not available
+    console.log(data.data);
+    // console.log(data.data.data);  undefined
+    if (data?.data) {
+      const availableVenues = data.data.filter(venue => {
+        // one more layer of data in
+        const venueBookings = venue.bookings || [];
+        return checkVenuesAvailability(
+          venueBookings,
+          checkInDate,
+          checkOutDate
+        );
+      });
+      console.log('available venues', availableVenues);
+    }
+    // console.log(data.data[0].bookings);
+    //     {data: Array(12), meta: {…}}
+    // data
+    // :
+    // Array(12)
+    // 0
+    // :
+    // bookings
+    // :
+    // Array(1)
+    // 0
+    // :
+    // {id: '69212f7f-fd79-44f4-ab62-b54945286872', dateFrom: '2025-05-04T22:00:00.000Z', dateTo: '2025-05-05T22:00:00.000Z', guests: 1, created: '2025-05-04T12:42:58.016Z', …}
+    // length
+    // :
+    // 1
+    // [[Prototype]]
+    // :
+    // Array(0)
+    // created
+    // :
   };
   return (
     <div
