@@ -6,7 +6,7 @@ import useSearchVenues from '../../hooks/useSearchVenues';
 import datePickerStore from '../../stores/datePickerStore';
 
 import StaysList from '../layout/StaysList';
-
+import SingleCard from '../SingleCard';
 export default function HeroSearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
@@ -22,15 +22,23 @@ export default function HeroSearchBar() {
     setNights,
   } = datePickerStore();
 
+  useEffect(() => {
+    if (isSearchPopupOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [isSearchPopupOpen]);
+
   const checkDatesOverlap = (
     existingCheckIn,
     existingCheckOut,
     newCheckIn,
     newCheckOut
   ) => {
-    // if (!checkInDate || !checkOutDate) {
-    //   return false;
-    // }
     const existingStart = new Date(existingCheckIn);
     const existingEnd = new Date(existingCheckOut);
     const newStart = new Date(newCheckIn);
@@ -122,6 +130,7 @@ export default function HeroSearchBar() {
       {isSearchPopupOpen && (
         <SearchPopUp
           searchResults={searchResults}
+          setIsSearchPopupOpen={setIsSearchPopupOpen}
           loading={loading}
           error={error}
         />
@@ -130,21 +139,66 @@ export default function HeroSearchBar() {
     </>
   );
 }
-function SearchPopUp({ searchResults: stays, loading, error }) {
+function SearchPopUp({
+  searchResults: stays,
+  loading,
+  error,
+  setIsSearchPopupOpen,
+  isSearchPopupOpen,
+}) {
   console.log('searchResults', stays);
-  useEffect(() => {
-    if (stays.length > 0) {
-      console.log(stays);
-      // map over the stays and display them use card component
-    } else {
-      console.log('No search results found.');
-    }
-  }, [stays]);
+  // useEffect(() => {
+  //   if (stays.length > 0) {
+  //     console.log(stays);
+  //     // map over the stays and display them use card component
+  //   } else {
+  //     console.log('No search results found.');
+  //   }
+  // }, [stays]);
 
   return (
-    <section className="fixed inset-0 bg-white z-50">
-      <h1>Search results </h1>
-      <StaysList stays={stays} loading={loading} error={error} />
+    <section className="fixed inset-0 bg-white z-50 mx-auto">
+      <div className="relative w-full h-full overflow-auto">
+        <div className="min-h-full bg-white bg-opacity-95 p-6 max-w-8xl mx-auto rounded-lg shadow-lg">
+          {/* Header with close button */}
+          <div className="flex justify-between items-center mb-8 sticky top-0 bg-white bg-opacity-95 py-4">
+            <h2 className="text-3xl font-bold text-primary mb-4 mx-auto">
+              Available Properties
+            </h2>
+            <button
+              onClick={() => setIsSearchPopupOpen(false)}
+              // clear all fileds after closing the popup
+              className="text-gray-600 hover:text-gray-800 text-4xl font-light"
+            >
+              ×
+            </button>
+          </div>
+
+          {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
+        {loading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
+
+        {stays &&
+          stays.map(venue => {
+            return (
+              <SingleCard
+                key={venue.id}
+                id={venue.id}
+                title={venue.title}
+                image={venue.media[0].url || venue.media}
+                // image={venue.media[0].url}
+                imageAlt={venue.mediaAlt}
+                price={venue.price}
+                rating={venue.rating}
+                location={venue.location}
+              />
+            );
+          })}
+      </div> */}
+
+          <StaysList stays={stays} loading={loading} error={error} />
+        </div>
+      </div>
     </section>
   );
 }
