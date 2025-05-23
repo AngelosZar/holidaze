@@ -19,7 +19,7 @@ const useBookingStore = create(
       try {
         set({ isLoading: true });
         const headers = returnHeaders();
-        console.log('headers', headers);
+        // console.log('headers', headers);
         const res = await fetch(
           `${BASE_URL}${BOOKINGS_ENDPOINT}?_customer=${customer}&_venue=${venue}`,
           {
@@ -30,14 +30,14 @@ const useBookingStore = create(
             },
           }
         );
-        console.log('res', res);
+        // console.log('res', res);
         if (!res.ok) {
           console.error('Failed to fetch booking:', res.statusText);
           // or check if its object res.status. somethng
           throw new Error('Failed to fetch booking');
         }
         const data = await res.json();
-        console.log('data', data);
+        // console.log('data', data);
         set({ isLoading: false });
         return data;
       } catch (error) {
@@ -49,7 +49,7 @@ const useBookingStore = create(
       try {
         set({ isLoading: true });
         const headers = returnHeaders();
-        console.log('headers', headers);
+        // console.log('headers', headers);
         const res = await fetch(
           `${BASE_URL}${BOOKINGS_ENDPOINT}?_customer=${customer}&_venue=${venue}`,
           {
@@ -60,14 +60,14 @@ const useBookingStore = create(
             },
           }
         );
-        console.log('res', res);
+        // console.log('res', res);
         if (!res.ok) {
           console.error('Failed to fetch booking:', res.statusText);
           // or check if its object res.status. somethng
           throw new Error('Failed to fetch booking');
         }
         const data = await res.json();
-        console.log('data', data);
+        // console.log('data', data);
         set({ isLoading: false });
         return data;
       } catch (error) {
@@ -121,7 +121,7 @@ const useBookingStore = create(
       try {
         set({ isLoading: true });
         const headers = returnHeaders();
-        console.log('headers', headers);
+        // console.log('headers', headers);
         const response = await fetch(
           // `${BASE_URL}${BOOKINGS_ENDPOINT}/${id}?_customer=${customer}&_venue=${venue}`,
           `https://v2.api.noroff.dev/holidaze/bookings/${id}?_customer=${customer}&_venue=${venue}`,
@@ -134,13 +134,13 @@ const useBookingStore = create(
             body: JSON.stringify(requestObject),
           }
         );
-        console.log('response', response);
+        // console.log('response', response);
         if (!response.ok) {
           console.error('Failed to update booking:', response.statusText);
           throw new Error('Failed to update booking');
         }
         const data = await response.json();
-        console.log(data);
+        // console.log(data);
         set({ isLoading: false });
         return data;
       } catch (error) {
@@ -153,7 +153,7 @@ const useBookingStore = create(
       try {
         set({ isLoading: true });
         const headers = returnHeaders();
-        console.log('headers', headers);
+        // console.log('headers', headers);
         const response = await fetch(`${BASE_URL}${BOOKINGS_ENDPOINT}/${id}`, {
           method: 'DELETE',
           headers: {
@@ -161,7 +161,7 @@ const useBookingStore = create(
             ...headers.headers,
           },
         });
-        console.log('response', response);
+        // console.log('response', response);
         if (!response.ok) {
           console.error('Failed to delete booking:', response.statusText);
           throw new Error('Failed to delete booking');

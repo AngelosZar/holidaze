@@ -71,7 +71,7 @@ const useProfileStore = create(
       const headers = returnHeaders();
 
       try {
-        console.log(name);
+        // console.log(name);
         const res = await fetch(`${GET_USER_URL}${name}`, {
           method: 'GET',
           headers,
@@ -93,20 +93,20 @@ const useProfileStore = create(
     putProfile: async (name, userInput) => {
       set({ isLoading: true, error: null });
       const headers = returnHeaders();
-      console.log('headers', headers);
+      // console.log('headers', headers);
       // create a function to return an object with it
       // Update or set bio, venueManager, banner and avatar properties.
 
       try {
-        console.log(`PUT_USER_URL${name}`);
+        // console.log(`PUT_USER_URL${name}`);
         const url = `${PUT_USER_URL}${name}`;
-        console.log('url', url);
+        // console.log('url', url);
         const res = await fetch(url, {
           method: 'PUT',
           headers,
           body: JSON.stringify(userInput),
         });
-        console.log(res);
+        // console.log(res);
         const data = await res.json();
         returnErrors(
           res,
@@ -186,7 +186,7 @@ const useProfileStore = create(
           }
         );
         const data = await res.json();
-        console.log('data', data);
+        // console.log('data', data);
 
         returnErrors(
           res,
@@ -197,7 +197,7 @@ const useProfileStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        console.log('error', error);
+        // console.log('error', error);
         set({ error: error.message, isLoading: false });
         throw error;
       }

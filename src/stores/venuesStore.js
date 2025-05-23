@@ -45,7 +45,7 @@ const useVenueStore = create(
         return data;
       } catch (error) {
         set({ error: error });
-        console.log('error', error);
+        // console.log('error', error);
       }
     },
 
@@ -59,7 +59,7 @@ const useVenueStore = create(
           }
         );
         const data = await res.json();
-        // console.log('data', data);
+        console.log('data', data);
         set({ singleVenue: data.data });
         returnErrors(
           res,
@@ -70,14 +70,14 @@ const useVenueStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        console.log('error:', error);
+        // console.log('error:', error);
         set({ error: error });
       }
     },
     // create a venueData object for api call
     postVenue: async (venueData, owner = true, bookings = true) => {
       set({ isLoading: true });
-      console.log('venueData', venueData);
+      // console.log('venueData', venueData);
       const headers = returnHeaders();
       try {
         const res = await fetch(
@@ -89,8 +89,8 @@ const useVenueStore = create(
           }
         );
         const data = await res.json();
-        console.log('data', data);
-        console.log('res', res);
+        // console.log('data', data);
+        // console.log('res', res);
         returnErrors(
           res,
           data,
@@ -143,7 +143,7 @@ const useVenueStore = create(
 
         set({ isLoading: false });
       } catch (error) {
-        console.log('error:', error);
+        // console.log('error:', error);
         set({ error: error });
       }
     },
@@ -175,7 +175,7 @@ const useVenueStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        console.log('error:', error);
+        // console.log('error:', error);
         set({ error: error });
       }
     },

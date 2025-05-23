@@ -13,8 +13,7 @@ export async function getApiKey(userCredentials) {
       body: JSON.stringify({ userCredentials }),
     });
     const data = await res.json();
-    console.log('data', data);
-    // set on local storage or session storage or .env file
+
     if (!res.ok) {
       if (data.errors && Array.isArray(data.errors)) {
         const error = data.errors[0];

@@ -1,6 +1,5 @@
 function returnUserStatus() {
   const UserStatus = localStorage.getItem('isManager');
-  console.log('UserStatus:', UserStatus);
   if (UserStatus === 'true') {
     return true;
   } else if (UserStatus === 'false') {

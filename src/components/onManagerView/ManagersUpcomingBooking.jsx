@@ -3,7 +3,7 @@ function ManagersUpcomingBooking({
   handleEditVenue,
   handleRemoveVenue,
 }) {
-  console.log('venue:', venue);
+  // console.log('venue:', venue);
 
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto w-full">

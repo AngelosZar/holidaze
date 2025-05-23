@@ -32,7 +32,7 @@ const createVenueStore = create((set, get) => ({
         media: [...state.venueData.media, newMedia],
       },
     }));
-    console.log('newMedia', newMedia);
+    // console.log('newMedia', newMedia);
   },
   // if time
   //   removeMedia:
@@ -41,7 +41,7 @@ const createVenueStore = create((set, get) => ({
     set(state => ({
       venueData: { ...state.venueData, ...newData },
     }));
-    console.log('newData', newData);
+    // console.log('newData', newData);
   },
   updateMetaData(newData) {
     set(state => ({
@@ -62,7 +62,7 @@ const createVenueStore = create((set, get) => ({
           },
         },
       };
-      console.log('Updated meta state:', newState.venueData.meta);
+      // console.log('Updated meta state:', newState.venueData.meta);
       return newState;
     });
   },
@@ -73,7 +73,7 @@ const createVenueStore = create((set, get) => ({
         location: { ...state.venueData.location, ...newData },
       },
     }));
-    console.log('newData', newData);
+    // console.log('newData', newData);
   },
   reset: () =>
     set({
@@ -106,11 +106,11 @@ const createVenueStore = create((set, get) => ({
   submitVenueData: async () => {
     const { venueData } = get();
     const { postVenue } = useVenueStore.getState();
-    console.log('venueData', venueData);
+    // console.log('venueData', venueData);
     //      postVenue: async (venueData, owner = true, bookings = true) => {
     try {
       const data = await postVenue(venueData, true, true);
-      console.log('data', data);
+      // console.log('data', data);
       return data;
     } catch (error) {
       console.error('Error:', error);

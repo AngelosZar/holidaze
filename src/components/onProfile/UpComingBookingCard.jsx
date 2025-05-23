@@ -1,5 +1,5 @@
 export function UpComingBookingCard({ venue, loading, error }) {
-  console.log('venue', venue);
+  // console.log('venue', venue);s
   return (
     <div className="flex flex-row gap-4 p-4 bg-white shadow-lg rounded-lg max-w-md">
       <div>
