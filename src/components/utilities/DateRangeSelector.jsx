@@ -22,32 +22,19 @@ function DateRangeSelector({ className, venueBookings }) {
   } = datePickerStore();
 
   const today = dayjs();
-  console.log('today', venueBookings);
   const handleCheckInChange = newValue => {
     setCheckInDate(newValue);
   };
   const handleCheckOutChange = newValue => {
     setCheckOutDate(newValue);
   };
-  //
 
-  useEffect(() => {
-    if (checkInDate) {
-      console.log('checkInDate', checkInDate);
-    }
-    if (checkOutDate) {
-      console.log('checkOutDate', checkOutDate);
-    }
-  }, [checkInDate, checkOutDate]);
-  //
-  // create a function to visualize the dates that are not available
   const isDateBooked = date => {
     if (!venueBookings || venueBookings.length === 0) {
       return false;
     }
 
     const dayjsDate = dayjs(date);
-    console.log('Checking date:', dayjsDate.format('YYYY-MM-DD'));
 
     const isBooked = venueBookings.some(booking => {
       const bookingStartStr = booking.dateFrom.split('T')[0];
@@ -65,7 +52,6 @@ function DateRangeSelector({ className, venueBookings }) {
 
     return isBooked;
   };
-  // const isDayAvailable = date => {};
 
   const isCheckoutDateInvalid = date => {
     if (!checkInDate || !venueBookings || venueBookings.length === 0)
@@ -82,7 +68,6 @@ function DateRangeSelector({ className, venueBookings }) {
     });
   };
 
-  //
   useEffect(() => {
     if (
       checkInDate &&
@@ -95,7 +80,6 @@ function DateRangeSelector({ className, venueBookings }) {
       if (diff !== nights) {
         setNights(diff);
       }
-      console.log('Nights:', diff);
     }
   }, [checkInDate, checkOutDate, nights, setNights]);
 

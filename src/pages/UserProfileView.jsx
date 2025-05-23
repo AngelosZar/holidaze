@@ -2,12 +2,14 @@ import Layout from '../components/layout/Layout';
 import { UserOnHeroSection } from '../components/onProfile/UserOnHeroSection';
 import { UpComingBookings } from '../components/onProfile/UpComingBookings';
 import SingleCard from '../components/SingleCard';
+import CurrentBookingsSection from '../components/onManagerView/CurrentBookingsSection';
 function UserProfileView() {
   return (
     <Layout>
       <UserOnHeroSection />
-      <UpComingBookings />
-      <PreviousBookings />
+      <CurrentBookingsSection />
+      {/* <UpComingBookings /> */} delete file after
+      {/* <PreviousBookings /> */}
     </Layout>
   );
 }

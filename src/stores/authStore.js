@@ -75,9 +75,7 @@ const useAuthStore = create((set, get) => ({
       });
 
       const data = await response.json();
-      console.log('data', data);
       if (!response.ok) {
-        console.log('response', response);
         if (data.errors && Array.isArray(data.errors)) {
           const errorMessages = data.errors.map(error => error.message);
           set({ error: errorMessages.join(', '), isLoading: false });
@@ -135,11 +133,6 @@ const useAuthStore = create((set, get) => ({
         isAuthenticated: true,
         isManager: Boolean(isManager),
       });
-    }
-
-    const token = returnToken();
-    if (user && token) {
-      console.log('returnToken', token);
     }
   },
 
