@@ -33,6 +33,7 @@ function CurrentBookingsSection() {
         const uniqueBookingIds = [
           ...new Set(profileBookingsRes.data.map(booking => booking.id)),
         ];
+        console.log('uniqueBookingIds', uniqueBookingIds);
 
         const detailedBookingsPromises = uniqueBookingIds.map(bookingId =>
           getBooking(bookingId, true, true)
@@ -150,7 +151,7 @@ function CurrentBookingsSection() {
               upcomingBookings.map(booking => (
                 <ManagersUpcomingBooking
                   key={booking?.data?.id}
-                  booking={booking?.venue}
+                  booking={booking}
                   loading={isLoading}
                   error={error}
                 />
@@ -159,7 +160,7 @@ function CurrentBookingsSection() {
               upcomingBookings.map(booking => (
                 <UpComingBookingCard
                   key={booking?.data?.id}
-                  booking={booking?.venue}
+                  booking={booking}
                   loading={isLoading}
                   error={error}
                 />

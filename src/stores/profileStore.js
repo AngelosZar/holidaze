@@ -141,7 +141,7 @@ const useProfileStore = create(
           val => set({ isLoading: val })
         );
         // error handlling
-        console.log('data', data);
+        // console.log('data', data);
       } catch (error) {
         console.log('error', error);
         set({ error: error.message, isLoading: false });

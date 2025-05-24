@@ -63,7 +63,7 @@ const useBookingStore = create(
           throw new Error('Failed to fetch booking');
         }
         const data = await res.json();
-        console.log('data', data);
+        // console.log('data', data);
         set({ isLoading: false });
         return data;
       } catch (error) {
