@@ -12,6 +12,7 @@ function UsersVenueSection() {
   const { getProfileVenues } = useProfileStore();
   const [venues, setVenues] = useState([]);
   const { deleteVenue, setSingleVenue } = venuesStore();
+
   const navigate = useNavigate();
   useEffect(() => {
     const user = returnUser();
@@ -21,12 +22,20 @@ function UsersVenueSection() {
       setIsLoading(true);
       try {
         const venues = await getProfileVenues(userName);
-        console.log('venues:', venues.data);
+        console.log('venues:', venues);
         if (venues.data.length === 0) {
           setError('No venues');
         }
+        // setVenues(venues.data);
+        const enhancedVenues = venues.data.map(venue => ({
+          ...venue,
+          bookingIds: venue.bookings
+            ? venue.bookings.map(booking => booking.id)
+            : [],
+        }));
 
-        setVenues(venues.data);
+        setVenues(enhancedVenues);
+        console.log('enhancedVenues', enhancedVenues);
       } catch (err) {
         setError('Failed to fetch venues');
         console.error('Error fetching venues:', err);
@@ -44,11 +53,8 @@ function UsersVenueSection() {
   }, [getProfileVenues]);
 
   const handleEditVenue = id => {
-    console.log('Edit venue');
     setSingleVenue(id);
-    // console.log('singleVenue', id);
-    navigate(`/manager/edit/${id}`); // reroute to edit page /component with react router
-    // reroute to edit page /component with react router
+    navigate(`/manager/edit/${id}`);
   };
 
   const handleRemoveVenue = async id => {

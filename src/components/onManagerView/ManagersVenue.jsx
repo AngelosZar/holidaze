@@ -1,4 +1,12 @@
+import { useEffect, useState } from 'react';
+import useBookingStore from '../../stores/bookingsStore';
+
 function ManagersVenue({ venue, handleEditVenue, handleRemoveVenue }) {
+  const bookings = venue?.bookings || [];
+  const handleBookingClick = function () {
+    console.log('click');
+    console.log(...bookings);
+  };
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto w-full">
       <div>
@@ -32,6 +40,13 @@ function ManagersVenue({ venue, handleEditVenue, handleRemoveVenue }) {
               onClick={() => handleRemoveVenue(venue.id)}
             >
               Remove Venue
+            </button>
+            <button
+              value={venue.id}
+              onClick={() => handleBookingClick()}
+              className="text-primary hover:text-primary80"
+            >
+              Show Bookings
             </button>
           </div>
         </div>

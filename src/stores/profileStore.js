@@ -141,23 +141,26 @@ const useProfileStore = create(
           val => set({ isLoading: val })
         );
         // error handlling
-        // console.log('data', data);
+        console.log('data', data);
       } catch (error) {
         console.log('error', error);
         set({ error: error.message, isLoading: false });
         throw error;
       }
     },
-    getProfileVenues: async name => {
+    getProfileVenues: async (name, owner = true, bookings = true) => {
       set({ isLoading: true, error: null });
       const headers = returnHeaders();
       try {
-        const res = await fetch(`${GET_USER_URL}${name}${VENUES_ENDPOINT}`, {
-          method: 'GET',
-          headers,
-        });
+        const res = await fetch(
+          `${GET_USER_URL}${name}${VENUES_ENDPOINT}?_owner=${owner}&_bookings=${bookings}`,
+          {
+            method: 'GET',
+            headers,
+          }
+        );
         const data = await res.json();
-        console.log('data', data);
+        // console.log('data', data);
 
         returnErrors(
           res,
@@ -174,12 +177,12 @@ const useProfileStore = create(
       }
     },
 
-    getProfileBookings: async userName => {
+    getProfileBookings: async (userName, owner = true, bookings = true) => {
       set({ isLoading: true, error: null });
       const headers = returnHeaders();
       try {
         const res = await fetch(
-          `${GET_USER_URL}${userName}/${BOOKINGS_ENDPOINT}?_owner=true&_bookings=true`,
+          `${GET_USER_URL}${userName}/${BOOKINGS_ENDPOINT}?_owner=${owner}&_bookings=${bookings}`,
           {
             method: 'GET',
             headers,
