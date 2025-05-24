@@ -15,3 +15,5 @@ export const AUTH_GET_API_KEY_URL = `${BASE_URL}auth/create-api-key`;
 
 export const API_KEY = import.meta.env.VITE_API_KEY;
 // https://v2.api.noroff.dev/holidaze/bookings
+
+// c1211bda-f3e5-41c9-824d-c379bd3703f3

@@ -186,7 +186,7 @@ const useProfileStore = create(
           }
         );
         const data = await res.json();
-        // console.log('data', data);
+        console.log('data from profile store', data);
 
         returnErrors(
           res,

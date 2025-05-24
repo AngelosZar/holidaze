@@ -21,16 +21,15 @@ const useBookingStore = create(
         const headers = returnHeaders();
         // console.log('headers', headers);
         const res = await fetch(
+          // `${BASE_URL}${BOOKINGS_ENDPOINT}?_customer=${customer}&_venue=${venue}`,
           `${BASE_URL}${BOOKINGS_ENDPOINT}?_customer=${customer}&_venue=${venue}`,
           {
             method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              ...headers.headers,
-            },
+            headers,
           }
         );
-        // console.log('res', res);
+
+        console.log('res', res);
         if (!res.ok) {
           console.error('Failed to fetch booking:', res.statusText);
           // or check if its object res.status. somethng
@@ -51,28 +50,27 @@ const useBookingStore = create(
         const headers = returnHeaders();
         // console.log('headers', headers);
         const res = await fetch(
-          `${BASE_URL}${BOOKINGS_ENDPOINT}?_customer=${customer}&_venue=${venue}`,
+          // `${BASE_URL}${BOOKINGS_ENDPOINT}/${id}?_customer=${customer}&_venue=${venue}`,
+          `https://v2.api.noroff.dev/holidaze/bookings/${id}?_customer=${customer}&_venue=${venue}`,
           {
             method: 'GET',
-            headers: {
-              'Content-Type': 'application/json',
-              ...headers.headers,
-            },
+            headers,
           }
         );
         // console.log('res', res);
         if (!res.ok) {
           console.error('Failed to fetch booking:', res.statusText);
-          // or check if its object res.status. somethng
           throw new Error('Failed to fetch booking');
         }
         const data = await res.json();
-        // console.log('data', data);
+        console.log('data', data);
         set({ isLoading: false });
         return data;
       } catch (error) {
         set({ isLoading: false, error: error.message });
+
         console.error('Error fetching booking:', error);
+        throw error;
       }
     },
     postBooking: async requestObject => {
