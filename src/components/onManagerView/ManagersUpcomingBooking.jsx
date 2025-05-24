@@ -1,12 +1,35 @@
+import { useEffect, useState } from 'react';
+import useVenueStore from '../../stores/venuesStore';
+import { useNavigate } from 'react-router-dom';
+
 function ManagersUpcomingBooking({
   booking,
   handleEditVenue,
   handleRemoveVenue,
 }) {
-  // console.log('venue on line 6:', booking);
-  // console.log('venue on line 7:', booking);
-  console.log('venueMedia', booking?.venue?.media?.[0]?.url);
+  const { setSingleVenue, SingleVenue } = useVenueStore();
+  const [clickedCardId, setClickedCardId] = useState('');
 
+  useEffect(() => {
+    if (booking?.data?.venue?.id) {
+      setSingleVenue(booking.data.venue.id);
+      setClickedCardId(booking.data.venue.id);
+    }
+    console.log('booking?.data?.venue?.id', booking?.data?.venue?.id);
+  }, [booking, setSingleVenue]);
+  const Navigate = useNavigate();
+
+  const handleClick = id => {
+    setSingleVenue(id);
+    Navigate(`/venue/${id}`);
+  };
+  // console.log('venue on line 6:', booking);
+  console.log('venue on line 7:', booking);
+
+  console.log(
+    'booking?.data?.venue?._count?.bookings',
+    booking?.data?.venue?._count
+  );
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto w-full">
       <div>
@@ -26,9 +49,9 @@ function ManagersUpcomingBooking({
       <div className="p-3 ">
         <div className="mt-1 text-start flex flex-col justify-between w-full h-full">
           <div>
-            {/* <p className="font-semibold">{booking?.venue?.name}</p> */}
+            <p className="font-semibold">{booking?.data?.venue?.name}</p>
 
-            {/* {/* <p>{venue?._count?.bookings}</p> */}
+            <p>{booking?.data?.venue?._count?.bookings}</p>
           </div>
           <div className="flex flex-row gap-4 mt-4 text-start">
             <button
@@ -42,6 +65,13 @@ function ManagersUpcomingBooking({
               // onClick={() => handleRemoveVenue(venue.id)}
             >
               Remove Venue/ cancel booking
+            </button>
+            <button
+              value={clickedCardId}
+              onClick={() => handleClick(clickedCardId)}
+              className="text-primary hover:text-primary80"
+            >
+              See Venue Page
             </button>
           </div>
         </div>

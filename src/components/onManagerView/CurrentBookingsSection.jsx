@@ -33,7 +33,7 @@ function CurrentBookingsSection() {
         const uniqueBookingIds = [
           ...new Set(profileBookingsRes.data.map(booking => booking.id)),
         ];
-        console.log('uniqueBookingIds', uniqueBookingIds);
+        // console.log('uniqueBookingIds', uniqueBookingIds);
 
         const detailedBookingsPromises = uniqueBookingIds.map(bookingId =>
           getBooking(bookingId, true, true)
@@ -42,14 +42,14 @@ function CurrentBookingsSection() {
         const detailedBookingsData = await Promise.all(
           detailedBookingsPromises
         );
-        console.log('detailedBookingsData', detailedBookingsData);
+        // console.log('detailedBookingsData', detailedBookingsData);
         const validBookings = detailedBookingsData.filter(booking => booking);
-        console.log('validBookings', validBookings);
+        // console.log('validBookings', validBookings);
         setUpcomingBookings(validBookings);
-        console.log('validBookings', validBookings);
+        // console.log('validBookings', validBookings);
       } catch (error) {
         setError('Failed to fetch bookings and venues');
-        console.error('Error fetching bookings and venues:', error);
+        // console.error('Error fetching bookings and venues:', error);
       } finally {
         setIsLoading(false);
       }
@@ -147,15 +147,25 @@ function CurrentBookingsSection() {
             </h5>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-8 mx-auto w-full">
-            {returnUserStatus() &&
+            {/* {returnUserStatus() &&
               upcomingBookings.map(booking => (
-                <ManagersUpcomingBooking
+           
+                <UpComingBookingCard
                   key={booking?.data?.id}
                   booking={booking}
                   loading={isLoading}
                   error={error}
                 />
-              ))}
+              ))} */}
+            {/* only test  */}
+            {returnUserStatus() && upcomingBookings.length > 0 && (
+              <UpComingBookingCard
+                key={upcomingBookings[0]?.data?.id}
+                booking={upcomingBookings[0]}
+                loading={isLoading}
+                error={error}
+              />
+            )}
             {!returnUserStatus() &&
               upcomingBookings.map(booking => (
                 <UpComingBookingCard

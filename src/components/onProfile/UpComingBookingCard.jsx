@@ -1,15 +1,30 @@
+import { useNavigate } from 'react-router-dom';
+import useVenueStore from '../../stores/venuesStore';
+import { useEffect, useState } from 'react';
+
 export function UpComingBookingCard({ booking, loading, error }) {
+  const { setSingleVenue, SingleVenue } = useVenueStore();
+  const [clickedCardId, setClickedCardId] = useState('');
+  useEffect(() => {
+    if (booking?.data?.venue?.id) {
+      setSingleVenue(booking.data.venue.id);
+      setClickedCardId(booking.data.venue.id);
+    }
+    console.log('booking?.data?.venue?.id', booking?.data?.venue?.id);
+  }, [booking, setSingleVenue]);
+  const Navigate = useNavigate();
   let venue = booking?.data;
   console.log('booking', booking);
-  console.log(
-    'booking?.data?.venue.media[0]',
-    booking?.data?.venue.media[0].url[0]
-  );
+  console.log('booking?.data?.venue?.id', booking?.data?.id);
   // console.log('venue.venue', venue?.venue);
   // console.log('venueMedia', booking?.venue?.media?.[0]?.url);
+  const handleClick = id => {
+    setSingleVenue(id);
+    Navigate(`/venue/${id}`);
+  };
   return (
-    <div className="flex flex-row gap-4 p-4 bg-white shadow-lg rounded-lg max-w-md">
-      <div>
+    <div className="flex flex-col gap-4 p-4 bg-white shadow-lg rounded-lg max-w-md hover:shadow-xl transition-all duration-200 cursor-pointer hover:scale-105">
+      <div value={clickedCardId} onClick={() => handleClick(clickedCardId)}>
         <img
           src={
             booking?.data?.venue.media[0]?.url ||

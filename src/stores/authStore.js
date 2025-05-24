@@ -145,10 +145,14 @@ const useAuthStore = create((set, get) => ({
       const { getUser } = useProfileStore.getState();
       const user = returnUser();
       const token = returnToken();
-      // console.log('user', user);
+      console.log('user', user);
+      console.log('user', token);
 
       if (user && token) {
         const data = await getUser(user.name);
+
+        console.log('data', data.data);
+        console.log('data.name', data.data.name);
         // console.log('data', data.data);
 
         let status = Boolean(data.data.venueManager);

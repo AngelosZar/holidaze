@@ -18,16 +18,12 @@ function useSearchVenues(searchTerm) {
       try {
         const data = await searchVenues(searchTerm, limit, page);
 
-        console.log('search data', data);
-
         if (!data || !data.data) {
           throw new Error('No data returned from API');
         }
 
         const venues = data.data;
-        // setStays([]);
 
-        console.log('venues', venues);
         const formattedData = venues
           .map(venue => ({
             key: venue.id,

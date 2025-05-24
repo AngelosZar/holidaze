@@ -18,8 +18,6 @@ function useGetFilteredVenues(functionName, sort = 'price') {
       try {
         const data = await functionName(sort, limit, page, true, true);
         const venues = data.data;
-        // setStays([]);
-        console.log('venues', venues);
         const formattedData = venues
           .map(venue => ({
             key: venue.id,
@@ -47,7 +45,7 @@ function useGetFilteredVenues(functionName, sort = 'price') {
 
         return data;
       } catch (error) {
-        console.log('error', error);
+        console.error('Error fetching venues:', error);
         setError(error);
       } finally {
         setLoading(false);
