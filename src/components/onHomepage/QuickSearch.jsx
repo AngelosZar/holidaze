@@ -14,9 +14,7 @@ function QuickSearch() {
     <section className="container mx-auto px-2 pt-12">
       <h4 className="pb-2">Quick Search</h4>
       <div className="flex flex-col md:flex-row gap-4 mt-4">
-        {/* <ul className="flex flex-col flex-wrap md:flex-row gap-6 bg-primary text-white py-4 px-4 rounded-lg"> */}
-
-        <ul className="flex flex-col flex-wrap md:flex-row gap-2 bg-primary text-white py-4 px-4 rounded-lg text-center w-[350px] mx-auto md:self-start">
+        <ul className="flex flex-row flex-wrap  gap-6 bg-primary text-white py-4 px-4 rounded-lg">
           <li>
             <button
               className={`
