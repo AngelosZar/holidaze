@@ -1,6 +1,6 @@
 function AboutUs() {
   return (
-    <section className="bg-white shadow-md rounded-lg max-w-6xl mx-auto mb-12">
+    <section className="bg-white shadow-md rounded-lg max-w-6xl mx-auto mb-12 py-8">
       <h4 className="mx-8 mb-8">About us</h4>
 
       <div className="flex flex-col md:flex-row px-8 relative">
