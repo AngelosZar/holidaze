@@ -55,7 +55,7 @@ export default function Header() {
       `}
     >
       <nav className="text-xl font-semi-bold flex items-center justify-between max-w-[1520px] px-8 py-2 mx-auto relative">
-        <NavLink to="homepage">
+        <NavLink to="/">
           <img src={logo} alt="logo" className="w-60" />
         </NavLink>
         <div className="md:hidden">
@@ -128,31 +128,31 @@ function HamburgerMenu({
         >
           <ul className=" flex flex-col items-center space-y-4 py-4 text-lg font-semibold">
             <li>
-              <NavLink to="aboutUs">About us</NavLink>
+              <NavLink to="/aboutUs">About us</NavLink>
             </li>
 
             <li>
-              <NavLink to="contactUs">Contact us</NavLink>
+              <NavLink to="/contactUs">Contact us</NavLink>
             </li>
 
             {!isAuthenticated && (
               <>
                 <li>
-                  <NavLink to="login">Log in</NavLink>
+                  <NavLink to="/login">Log in</NavLink>
                 </li>
                 <li>
-                  <NavLink to="register">Register</NavLink>
+                  <NavLink to="/register">Register</NavLink>
                 </li>
               </>
             )}
             {!isManager && isAuthenticated && (
               <li>
-                <NavLink to="profile">Profile</NavLink>
+                <NavLink to="/profile">Profile</NavLink>
               </li>
             )}
             {isAuthenticated && isManager && (
               <li>
-                <NavLink to="manager">Manager</NavLink>
+                <NavLink to="/manager">Manager</NavLink>
               </li>
             )}
             {isAuthenticated && (
@@ -171,29 +171,29 @@ function DesktopMenu({ handleLogout, isAuthenticated, isManager }) {
   return (
     <ul className="flex gap-4 mx-4">
       <li>
-        <NavLink to="aboutUs">About us</NavLink>
+        <NavLink to="/aboutUs">About us</NavLink>
       </li>
       <li>
-        <NavLink to="contactUs">Contact us</NavLink>
+        <NavLink to="/contactUs">Contact us</NavLink>
       </li>
       {!isAuthenticated && (
         <>
           <li>
-            <NavLink to="login">Log in</NavLink>
+            <NavLink to="/login">Log in</NavLink>
           </li>
           <li>
-            <NavLink to="register">Register</NavLink>
+            <NavLink to="/register">Register</NavLink>
           </li>
         </>
       )}
       {!isManager && isAuthenticated && (
         <li>
-          <NavLink to="profile">Profile</NavLink>
+          <NavLink to="/profile">Profile</NavLink>
         </li>
       )}
       {isAuthenticated && isManager && (
         <li>
-          <NavLink to="manager">Manager</NavLink>
+          <NavLink to="/manager">Manager</NavLink>
         </li>
       )}
 

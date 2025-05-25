@@ -9,25 +9,6 @@ function QuickSearch() {
   const handleFilterChange = newFilter => {
     setFilterQuery(newFilter);
   };
-  if (loading) {
-    return <IsLoadingContainer />;
-  }
-  if (error) {
-    return (
-      <section className="container mx-auto px-2 pt-12">
-        <h4 className="pb-2">Quick Search</h4>
-        <p className="text-red-500">Error: {error.message}</p>
-      </section>
-    );
-  }
-  if (!stays || stays.length === 0) {
-    return (
-      <section className="container mx-auto px-2 pt-12">
-        <h4 className="pb-2">Quick Search</h4>
-        <p className="text-gray-500">No stays found for this filter.</p>
-      </section>
-    );
-  }
 
   return (
     <section className="container mx-auto px-2 pt-12">
