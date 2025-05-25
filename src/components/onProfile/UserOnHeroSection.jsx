@@ -1,14 +1,9 @@
 import useUserData from '../../hooks/useUserData';
-
+import IsLoadingContainer from '../utilities/IsLoadingContainer';
 export function UserOnHeroSection() {
   const { userData, isLoading, error } = useUserData();
 
-  if (isLoading)
-    return (
-      <div>
-        <h5>Loading</h5>{' '}
-      </div>
-    );
+  if (isLoading) return <IsLoadingContainer />;
 
   if (error)
     return (

@@ -40,9 +40,8 @@ const useAuthStore = create((set, get) => ({
         throw new Error(error.message);
       }
 
-      const storage = rememberDevice ? localStorage : sessionStorage;
-      storage.setItem('user', JSON.stringify(userData));
-      storage.setItem('accessToken', userData.accessToken);
+      localStorage.setItem('user', JSON.stringify(userData));
+      localStorage.setItem('accessToken', userData.accessToken);
       localStorage.setItem('isAuthenticated', JSON.stringify(true));
       set({
         user: userData,

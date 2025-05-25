@@ -45,7 +45,7 @@ function CurrentBookingsSection() {
         );
 
         const validBookings = detailedBookingsData.filter(booking => booking);
-
+        console.log('detailedBookingsData', detailedBookingsData);
         setUpcomingBookings(validBookings);
       } catch (error) {
         setError('Failed to fetch bookings and venues');
@@ -64,7 +64,7 @@ function CurrentBookingsSection() {
   return (
     <>
       {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {error && <h3>{error}</h3>}
       {error === 'No venues' && (
         <div className="grid grid-cols-1 mt-14 gap-4 ">
           <p className="text-center text-gray-500">
@@ -72,7 +72,6 @@ function CurrentBookingsSection() {
           </p>
         </div>
       )}
-
       {!isLoading && !error && (
         <section className="w-full mb-22 flex flex-col items-center">
           {upcomingBookings.length > 0 && (
