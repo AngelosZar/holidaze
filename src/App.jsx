@@ -16,7 +16,6 @@ import CreateAVenue from './components/onManagerView/CreateAVenue';
 import { EditVenueDropDown } from './components/onManagerView/EditVenueDropDown';
 import ManageMyAccount from './components/onManagerView/ManageMyAccount';
 
-//
 function App() {
   const { initAuth, isAuthenticated, initUser, isManager } = useAuthStore();
   useEffect(() => {
@@ -30,7 +29,6 @@ function App() {
   }, [initUser, isAuthenticated]);
   const ProtectedRoutes = ({ children }) => {
     if (!isAuthenticated) {
-      // maybe show a message first
       return <Navigate to="/login" replace />;
     }
     return children;
