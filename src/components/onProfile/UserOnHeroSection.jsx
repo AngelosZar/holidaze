@@ -1,21 +1,21 @@
-// import { useEffect, useState } from 'react';
 import useUserData from '../../hooks/useUserData';
-// import TabComponent from '../onManagerView/tabComponent';
-
-// import useGetUserVenues from '../../hooks/useGetUserVenues';
-// import useGetUserBookings from '../../hooks/useGetUserBookings';
-// import UsersVenueSection from '../onManagerView/UsersVenueSection';
-// import CurrentBookingsSection from '../onManagerView/CurrentBookingsSection';
-// import CreateAVenue from '../onManagerView/CreateAVenue';
-// import { EditVenueDropDown } from '../onManagerView/EditVenueDropDown';
-// import ManageMyAccount from '../onManagerView/ManageMyAccount';
 
 export function UserOnHeroSection() {
   const { userData, isLoading, error } = useUserData();
 
-  if (isLoading) return <div>is loading ... add spinner</div>;
+  if (isLoading)
+    return (
+      <div>
+        <h5>Loading</h5>{' '}
+      </div>
+    );
 
-  if (error) return <div>error promt :{error.message}</div>;
+  if (error)
+    return (
+      <div>
+        <h5>error promt :{error.message}</h5>
+      </div>
+    );
 
   return (
     <section className="w-full mt-[90px]  mb-32 ">
@@ -34,7 +34,6 @@ export function UserOnHeroSection() {
             />
           </div>
         </div>
-
         <div className="mt-22 px-12 sm:mt-12 flex justify-between ">
           <div></div>
           <div className="mr-4 ">

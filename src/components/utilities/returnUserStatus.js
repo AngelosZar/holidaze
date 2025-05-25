@@ -5,7 +5,7 @@ function returnUserStatus() {
   } else if (UserStatus === 'false') {
     return false;
   } else {
-    return null; // or handle the case when UserStatus is not set
+    return null;
   }
 }
 

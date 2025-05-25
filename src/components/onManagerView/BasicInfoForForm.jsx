@@ -4,12 +4,12 @@ import createVenueStore from '../../stores/createVenueStore';
 export default function BasicInfoForForm({ venueData, handleInputChange }) {
   return (
     <div className="flex flex-col gap-4 mt-8 max-w-sm">
-      <h6>Basic information</h6>
+      <h6 className="text-primary80 font-bold">Basic information</h6>
       <div>
         <label htmlFor="Title">Title</label>
         <input
           type="text"
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="formInput bg-white text-primary"
           placeholder="Enter label"
           value={venueData.name || ''}
           onChange={e => handleInputChange('name', e.target.value)}
@@ -18,7 +18,7 @@ export default function BasicInfoForForm({ venueData, handleInputChange }) {
       <div>
         <label htmlFor="Description">Description</label>
         <textarea
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="formInput bg-white text-primary"
           placeholder="Enter description"
           value={venueData.description || ''}
           onChange={e => handleInputChange('description', e.target.value)}
@@ -32,7 +32,7 @@ export default function BasicInfoForForm({ venueData, handleInputChange }) {
         <input
           type="number"
           min="0"
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="formInput bg-white text-primary"
           placeholder="Price per night"
           value={venueData.price || ''}
           onChange={e => handleInputChange('price', Number(e.target.value))}
@@ -42,7 +42,7 @@ export default function BasicInfoForForm({ venueData, handleInputChange }) {
         <label htmlFor="maxGuests">Maximum number of guests</label>
         <input
           type="number"
-          className="w-full p-2 border border-gray-300 rounded-md"
+          className="formInput bg-white text-primary"
           placeholder="Price per night"
           value={venueData.maxGuests || '6'}
           onChange={e => handleInputChange('maxGuests', Number(e.target.value))}

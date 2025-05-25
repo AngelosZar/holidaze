@@ -28,6 +28,7 @@ function BookAside({ venue }) {
   }, [checkInDate, checkOutDate, alertMessage]);
 
   const handleButtonClick = async () => {
+    // if !isAthenticated() {alert 'Please log in to book a venue.'; return;}
     if (!checkInDate || !checkOutDate) {
       setAlertMessage('No inputs');
       return;

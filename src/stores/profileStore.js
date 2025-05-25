@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { createJSONStorage } from 'zustand/middleware';
 import returnToken from '../components/utilities/returnToken';
 import returnErrors from '../components/utilities/returnErrors';
 //

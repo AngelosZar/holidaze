@@ -4,7 +4,12 @@ import SetAccommodationIncludes from './SetAccommodationIncludes';
 import createVenueStore from '../../stores/createVenueStore';
 import Popup from '../utilities/PopUp';
 import { useState } from 'react';
+
 function CreateAVenue() {
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupTitle, setPopupTitle] = useState('');
+  const [popupType, setPopupType] = useState('info');
   const {
     submitVenueData,
     reset,
@@ -14,10 +19,6 @@ function CreateAVenue() {
     venueData,
     location,
   } = createVenueStore();
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState('');
-  const [popupTitle, setPopupTitle] = useState('');
-  const [popupType, setPopupType] = useState('info');
 
   const handleLocationChange = (field, value) => {
     updateLocationData({ [field]: value });
@@ -39,14 +40,23 @@ function CreateAVenue() {
       setPopupMessage('Venue Created Successfully');
       setPopupType('success');
       setShowSuccessPopup(true);
-      // maybe use timeout in the component itself
+
       setTimeout(() => {
         setShowSuccessPopup(false);
       }, 3000);
       reset();
     } catch (error) {
       console.error('Error submitting venue data:', error);
+      setPopupTitle('Error!');
+      setPopupMessage(
+        error.message || 'Failed to edit venue. Please try again.'
+      );
+      setPopupType('error');
+      setShowSuccessPopup(true);
     }
+    setTimeout(() => {
+      setShowSuccessPopup(false);
+    }, 3000);
   }
   const handleClosePopup = () => {
     setShowSuccessPopup(false);
@@ -56,10 +66,10 @@ function CreateAVenue() {
   };
   return (
     <section className="w-full my-12 mx-8">
-      <div className="py-12 border border-gray-200">
-        <h3 className="mb-12">Create a venue</h3>
-        <form onSubmit={handleSubmitVenueData}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="py-12 px-4 border border-gray-200 rounded-xl bg-white shadow-md">
+        <h3 className="text-primary mb-12 ml-12 text-center">Create a venue</h3>
+        <form onSubmit={handleSubmitVenueData} className="relative">
+          <div className="flex flex-col md:flex-row flex-wrap gap-10 justify-center ">
             <BasicInfoForForm
               handleInputChange={handleInputChange}
               venueData={venueData}
@@ -73,12 +83,14 @@ function CreateAVenue() {
               venueData={venueData}
             />
           </div>
-          <button className="btn-primary" type="submit">
+          <button
+            className="btn-primary absolute bottom-0 right-12"
+            type="submit"
+          >
             Submit
           </button>
         </form>
       </div>
-      {/*  */}
 
       <Popup
         isOpen={showSuccessPopup}

@@ -12,13 +12,10 @@ export default function SetAccommodationIncludes({
   handleMetaDataChange,
   venueData,
 }) {
-  useEffect(() => {
-    console.log('venueData', venueData);
-  }, [venueData]);
+  useEffect(() => {}, [venueData]);
   const meta = venueData?.meta || {};
   const { wifi, parking, breakfast, pets } = meta;
 
-  // Only for show - maybe create a toggle later
   const privateEntrance = true;
   const airConditioner = true;
   const shower = true;
@@ -26,7 +23,7 @@ export default function SetAccommodationIncludes({
 
   return (
     <div className="flex flex-col gap-4 max-w-sm mt-8">
-      <h6>Accommodation includes</h6>
+      <h6 className="text-primary80 font-bold">Accommodation includes</h6>
       <div className="grid col-auto grid-cols-1 gap-4 max-w-lg sm:grid-cols-2 sm:gap-8 md:gap-4">
         <div className="flex flex-col gap-2">
           <div

@@ -5,21 +5,19 @@ import updateVenueStore from '../../stores/updateVenueStore';
 import useGetVenueWithId from '../../hooks/useGetVenueWithId';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import Popup from '../utilities/PopUp';
+import IsLoadingContainer from '../utilities/IsLoadingContainer';
 
 export function EditVenueDropDown() {
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupTitle, setPopupTitle] = useState('');
+  const [popupType, setPopupType] = useState('info');
   const { id } = useParams();
   const navigate = useNavigate();
   const { venue: fetchedVenueData, isLoading, error } = useGetVenueWithId(id);
-  const {
-    submitVenueData,
-    reset,
-    updateVenueData,
-    updateLocationData,
-    updateMetaData,
-    setVenueData,
-    toggleMetaValue,
-    venueData,
-  } = updateVenueStore();
+  const { submitVenueData, reset, setVenueData, toggleMetaValue, venueData } =
+    updateVenueStore();
   const [storeActions] = useState(() => ({
     updateVenueData: updateVenueStore.getState().updateVenueData,
     updateLocationData: updateVenueStore.getState().updateLocationData,
@@ -51,24 +49,48 @@ export function EditVenueDropDown() {
       },
     });
   };
-
+  const handleClosePopup = () => {
+    setShowSuccessPopup(false);
+    setPopupTitle('');
+    setPopupMessage('');
+    setPopupType('info');
+  };
   const handleSubmitVenueData = async (e, id, venueData) => {
     e.preventDefault();
     try {
       await submitVenueData(id, venueData);
+      setPopupTitle('Venue Edited Successfully!');
+      setPopupMessage('Venue Edited Successfully');
+      setPopupType('success');
+      setShowSuccessPopup(true);
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+        navigate('/manager/venues');
+      }, 3000);
+      reset();
     } catch (error) {
       console.error('Error submitting venue data:', error);
-    } finally {
+      setPopupTitle('Error!');
+      setPopupMessage(
+        error.message || 'Failed to edit venue. Please try again.'
+      );
+      setPopupType('error');
+      setShowSuccessPopup(true);
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+      }, 3000);
       reset();
-      alert('Venue updated successfully');
-      navigate('/manager/venues');
     }
   };
   {
-    isLoading && <p>Loading...</p>;
+    isLoading && <IsLoadingContainer />;
   }
   {
-    error && <p>{error}</p>;
+    error && (
+      <div>
+        <h5>{error}</h5>
+      </div>
+    );
   }
   {
     if (!storeVenueData.id && !fetchedVenueData)
@@ -77,23 +99,29 @@ export function EditVenueDropDown() {
 
   return (
     <section className="w-full my-12 mx-8">
-      <h3 className="mb-12">Edit venue dropdown</h3>
-      <div className="flex flex-col md:flex-row justify-evenly items-center">
+      <h3 className="mb-12">
+        Edit venue: <span className="text-primary">{venueData?.name}</span>
+      </h3>
+      <div className="flex flex-col pb-12">
         <div className="max-w-sm ">
           <img
             src={venueData?.media?.[0]?.url}
             alt={venueData?.media?.[0]?.alt}
             className="w-full object-cover rounded-xl"
-            style={{ aspectRatio: '1/1' }}
+            style={{ aspectRatio: '16/9' }}
             loading="lazy"
             width="100%"
             height="auto"
           />
         </div>
       </div>
-      <section className="py-12 border border-gray-200">
-        <form onSubmit={e => handleSubmitVenueData(e, id, venueData)}>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      <div className="py-12 px-4 border border-gray-200 rounded-xl bg-white shadow-md">
+        <form
+          onSubmit={e => handleSubmitVenueData(e, id, venueData)}
+          className="relative"
+        >
+          {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"> */}
+          <div className="flex flex-col md:flex-row flex-wrap gap-10 justify-center ">
             <BasicInfoForForm
               venueData={venueData}
               handleInputChange={handleInputChange}
@@ -107,11 +135,22 @@ export function EditVenueDropDown() {
               venueData={venueData}
             />
           </div>
-          <button className="btn-primary" type="submit">
+
+          <button
+            className="btn-primary absolute bottom-0 right-12"
+            type="submit"
+          >
             Submit
           </button>
         </form>
-      </section>
+      </div>
+      <Popup
+        isOpen={showSuccessPopup}
+        onClose={handleClosePopup}
+        title={popupTitle}
+        message={popupMessage}
+        type={popupType}
+      />
     </section>
   );
 }

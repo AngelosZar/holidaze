@@ -134,9 +134,9 @@ const Popup = ({
               className={`px-5 py-3 flex items-center ${headerClasses[type]} border-b border-opacity-20`}
             >
               {icons[type]}
-              <h3 id="popup-title" className="text-lg font-semibold flex-grow">
+              <h4 id="popup-title" className="text-lg font-semibold flex-grow">
                 {title}
-              </h3>
+              </h4>
               <button
                 onClick={onClose}
                 className="ml-4 p-1 rounded-full text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-300 transition-colors duration-200"

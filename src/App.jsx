@@ -17,8 +17,12 @@ import { EditVenueDropDown } from './components/onManagerView/EditVenueDropDown'
 import ManageMyAccount from './components/onManagerView/ManageMyAccount';
 import AboutUsPage from './pages/AboutUsPage';
 import ContactUsPage from './pages/ContactUs';
+import Unauthorized from './pages/Unauthorized';
 function App() {
-  const { initAuth, isAuthenticated, initUser, isManager } = useAuthStore();
+  const { initAuth, initUser, isManager, isLoading } = useAuthStore();
+  const isAuthenticated =
+    localStorage.getItem('isAuthenticated') === 'true' ||
+    sessionStorage.getItem('isAuthenticated') === 'true';
   useEffect(() => {
     initAuth();
   }, [initAuth, isAuthenticated, isManager]);
@@ -28,11 +32,21 @@ function App() {
       initUser();
     }
   }, [initUser, isAuthenticated]);
+
   const ProtectedRoutes = ({ children }) => {
+    if (isLoading) {
+      return (
+        <div className="flex justify-center items-center h-screen">
+          <p>Loading user authentication...</p>
+        </div>
+      );
+    }
+
     if (!isAuthenticated) {
       return <Navigate to="/login" replace />;
     }
-    return children;
+
+    return children ? children : <Outlet />;
   };
   return (
     <>
@@ -66,7 +80,7 @@ function App() {
             <Route path="account" element={<ManageMyAccount />} />
             <Route index element={<UsersVenueSection />} />
           </Route>
-          {/* <Route path="*" element={<Navigate to="/" replace />} /> */}
+          <Route path="unauthorized" element={<Unauthorized />} />
           <Route path="*" element={<PageNotFound replace />} />
         </Routes>
       </BrowserRouter>

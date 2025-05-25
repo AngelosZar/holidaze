@@ -32,7 +32,7 @@ export default function Header() {
   function handleLogout(e) {
     e.preventDefault();
     logout();
-    window.location.reload() || window.location.replace('/Homepage');
+    window.location.reload() || window.location.replace('/');
   }
   const headerBgClass =
     isHomePage && !isScrolling ? 'bg-richBlack/60' : 'bg-richBlack';

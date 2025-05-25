@@ -15,7 +15,9 @@ const useAuthStore = create((set, get) => ({
   setIsManager: isManager => {
     set({ isManager });
   },
-
+  // setIsAuthenticated: isAuthenticated => {
+  //   set({ isAuthenticated });
+  // },
   signin: async (email, password, rememberDevice = false) => {
     set({ isLoading: true });
     try {
@@ -29,7 +31,11 @@ const useAuthStore = create((set, get) => ({
       const { errors, data: userData } = await response.json();
       if (errors && Array.isArray(errors) && errors.length > 0) {
         const error = errors[0];
-        set({ error: [error.message], isLoading: false });
+        set({
+          error: [error.message],
+          isLoading: false,
+          isAuthenticated: true,
+        });
         alert(`${error.message}`);
         throw new Error(error.message);
       }
@@ -37,7 +43,7 @@ const useAuthStore = create((set, get) => ({
       const storage = rememberDevice ? localStorage : sessionStorage;
       storage.setItem('user', JSON.stringify(userData));
       storage.setItem('accessToken', userData.accessToken);
-
+      localStorage.setItem('isAuthenticated', JSON.stringify(true));
       set({
         user: userData,
         isAuthenticated: true,
@@ -89,6 +95,14 @@ const useAuthStore = create((set, get) => ({
     sessionStorage.removeItem('accessToken');
     sessionStorage.removeItem('profile-storage');
     localStorage.removeItem('isManager');
+    localStorage.removeItem('isAuthenticated');
+    localStorage.removeItem('undefined');
+    set({
+      user: null,
+      isAuthenticated: false,
+      isManager: false,
+      error: [],
+    });
   },
 
   initAuth: () => {
@@ -133,6 +147,7 @@ const useAuthStore = create((set, get) => ({
         let status = Boolean(data.data.venueManager);
 
         localStorage.setItem('isManager', JSON.stringify(status));
+        localStorage.setItem('isAuthenticated', JSON.stringify(status));
 
         set({
           isManager: status,

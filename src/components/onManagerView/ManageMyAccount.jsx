@@ -1,15 +1,20 @@
-import { use, useEffect, useState } from 'react';
+import { useState } from 'react';
 import useUserData from '../../hooks/useUserData';
 import useProfileStore from '../../stores/profileStore';
-
+import Popup from '../utilities/PopUp';
+import IsLoadingContainer from '../utilities/IsLoadingContainer';
 function ManageMyAccount() {
   // const [isUrlValid, setIsUrlValid] = useState(true);
   const [avatarUrlError, setAvatarUrlError] = useState('');
   const [bannerUrlError, setBannerUrlError] = useState('');
-  const [error, setError] = useState(false);
+  const [error] = useState(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupTitle, setPopupTitle] = useState('');
+  const [popupType, setPopupType] = useState('info');
   const { userData, isLoading, setIsLoading } = useUserData();
 
-  const { putProfileMedia, putProfile } = useProfileStore(state => state);
+  const { putProfile } = useProfileStore(state => state);
 
   const validateUrl = url => {
     const regex = /^https:\/\/[\w\-\.]+\/.*[\w\-]+$/;
@@ -58,13 +63,40 @@ function ManageMyAccount() {
     try {
       const data = await putProfile(userData.userName, updatedUserData);
       setIsLoading(false);
+      setPopupTitle('User profile was updated Successfully!');
+      setPopupMessage('User profile was updated Successfully!');
+      setPopupType('success');
+      setShowSuccessPopup(true);
+
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+      }, 3000);
     } catch (error) {
       console.error('Error updating user data:', error);
+      setPopupTitle('Error!');
+      setPopupMessage(
+        error.message || 'Failed to edit User info. Please try again.'
+      );
+      setPopupType('error');
+      setShowSuccessPopup(true);
+    } finally {
+      setIsLoading(false);
+      window.location.reload();
     }
   }
-
-  if (isLoading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  const handleClosePopup = () => {
+    setShowSuccessPopup(false);
+    setPopupTitle('');
+    setPopupMessage('');
+    setPopupType('info');
+  };
+  if (isLoading) return <IsLoadingContainer />;
+  if (error)
+    return (
+      <div>
+        <h5>{error}</h5>
+      </div>
+    );
   if (!userData) return <p>No user data available</p>;
   if (userData?.userName) {
     return (
@@ -166,6 +198,13 @@ function ManageMyAccount() {
             </div>
           </div>
         </div>
+        <Popup
+          isOpen={showSuccessPopup}
+          onClose={handleClosePopup}
+          title={popupTitle}
+          message={popupMessage}
+          type={popupType}
+        />
       </section>
     );
   }

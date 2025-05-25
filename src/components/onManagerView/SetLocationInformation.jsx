@@ -4,7 +4,7 @@ export default function SetLocationInformation({
 }) {
   return (
     <div className="flex flex-col gap-4 mt-8 max-w-sm">
-      <h6>Location</h6>
+      <h6 className="text-primary80 font-bold">Location</h6>
       <div>
         <label htmlFor="Address">Address</label>
         <input

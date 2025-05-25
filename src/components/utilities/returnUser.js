@@ -2,7 +2,6 @@ const returnUser = function () {
   const userData =
     localStorage.getItem('user') || sessionStorage.getItem('user');
   if (userData) {
-    // console.log(userData);
     return JSON.parse(userData);
   } else {
     return null;
