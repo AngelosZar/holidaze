@@ -95,5 +95,4 @@ To start the development server:
 
 ```bash
 npm run dev
-# OR (if using Create React App)
 npm start
