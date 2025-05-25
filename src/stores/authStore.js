@@ -15,10 +15,8 @@ const useAuthStore = create((set, get) => ({
   setIsManager: isManager => {
     set({ isManager });
   },
-  // setIsAuthenticated: isAuthenticated => {
-  //   set({ isAuthenticated });
-  // },
-  signin: async (email, password, rememberDevice = false) => {
+
+  signin: async (email, password = false) => {
     set({ isLoading: true });
     try {
       const response = await fetch(SIGN_IN_URL, {
