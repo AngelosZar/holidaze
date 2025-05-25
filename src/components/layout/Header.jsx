@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 // import logo1 from '../../assets/logos/logo1.svg';
-import logo1 from '../../assets/logos';
+import logo from '../../assets/logos/logo.svg';
 import { NavLink } from 'react-router-dom';
 import useAuthStore from '../../stores/authStore';
 import { useLocation } from 'react-router-dom';
@@ -56,7 +56,7 @@ export default function Header() {
     >
       <nav className="text-xl font-semi-bold flex items-center justify-between max-w-[1520px] px-8 py-2 mx-auto relative">
         <NavLink to="homepage">
-          <img src={logo1} alt="logo" className="w-60" />
+          <img src={logo} alt="logo" className="w-60" />
         </NavLink>
         <div className="md:hidden">
           <HamburgerMenu
