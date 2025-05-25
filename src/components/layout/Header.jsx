@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import logo1 from '../../assets/logos/logo1.svg';
+// import logo1 from '../../assets/logos/logo1.svg';
+import logo1 from '../../assets/logos';
 import { NavLink } from 'react-router-dom';
 import useAuthStore from '../../stores/authStore';
 import { useLocation } from 'react-router-dom';
