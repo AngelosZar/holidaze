@@ -22,7 +22,7 @@ function UsersVenueSection() {
       setIsLoading(true);
       try {
         const venues = await getProfileVenues(userName);
-        console.log('venues:', venues);
+        // console.log('venues:', venues);
         if (venues.data.length === 0) {
           setError('No venues');
         }
@@ -34,7 +34,7 @@ function UsersVenueSection() {
             : [],
         }));
         setVenues(enhancedVenues);
-        console.log('enhancedVenues', enhancedVenues);
+        // console.log('enhancedVenues', enhancedVenues);
       } catch (err) {
         setError('Failed to fetch venues');
         console.error('Error fetching venues:', err);
@@ -57,7 +57,7 @@ function UsersVenueSection() {
   };
 
   const handleRemoveVenue = async id => {
-    console.log('Remove venue');
+    // console.log('Remove venue');
     await deleteVenue(id);
 
     const user = returnUser();

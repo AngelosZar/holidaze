@@ -7,14 +7,14 @@ import { useNavigate } from 'react-router-dom';
 function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { signin, isLoading, error, isAuthenticated } = useAuthStore();
+  const { signin } = useAuthStore();
   const navigate = useNavigate();
   const [rememberDevice, setRememberDevice] = useState(false);
 
   function toggleRememberDevice() {
     setRememberDevice(prev => !prev);
   }
-  // console.log(rememberDevice);
+
   const handleSubmit = async e => {
     e.preventDefault();
     if (!email || !password) {
@@ -28,7 +28,7 @@ function SignInForm() {
 
     try {
       const data = await signin(email, password, rememberDevice);
-      console.log('data', data);
+
       navigate('/Homepage');
     } catch (error) {
       console.error('Sign in error:', error);
@@ -50,7 +50,6 @@ function SignInForm() {
           className="formInput"
           autoComplete="email"
           onChange={e => setEmail(e.target.value)}
-          // value={email}
         ></input>
       </div>
       <div>

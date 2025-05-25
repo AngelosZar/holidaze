@@ -160,7 +160,6 @@ const useProfileStore = create(
           }
         );
         const data = await res.json();
-        // console.log('data', data);
 
         returnErrors(
           res,

@@ -10,14 +10,10 @@ export function UpComingBookingCard({ booking, loading, error }) {
       setSingleVenue(booking.data.venue.id);
       setClickedCardId(booking.data.venue.id);
     }
-    console.log('booking?.data?.venue?.id', booking?.data?.venue?.id);
   }, [booking, setSingleVenue]);
   const Navigate = useNavigate();
   let venue = booking?.data;
-  console.log('booking', booking);
-  console.log('booking?.data?.venue?.id', booking?.data?.id);
-  // console.log('venue.venue', venue?.venue);
-  // console.log('venueMedia', booking?.venue?.media?.[0]?.url);
+
   const handleClick = id => {
     setSingleVenue(id);
     Navigate(`/venue/${id}`);

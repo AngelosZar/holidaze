@@ -8,7 +8,7 @@ function SignUpForm() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const { register, error, setError, isManager } = useAuthStore();
+  const { register, setError, isManager } = useAuthStore();
   const navigate = useNavigate();
 
   function toggleAcceptTerms() {
@@ -16,20 +16,10 @@ function SignUpForm() {
   }
   function handleData() {
     return {
-      name, // Required
-      email, // Required
-      password, // Required
-      // create another component for this after the
-      // bio: '', // Optional
-      // avatar: {
-      //   url: '', // Optional
-      //   alt: '', // Optional
-      // },
-      // banner: {
-      //   url: '', // Optional
-      //   alt: '', // Optional
-      // },
-      venueManager: isManager, // Optional
+      name,
+      email,
+      password,
+      venueManager: isManager,
     };
   }
   async function handleSubmit(e) {
@@ -54,13 +44,10 @@ function SignUpForm() {
 
     try {
       const response = await register(userData);
-      console.log('data', response);
-      console.log(Promise.resolve(response));
-      // navigate('/login');
+
       if (response && !response.errors) {
         navigate('/login');
       }
-      // fix this is not workin  again
     } catch (error) {
       console.error(error);
       setError(error.message || 'Registration failed');

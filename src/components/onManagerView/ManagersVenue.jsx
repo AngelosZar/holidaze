@@ -7,7 +7,6 @@ function ManagersVenue({ venue, handleEditVenue, handleRemoveVenue }) {
   const [isFlipped, setIsFlipped] = useState(false); // State for flip
 
   const bookings = venue?.bookings || [];
-  console.log('bookings', bookings);
 
   const handleShowMore = bookings => {
     setSelectedBookingData(bookings);
