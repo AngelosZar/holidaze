@@ -29,11 +29,9 @@ function CreateAVenue() {
   };
   function handleMetaDataChange(key) {
     toggleMetaValue(key);
-    console.log('key', key);
   }
   async function handleSubmitVenueData(e) {
     e.preventDefault();
-    console.log('handleSubmitVenueData');
     try {
       await submitVenueData();
       setPopupTitle('Venue Created Successfully!');

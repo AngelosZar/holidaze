@@ -11,17 +11,8 @@ export default function HeroSearchBar() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [isSearchPopupOpen, setIsSearchPopupOpen] = useState(false);
-  const { stays, loading, error, setPage, setLimit, setSort, searchVenues } =
-    useSearchVenues();
-  const {
-    checkInDate,
-    setCheckInDate,
-    checkOutDate,
-    setCheckOutDate,
-    nights,
-    setNights,
-    reset,
-  } = datePickerStore();
+  const { loading, error, searchVenues } = useSearchVenues();
+  const { checkInDate, checkOutDate, reset } = datePickerStore();
 
   useEffect(() => {
     if (isSearchPopupOpen) {
@@ -66,7 +57,6 @@ export default function HeroSearchBar() {
           checkVenuesAvailability(venue, checkInDate, checkOutDate)
         );
         setSearchResults(availableVenues);
-        console.log('availableVenues', availableVenues);
         setIsSearchPopupOpen(true);
       }
 
@@ -141,7 +131,6 @@ function SearchPopUp({
   setSearchQuery,
 }) {
   const handleClick = function () {
-    console.log('clicked');
     setSearchQuery('');
     reset();
     setIsSearchPopupOpen(false);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-// import logo1 from '../../assets/logos/logo1.svg';
 import logo from '../../assets/logos/logo.svg';
 import { NavLink } from 'react-router-dom';
 import useAuthStore from '../../stores/authStore';

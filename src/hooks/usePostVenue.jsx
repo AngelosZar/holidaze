@@ -11,9 +11,7 @@ function usePostVenue() {
       try {
         setPostError(null);
         setIsPosting(true);
-        //
         const data = await postVenue(venueData);
-        console.log('data', data);
         setIsPosting(false);
         return data;
       } catch (error) {

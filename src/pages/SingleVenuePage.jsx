@@ -12,9 +12,6 @@ function SingleVenuePage() {
   const { venue, isLoading, error } = useGetVenueWithId(id);
 
   useEffect(() => {
-    // if (venue?.media && venue.media.length > 0) {
-    //   return;
-    // }
     if (venue?.media && venue.media.length > 0) {
       const media = venue.media.map(img => ({
         url: img.url,

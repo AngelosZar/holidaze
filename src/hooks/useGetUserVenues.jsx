@@ -11,9 +11,8 @@ function useGetUserVenues(initialUser = 'angZar') {
     async function fetchVenues() {
       try {
         const data = await getProfileVenues(user);
-        console.log('data', data);
       } catch (error) {
-        console.log('error', error);
+        console.error(error);
       }
     }
     fetchVenues();

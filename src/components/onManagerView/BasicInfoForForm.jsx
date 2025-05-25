@@ -109,7 +109,6 @@ function AddMediaSection() {
         setError('Please enter a valid url');
       }
     } catch (error) {
-      console.log(error);
       setError(error || 'Failed to add media');
     }
   };

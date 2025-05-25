@@ -12,7 +12,7 @@ function useGetVenueWithId(id) {
       try {
         await getVenue(id);
       } catch (error) {
-        console.log('error', error);
+        console.error('error', error);
       }
     }
 
