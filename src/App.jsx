@@ -16,6 +16,7 @@ import CreateAVenue from './components/onManagerView/CreateAVenue';
 import { EditVenueDropDown } from './components/onManagerView/EditVenueDropDown';
 import ManageMyAccount from './components/onManagerView/ManageMyAccount';
 import AboutUsPage from './pages/AboutUsPage';
+import ContactUsPage from './pages/ContactUs';
 function App() {
   const { initAuth, isAuthenticated, initUser, isManager } = useAuthStore();
   useEffect(() => {
@@ -48,6 +49,7 @@ function App() {
 
           <Route path="/login" element={<LogInPage />} />
           <Route path="/aboutUs" element={<AboutUsPage />} />
+          <Route path="/contactUs" element={<ContactUsPage />} />
           <Route path="/profile" element={<UserProfileView />} />
           <Route
             path="/manager"
