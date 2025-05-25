@@ -5,7 +5,7 @@ import ManagersUpcomingBooking from './ManagersUpcomingBooking';
 import venuesStore from '../../stores/venuesStore';
 import ManagersVenue from './ManagersVenue';
 import { useNavigate } from 'react-router-dom';
-
+import IsLoadingContainer from '../utilities/IsLoadingContainer';
 function UsersVenueSection() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -77,7 +77,7 @@ function UsersVenueSection() {
 
   return (
     <>
-      {isLoading && <p className="text-center">Loading...</p>}
+      {isLoading && <IsLoadingContainer IsLoadingContainer={isLoading} />}
       {error === 'No venues' && (
         <div className="grid grid-cols-1 mt-14 gap-4">
           <h4 className="text-center text-gray-500">

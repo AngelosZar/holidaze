@@ -1,4 +1,3 @@
-import SingleCard from '../SingleCard';
 import useVenueStore from '../../stores/venuesStore';
 import useGetFilteredVenues from '../../hooks/useGetFilteredVenues';
 import StaysList from '../layout/StaysList';
@@ -13,5 +12,4 @@ function RecommendedStays() {
     </section>
   );
 }
-
 export default RecommendedStays;

@@ -11,7 +11,7 @@ export default function SetLocationInformation({
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter Address"
-          value={location?.address || ''}
+          value={location?.address}
           onChange={e => handleLocationChange('address', e.target.value)}
         />
       </div>
@@ -21,7 +21,7 @@ export default function SetLocationInformation({
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter city"
-          value={location?.city || ''}
+          value={location?.city}
           onChange={e => handleLocationChange('city', e.target.value)}
         />
       </div>
@@ -31,7 +31,7 @@ export default function SetLocationInformation({
           type="number"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter Zip code"
-          value={location?.zip || ''}
+          value={location?.zip}
           onChange={e => handleLocationChange('zip', e.target.value)}
         />
       </div>
@@ -41,7 +41,7 @@ export default function SetLocationInformation({
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter country"
-          value={location?.country || ''}
+          value={location?.country}
           onChange={e => handleLocationChange('country', e.target.value)}
         />
       </div>
@@ -51,7 +51,7 @@ export default function SetLocationInformation({
           type="text"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter continent"
-          value={location?.continent || ''}
+          value={location?.continent}
           onChange={e => handleLocationChange('continent', e.target.value)}
         />
       </div>
@@ -61,7 +61,7 @@ export default function SetLocationInformation({
           type="number"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter longitude"
-          value={location?.lng || ''}
+          value={location?.lng}
           onChange={e => handleLocationChange({ lng: e.target.value })}
         />
       </div>
@@ -71,7 +71,7 @@ export default function SetLocationInformation({
           type="number"
           className="w-full p-2 border border-gray-300 rounded-md"
           placeholder="Enter latitude"
-          value={location?.lat || ''}
+          value={location?.lat}
           onChange={e => handleLocationChange({ lat: e.target.value })} //
         />
       </div>

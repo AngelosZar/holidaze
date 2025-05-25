@@ -29,7 +29,6 @@ function ManagersVenue({ venue, handleEditVenue, handleRemoveVenue }) {
             <img
               src={venue?.media?.[0]?.url || 'https://via.placeholder.com/150'}
               alt={venue?.name || 'Venue Image'}
-              // className="w-full h-48 object-cover rounded-t-xl"
               className="w-full h-full object-cover rounded-t-xl"
               style={{ aspectRatio: '1/1' }}
               loading="lazy"

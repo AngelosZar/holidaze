@@ -2,7 +2,8 @@ import BasicInfoForForm from './BasicInfoForForm';
 import SetLocationInformation from './SetLocationInformation';
 import SetAccommodationIncludes from './SetAccommodationIncludes';
 import createVenueStore from '../../stores/createVenueStore';
-
+import Popup from '../utilities/PopUp';
+import { useState } from 'react';
 function CreateAVenue() {
   const {
     submitVenueData,
@@ -13,6 +14,10 @@ function CreateAVenue() {
     venueData,
     location,
   } = createVenueStore();
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState('');
+  const [popupTitle, setPopupTitle] = useState('');
+  const [popupType, setPopupType] = useState('info');
 
   const handleLocationChange = (field, value) => {
     updateLocationData({ [field]: value });
@@ -30,13 +35,25 @@ function CreateAVenue() {
     console.log('handleSubmitVenueData');
     try {
       await submitVenueData();
-      console.log('submitVenueData');
+      setPopupTitle('Venue Created Successfully!');
+      setPopupMessage('Venue Created Successfully');
+      setPopupType('success');
+      setShowSuccessPopup(true);
+      // maybe use timeout in the component itself
+      setTimeout(() => {
+        setShowSuccessPopup(false);
+      }, 3000);
       reset();
     } catch (error) {
       console.error('Error submitting venue data:', error);
     }
   }
-
+  const handleClosePopup = () => {
+    setShowSuccessPopup(false);
+    setPopupTitle('');
+    setPopupMessage('');
+    setPopupType('info');
+  };
   return (
     <section className="w-full my-12 mx-8">
       <div className="py-12 border border-gray-200">
@@ -61,6 +78,15 @@ function CreateAVenue() {
           </button>
         </form>
       </div>
+      {/*  */}
+
+      <Popup
+        isOpen={showSuccessPopup}
+        onClose={handleClosePopup}
+        title={popupTitle}
+        message={popupMessage}
+        type={popupType}
+      />
     </section>
   );
 }
