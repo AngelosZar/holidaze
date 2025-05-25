@@ -1,4 +1,3 @@
-import { NavLink } from 'react-router-dom';
 import logo1 from '../../assets/logos/logo1.svg';
 
 function Footer() {
