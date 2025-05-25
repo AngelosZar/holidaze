@@ -30,6 +30,13 @@ export default function HeroGrid({ venueGallery }) {
                 height="auto"
               />
             )}
+            {venueGallery.length > 1 && (
+              <div className="absolute bottom-4 left-4 right-4 rounded-lg shadow-md flex justify-end">
+                <button className="btn-primary" onClick={handleShowMore}>
+                  See more
+                </button>
+              </div>
+            )}
           </div>
 
           {restImgs.length > 0 && (
