@@ -53,7 +53,7 @@ Follow these steps to get a local copy of the project up and running on your mac
 Before you begin, ensure you have the following installed:
 
 * [Node.js](https://nodejs.org/en/download/) (LTS version recommended)
-* [npm](https://www.npmjs.com/get-npm) (comes with Node.js) or [Yarn](https://yarnpkg.com/lang/en/docs/install/)
+* [npm](https://www.npmjs.com/get-npm) 
 
 ### 2. Installation
 
