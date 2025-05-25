@@ -27,7 +27,7 @@ function SignInForm() {
     }
 
     try {
-      const data = await signin(email, password, rememberDevice);
+      const data = await signin(email, password);
       navigate('/');
       return data;
     } catch (error) {

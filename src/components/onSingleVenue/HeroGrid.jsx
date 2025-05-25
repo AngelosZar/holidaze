@@ -42,13 +42,13 @@ function HeroGrid({ venueGallery }) {
         </div>
       </div>
 
-      <div
+      {/* <div
         className={`flex flex-col absolute bottom-0 left-0 right-0 bg-white p-4 rounded-lg shadow-md overflow-hidden ${
           venueGallery.length >= 5 ? '' : 'hidden'
         } `}
       >
         <button className="flex self-end mr-4">See more</button>
-      </div>
+      </div> */}
     </section>
   );
 }

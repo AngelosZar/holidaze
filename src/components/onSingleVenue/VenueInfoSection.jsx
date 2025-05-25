@@ -1,7 +1,6 @@
 import BookAside from './BookAside';
 import CalendarAside from './CalendarAside';
 import MapSection from './MapSection';
-// import wifi_icon from '../../assets/accomodation_icons/wifi.png';
 import wifi from '../../assets/accommodation_icons/wifi.svg';
 import air_conditioner from '../../assets/accommodation_icons/air_conditioner.svg';
 import breakfast from '../../assets/accommodation_icons/breakfast.svg';

@@ -4,10 +4,11 @@ import datePickerStore from '../../stores/datePickerStore';
 import PriceDropDown from './PriceDropDown';
 import { useEffect, useState } from 'react';
 import useCreateBooking from '../../hooks/useCreateBooking';
+import returnToken from '../utilities/returnToken';
 
 function BookAside({ venue }) {
   const [alertMessage, setAlertMessage] = useState('');
-  const { checkInDate, checkOutDate, nights, pax, reset } = datePickerStore();
+  const { checkInDate, checkOutDate, pax, reset } = datePickerStore();
   let id = venue?.id;
   let maxNumberOfGuests = venue?.maxGuests;
 
@@ -28,7 +29,11 @@ function BookAside({ venue }) {
   }, [checkInDate, checkOutDate, alertMessage]);
 
   const handleButtonClick = async () => {
-    // if !isAthenticated() {alert 'Please log in to book a venue.'; return;}
+    if (!returnToken()) {
+      setAlertMessage('Please log in to book a venue.');
+      alert('Please log in to book a venue.');
+      return;
+    }
     if (!checkInDate || !checkOutDate) {
       setAlertMessage('No inputs');
       return;
