@@ -113,3 +113,21 @@ select {
     @apply bg-red-500 text-white  px-4 py-2 rounded-md;
   }
 }
+
+.flip-card {
+  perspective: 1000px;
+  height: 450px;
+}
+
+.flip-card-inner {
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.backface-hidden {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}

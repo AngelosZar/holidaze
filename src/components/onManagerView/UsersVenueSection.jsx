@@ -33,7 +33,6 @@ function UsersVenueSection() {
             ? venue.bookings.map(booking => booking.id)
             : [],
         }));
-
         setVenues(enhancedVenues);
         console.log('enhancedVenues', enhancedVenues);
       } catch (err) {
