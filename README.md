@@ -2,7 +2,7 @@
 
 ## Description
 
-Holidaze is a web application for a fintional company. This is a Demo project and deliverable for project exam n o4 
+Holidaze is a web application for a fintional company. This is a Demo project and deliverable for project exam no 4 
 
 ## Features
 
