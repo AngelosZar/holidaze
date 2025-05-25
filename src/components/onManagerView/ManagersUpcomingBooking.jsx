@@ -2,11 +2,7 @@ import { useEffect, useState } from 'react';
 import useVenueStore from '../../stores/venuesStore';
 import { useNavigate } from 'react-router-dom';
 
-function ManagersUpcomingBooking({
-  booking,
-  handleEditVenue,
-  handleRemoveVenue,
-}) {
+function ManagersUpcomingBooking({ booking }) {
   const { setSingleVenue, SingleVenue } = useVenueStore();
   const [clickedCardId, setClickedCardId] = useState('');
 
@@ -15,7 +11,6 @@ function ManagersUpcomingBooking({
       setSingleVenue(booking.data.venue.id);
       setClickedCardId(booking.data.venue.id);
     }
-    console.log('booking?.data?.venue?.id', booking?.data?.venue?.id);
   }, [booking, setSingleVenue]);
   const Navigate = useNavigate();
 
@@ -23,13 +18,7 @@ function ManagersUpcomingBooking({
     setSingleVenue(id);
     Navigate(`/venue/${id}`);
   };
-  // console.log('venue on line 6:', booking);
-  console.log('venue on line 7:', booking);
 
-  console.log(
-    'booking?.data?.venue?._count?.bookings',
-    booking?.data?.venue?._count
-  );
   return (
     <div className="p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto w-full">
       <div>
@@ -54,16 +43,10 @@ function ManagersUpcomingBooking({
             <p>{booking?.data?.venue?._count?.bookings}</p>
           </div>
           <div className="flex flex-row gap-4 mt-4 text-start">
-            <button
-              className="text-primary hover:text-primary80"
-              // onClick={() => handleEditVenue(venue.id)}
-            >
+            <button className="text-primary hover:text-primary80">
               Edit venue / edit dates
             </button>
-            <button
-              className="text-red-500 hover:text-red-700 rounded-lg px-2 py-1"
-              // onClick={() => handleRemoveVenue(venue.id)}
-            >
+            <button className="text-red-500 hover:text-red-700 rounded-lg px-2 py-1">
               Remove Venue/ cancel booking
             </button>
             <button

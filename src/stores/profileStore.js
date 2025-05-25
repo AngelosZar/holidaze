@@ -18,7 +18,6 @@ const useProfileStore = create(
     accessToken: returnToken(),
     user: '',
     userName: '',
-    // single user
     userData: {
       userName: '',
       email: '',
@@ -29,8 +28,7 @@ const useProfileStore = create(
       bannerAlt: '',
       venueManager: false,
     },
-    //
-    // list of users ?
+
     users: [],
     isLoading: false,
     error: null,
@@ -67,11 +65,10 @@ const useProfileStore = create(
 
     getUser: async name => {
       set({ isLoading: true, error: null });
-      // loading spinner
+
       const headers = returnHeaders();
 
       try {
-        // console.log(name);
         const res = await fetch(`${GET_USER_URL}${name}`, {
           method: 'GET',
           headers,
@@ -85,7 +82,6 @@ const useProfileStore = create(
         );
         return { data };
       } catch (error) {
-        // console.log('error', error);
         set({ error: error.message, isLoading: false });
         throw error;
       }
@@ -93,20 +89,16 @@ const useProfileStore = create(
     putProfile: async (name, userInput) => {
       set({ isLoading: true, error: null });
       const headers = returnHeaders();
-      // console.log('headers', headers);
-      // create a function to return an object with it
-      // Update or set bio, venueManager, banner and avatar properties.
 
       try {
-        // console.log(`PUT_USER_URL${name}`);
         const url = `${PUT_USER_URL}${name}`;
-        // console.log('url', url);
+
         const res = await fetch(url, {
           method: 'PUT',
           headers,
           body: JSON.stringify(userInput),
         });
-        // console.log(res);
+
         const data = await res.json();
         returnErrors(
           res,
@@ -114,11 +106,7 @@ const useProfileStore = create(
           set => msg => set({ error: msg }),
           val => set({ isLoading: val })
         );
-
-        // // error handlling
-        console.log('data', data);
       } catch (error) {
-        console.log('error', error);
         set({ error: error.message, isLoading: false });
         throw error;
       }
@@ -140,10 +128,7 @@ const useProfileStore = create(
           set => msg => set({ error: msg }),
           val => set({ isLoading: val })
         );
-        // error handlling
-        console.log('data', data);
       } catch (error) {
-        console.log('error', error);
         set({ error: error.message, isLoading: false });
         throw error;
       }
@@ -170,7 +155,6 @@ const useProfileStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        console.log('error', error);
         set({ error: error.message, isLoading: false });
         throw error;
       }
@@ -188,7 +172,6 @@ const useProfileStore = create(
           }
         );
         const data = await res.json();
-        console.log('data from profile store', data);
 
         returnErrors(
           res,
@@ -199,7 +182,6 @@ const useProfileStore = create(
         set({ isLoading: false });
         return data;
       } catch (error) {
-        // console.log('error', error);
         set({ error: error.message, isLoading: false });
         throw error;
       }
@@ -213,4 +195,3 @@ const useProfileStore = create(
 );
 
 export default useProfileStore;
-// ('Route GET:/holidaze/profiles/adminUser1/bookings%7C?_venue not found');

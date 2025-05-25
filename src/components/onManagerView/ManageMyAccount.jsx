@@ -8,7 +8,7 @@ function ManageMyAccount() {
   const [bannerUrlError, setBannerUrlError] = useState('');
   const [error, setError] = useState(false);
   const { userData, isLoading, setIsLoading } = useUserData();
-  console.log(userData);
+
   const { putProfileMedia, putProfile } = useProfileStore(state => state);
 
   const validateUrl = url => {
@@ -51,24 +51,16 @@ function ManageMyAccount() {
       hasErrors = true;
     }
 
-    // Stop submission if there are errors
     if (hasErrors) {
       return;
     }
-    //
-    // if (!validateUrl(updatedUserData.avatar.url)) setIsUrlValid(false);
-    // if (!validateUrl(updatedUserData.banner.url)) setIsUrlValid(false);
 
     try {
-      // const data = await putProfileMedia(userData.userName, updatedUserData);
       const data = await putProfile(userData.userName, updatedUserData);
-      console.log('Updated data:', data);
-      console.log('User data updated successfully');
       setIsLoading(false);
     } catch (error) {
       console.error('Error updating user data:', error);
     }
-    // setUserData(updatedUserData);
   }
 
   if (isLoading) return <p>Loading...</p>;
@@ -78,7 +70,6 @@ function ManageMyAccount() {
     return (
       <section className="my-12 mx-8 max-w-2xl border rounded-xl border-gray-300">
         <div className="px-12 py-12 ">
-          {/* <h4>Manage my account</h4> */}
           <h6 className="mb-8">Change my information</h6>
           <div className="flex flex-col md:flex-row justify-evenly items-center mt-8">
             <div className="rounded-full w-32 h-32 border-4 border-white overflow-hidden">
@@ -90,7 +81,6 @@ function ManageMyAccount() {
             </div>
 
             <div className="mt-8">
-              {/* <h6 className="mb-8">Change my information</h6> */}
               <p>
                 {userData?.venueManager === true
                   ? 'You have currently a Venue owner account'
@@ -111,16 +101,12 @@ function ManageMyAccount() {
                       id="avatarUrl"
                       name="avatarUrl"
                       placeholder="Url must be a valid url link"
-                      // pattern="https:.*"
-                      // title="Please enter a Valid URL starting with https:"
-                      // defaultValue={userData?.avatarUrl}
                     />
                     {avatarUrlError && (
                       <p className="mt-1 text-sm text-white bg-red-500 p-2 rounded-md">
                         {avatarUrlError}
                       </p>
                     )}
-                    {/* <p>{!isUrlValid ? 'Please enter a valid url' : ''}</p> */}
                   </div>
                   <div>
                     <label htmlFor="avatarAlt">Insert avatar alt text</label>
@@ -143,9 +129,6 @@ function ManageMyAccount() {
                       id="bannerUrl"
                       name="bannerUrl"
                       placeholder="Url must be a valid url link"
-                      // pattern="https:.*"
-                      // title="Please enter a Valid URL starting with https:"
-                      // defaultValue={userData?.bannerUrl}
                     />
                     {bannerUrlError && (
                       <p className="mt-1 text-sm text-white bg-red-500 p-2 rounded-md">
@@ -174,11 +157,9 @@ function ManageMyAccount() {
                     cols="50"
                     name="bio"
                     placeholder={userData?.bio || 'Start by setting your Bio'}
-                    // defaultValue={userData?.bio || 'Start by setting your Bio'}
                   />
                 </div>
                 <div className="flex flex-col text-start gap-4">
-                  {/* <button className="btn-primary">Abort Editing</button> */}
                   <button className="btn-primary">Apply changes</button>
                 </div>
               </form>

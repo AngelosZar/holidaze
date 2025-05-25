@@ -2,10 +2,7 @@ import DateRangeSelector from '../utilities/DateRangeSelector';
 import NumberDropDown from '../utilities/NumberDropDown';
 import datePickerStore from '../../stores/datePickerStore';
 import PriceDropDown from './PriceDropDown';
-// import dayjs from 'dayjs';
 import { useEffect, useState } from 'react';
-import useUpdateBooking from '../../hooks/useUpdateBooking';
-import useBookingStore from '../../stores/bookingsStore';
 import useCreateBooking from '../../hooks/useCreateBooking';
 
 function BookAside({ venue }) {
@@ -13,7 +10,7 @@ function BookAside({ venue }) {
   const { checkInDate, checkOutDate, nights, pax, reset } = datePickerStore();
   let id = venue?.id;
   let maxNumberOfGuests = venue?.maxGuests;
-  // const venueBookings = venue?.bookings || [];
+
   const requestObject = {
     dateFrom: checkInDate ? checkInDate.toISOString() : undefined,
     dateTo: checkOutDate ? checkOutDate.toISOString() : undefined,
@@ -57,9 +54,8 @@ function BookAside({ venue }) {
       >
         Book
       </button>
-      {/* add styles */}
+
       {alertMessage === 'No inputs' ? (
-        // set errorbox styles
         <p className="inline-alertMessage">
           Please select both check-in and check-out dates to book.
         </p>

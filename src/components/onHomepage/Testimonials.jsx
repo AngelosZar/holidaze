@@ -63,17 +63,14 @@ function TestimonialCard({ text, name, location, imgUrl }) {
             alt="Profile"
             className="rounded-lg w-full h-auto object-cover "
             loading="lazy"
-            // width="100%"
-            // height="auto"
           />
         </div>
         <div>
           <h6 className="text-center">{name}</h6>
-          {/* <p className="text-start my-4">{location}</p> */}
+
           <p className="text-start my-4 text-sm">{text}</p>
         </div>
         <div className="flex justify-center">
-          {/* <p className="text-primary">★ ★ ★ ★ ★</p> */}
           <span className="text-primary">★</span>
           <span className="text-primary">★</span>
           <span className="text-primary">★</span>

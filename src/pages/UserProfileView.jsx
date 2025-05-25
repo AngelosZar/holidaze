@@ -8,8 +8,6 @@ function UserProfileView() {
     <Layout>
       <UserOnHeroSection />
       <CurrentBookingsSection />
-      {/* <UpComingBookings /> */} delete file after
-      {/* <PreviousBookings /> */}
     </Layout>
   );
 }
@@ -20,7 +18,6 @@ function PreviousBookings() {
   return (
     <div className="w-full mt-10 mb-10">
       <h2>Previous Bookings</h2>
-      {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"> */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
         <SingleCard />
         <SingleCard />

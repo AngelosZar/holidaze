@@ -2,13 +2,12 @@ import { create } from 'zustand';
 import useVenueStore from './venuesStore';
 
 const updateVenueStore = create((set, get) => ({
-  //  const createVenueStore = create((set, get) => ({
   venueData: {
-    name: '', //'string',
-    description: '', //'string',
-    media: [], //['string'],
+    name: '',
+    description: '',
+    media: [],
     price: 0,
-    maxGuests: 6, //100,
+    maxGuests: 6,
     rating: 5,
     meta: {
       wifi: true,
@@ -36,16 +35,12 @@ const updateVenueStore = create((set, get) => ({
         media: [...state.venueData.media, newMedia],
       },
     }));
-    // console.log('newMedia', newMedia);
   },
-  // if time
-  //   removeMedia:
-  //   updateMedia:
+
   updateVenueData: newData => {
     set(state => ({
       venueData: { ...state.venueData, ...newData },
     }));
-    // console.log('newData', newData);
   },
   updateMetaData(newData) {
     set(state => ({
@@ -58,7 +53,6 @@ const updateVenueStore = create((set, get) => ({
   toggleMetaValue: field =>
     set(state => {
       const currentValue = state.venueData.meta?.[field] || false;
-      // console.log(`Toggling ${field} from ${currentValue} to ${!currentValue}`);
 
       return {
         venueData: {
@@ -78,16 +72,15 @@ const updateVenueStore = create((set, get) => ({
         location: { ...state.venueData.location, ...newData },
       },
     }));
-    // console.log('newData', newData);
   },
   reset: () =>
     set({
       venueData: {
-        name: '', //'string',
-        description: '', //'string',
-        media: [], //['string'],
+        name: '',
+        description: '',
+        media: [],
         price: 0,
-        maxGuests: 6, //100,
+        maxGuests: 6,
         rating: 5,
         meta: {
           wifi: true,
@@ -107,15 +100,11 @@ const updateVenueStore = create((set, get) => ({
       },
     }),
 
-  // submit to api event handler ?
   submitVenueData: async (id, venueData) => {
-    // const { venueData } = get();
     const { putVenue } = useVenueStore.getState();
-    // console.log('venueData', venueData);
-    //      postVenue: async (venueData, owner = true, bookings = true) => {
+
     try {
       const data = await putVenue(id, venueData);
-      // console.log('data', data);
       return data;
     } catch (error) {
       console.error('Error:', error);

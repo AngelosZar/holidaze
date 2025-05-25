@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import { useMap } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css'; // Don't forget the CSS
+import 'leaflet/dist/leaflet.css';
 
 function Map() {
   return (

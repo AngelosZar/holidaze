@@ -12,10 +12,6 @@ export default function SetAccommodationIncludes({
   handleMetaDataChange,
   venueData,
 }) {
-  //
-  // const { toggleMetaValue } = useCreateVenueStore();
-
-  // const venueData = useCreateVenueStore(state => state.venueData || {});
   useEffect(() => {
     console.log('venueData', venueData);
   }, [venueData]);
@@ -27,11 +23,6 @@ export default function SetAccommodationIncludes({
   const airConditioner = true;
   const shower = true;
   const smartTv = true;
-
-  // function handleMetaDataChange(key) {
-  //   toggleMetaValue(key);
-  //   console.log('key', key);
-  // }
 
   return (
     <div className="flex flex-col gap-4 max-w-sm mt-8">

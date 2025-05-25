@@ -28,7 +28,6 @@ export default function Header() {
     e.preventDefault();
     logout();
     window.location.reload() || window.location.replace('/Homepage');
-    // change later to redirect depending on the current page \\
   }
 
   return (

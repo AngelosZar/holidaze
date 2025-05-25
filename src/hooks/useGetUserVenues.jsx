@@ -7,8 +7,6 @@ function useGetUserVenues(initialUser = 'angZar') {
   );
   const [user, setUser] = useState(initialUser);
 
-  //   set more states when needed // pagibnation, loading, error
-
   useEffect(() => {
     async function fetchVenues() {
       try {

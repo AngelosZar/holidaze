@@ -27,8 +27,6 @@ export function EditVenueDropDown() {
     submitVenueData: updateVenueStore.getState().submitVenueData,
   }));
   const storeVenueData = updateVenueStore(state => state.venueData);
-  console.log('storeVenueData', storeVenueData);
-  // const location = updateVenueStore(state => state.venueData.location);
 
   useEffect(() => {
     if (fetchedVenueData) {
@@ -42,7 +40,6 @@ export function EditVenueDropDown() {
   const handleLocationChange = (field, value) => {
     storeActions.updateLocationData({ [field]: value });
   };
-  //
 
   const handleMetaDataChange = field => {
     storeActions.toggleMetaValue(field);
@@ -54,19 +51,17 @@ export function EditVenueDropDown() {
       },
     });
   };
-  //
+
   const handleSubmitVenueData = async (e, id, venueData) => {
     e.preventDefault();
     try {
       await submitVenueData(id, venueData);
-      //  reset();
     } catch (error) {
       console.error('Error submitting venue data:', error);
     } finally {
       reset();
       alert('Venue updated successfully');
       navigate('/manager/venues');
-      // or redirect to the veniew itself ?
     }
   };
   {
@@ -78,7 +73,6 @@ export function EditVenueDropDown() {
   {
     if (!storeVenueData.id && !fetchedVenueData)
       return <div>Venue not found</div>;
-    // show image or something
   }
 
   return (
@@ -96,9 +90,6 @@ export function EditVenueDropDown() {
             height="auto"
           />
         </div>
-        {/* <div>s
-          <h1>calendar</h1>
-        </div> */}
       </div>
       <section className="py-12 border border-gray-200">
         <form onSubmit={e => handleSubmitVenueData(e, id, venueData)}>

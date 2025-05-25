@@ -3,11 +3,11 @@ import useVenueStore from './venuesStore';
 
 const createVenueStore = create((set, get) => ({
   venueData: {
-    name: '', //'string',
-    description: '', //'string',
-    media: [], //['string'],
+    name: '',
+    description: '',
+    media: [],
     price: 0,
-    maxGuests: 6, //100,
+    maxGuests: 6,
     rating: 5,
     meta: {
       wifi: true,
@@ -32,16 +32,12 @@ const createVenueStore = create((set, get) => ({
         media: [...state.venueData.media, newMedia],
       },
     }));
-    // console.log('newMedia', newMedia);
   },
-  // if time
-  //   removeMedia:
-  //   updateMedia:
+
   updateVenueData: newData => {
     set(state => ({
       venueData: { ...state.venueData, ...newData },
     }));
-    // console.log('newData', newData);
   },
   updateMetaData(newData) {
     set(state => ({
@@ -62,7 +58,7 @@ const createVenueStore = create((set, get) => ({
           },
         },
       };
-      // console.log('Updated meta state:', newState.venueData.meta);
+
       return newState;
     });
   },
@@ -73,14 +69,13 @@ const createVenueStore = create((set, get) => ({
         location: { ...state.venueData.location, ...newData },
       },
     }));
-    // console.log('newData', newData);
   },
   reset: () =>
     set({
       venueData: {
-        name: '', //'string',
-        description: '', //'string',
-        media: [], //['string'],
+        name: '',
+        description: '',
+        media: [],
         price: 0,
         maxGuests: 6, //100,
         rating: 5,
@@ -102,15 +97,13 @@ const createVenueStore = create((set, get) => ({
       },
     }),
 
-  // submit to api event handler ?
   submitVenueData: async () => {
     const { venueData } = get();
     const { postVenue } = useVenueStore.getState();
-    // console.log('venueData', venueData);
-    //      postVenue: async (venueData, owner = true, bookings = true) => {
+
     try {
       const data = await postVenue(venueData, true, true);
-      // console.log('data', data);
+
       return data;
     } catch (error) {
       console.error('Error:', error);

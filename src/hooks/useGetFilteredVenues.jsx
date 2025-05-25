@@ -6,10 +6,7 @@ function useGetFilteredVenues(functionName, sort = 'price') {
   const [error, setError] = useState(null);
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(8);
-  //   const { getVenues, searchVenues } = useVenueStore();
 
-  // functions for pagination +1 and -1
-  // set limit ??
   useEffect(() => {
     async function fetchVenues() {
       setLoading(true);

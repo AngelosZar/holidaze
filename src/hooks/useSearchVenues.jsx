@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import useVenueStore from '../stores/venuesStore';
 
 function useSearchVenues(searchTerm) {
-  //   const [searchTerm, setSearchTerm] = useState('');
   const [stays, setStays] = useState([]);
   const { searchVenues } = useVenueStore();
   const [loading, setLoading] = useState(true);

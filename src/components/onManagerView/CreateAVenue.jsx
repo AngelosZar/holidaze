@@ -14,10 +14,6 @@ function CreateAVenue() {
     location,
   } = createVenueStore();
 
-  // const venueData = createVenueStore(state => state.venueData || {});
-  // const location = createVenueStore(state => state.venueData.location);
-  // const toggleMetaValue = createVenueStore();
-
   const handleLocationChange = (field, value) => {
     updateLocationData({ [field]: value });
   };

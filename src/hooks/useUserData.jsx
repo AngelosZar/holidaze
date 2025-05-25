@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import useProfileStore from '../stores/profileStore';
-// import
+
 function useUserData() {
   const {
     setUserData,

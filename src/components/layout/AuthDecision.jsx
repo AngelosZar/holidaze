@@ -2,7 +2,7 @@ import { useNavigate, NavLink } from 'react-router-dom';
 import useAuthStore from '../../stores/authStore';
 
 function AuthDecision() {
-  const { setIsManager, error, isManager } = useAuthStore();
+  const { setIsManager, isManager } = useAuthStore();
   const navigate = useNavigate();
 
   const handleManagerSignUp = () => {
@@ -13,7 +13,7 @@ function AuthDecision() {
     setIsManager(false);
     navigate('/register/user');
   };
-  console.log(isManager);
+
   return (
     <section className="bg-bodyLight dark:bg-bodyDark w-full h-screen mx-auto pt-24">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">

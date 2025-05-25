@@ -106,19 +106,9 @@ export default function HeroSearchBar() {
               }
             }}
           />
-          {/* <label htmlFor="searchBar" className="text-sm absolute top-0 left-2 ">
-          Select a destination
-        </label> */}
         </div>
         <DateRangeSelector searchResults={searchResults} />
-        {/* <div className="flex flex-col lg:flex-row gap-4 ">
-        <span>
-          <BasicDatePicker labelMsg={'Check In'} />
-        </span>
-        <span>
-          <BasicDatePicker labelMsg={'Check Out'} />
-        </span>
-      </div> */}
+
         <div className="w-full flex justify-center items-center sm:col-span-2 md:col-span-1">
           <button
             className="btn btn-primary w-full max-w-[8rem]"
@@ -138,7 +128,6 @@ export default function HeroSearchBar() {
           error={error}
         />
       )}
-      {/* <SearchPopUp searchResults={searchResults} /> */}
     </>
   );
 }
@@ -155,7 +144,6 @@ function SearchPopUp({
   const handleClick = function () {
     console.log('clicked');
     setSearchQuery('');
-    // not reseting the search query
     reset();
     setIsSearchPopupOpen(false);
   };
@@ -176,28 +164,6 @@ function SearchPopUp({
               ×
             </button>
           </div>
-
-          {/* <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-8">
-        {loading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-
-        {stays &&
-          stays.map(venue => {
-            return (
-              <SingleCard
-                key={venue.id}
-                id={venue.id}
-                title={venue.title}
-                image={venue.media[0].url || venue.media}
-                // image={venue.media[0].url}
-                imageAlt={venue.mediaAlt}
-                price={venue.price}
-                rating={venue.rating}
-                location={venue.location}
-              />
-            );
-          })}
-      </div> */}
 
           <StaysList stays={stays} loading={loading} error={error} />
         </div>

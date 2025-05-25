@@ -11,23 +11,13 @@ const useAuthStore = create((set, get) => ({
   isLoading: false,
   error: [],
   isManager: false,
-  // isManager:
-  //   localStorage.getItem('isManager') ||
-  //   sessionStorage.getItem('isManager') ||
-  //   false,
 
   setIsManager: isManager => {
     set({ isManager });
   },
 
-  signin: async (
-    email,
-    password,
-    rememberDevice = false
-    // isManager = false
-  ) => {
+  signin: async (email, password, rememberDevice = false) => {
     set({ isLoading: true });
-    // loading spinner
     try {
       const response = await fetch(SIGN_IN_URL, {
         method: 'POST',
@@ -43,7 +33,7 @@ const useAuthStore = create((set, get) => ({
         alert(`${error.message}`);
         throw new Error(error.message);
       }
-      //
+
       const storage = rememberDevice ? localStorage : sessionStorage;
       storage.setItem('user', JSON.stringify(userData));
       storage.setItem('accessToken', userData.accessToken);
@@ -54,17 +44,15 @@ const useAuthStore = create((set, get) => ({
         isLoading: false,
       });
       return userData;
-      //
     } catch (error) {
       set({ error: [error.message], isLoading: false });
       throw error;
     }
   },
 
-  // register user
   register: async userData => {
     set({ isLoading: true });
-    // loading spinner
+
     try {
       const response = await fetch(REGISTER_URL, {
         method: 'POST',
@@ -87,16 +75,13 @@ const useAuthStore = create((set, get) => ({
       }
       set({ isLoading: false });
       return data;
-
-      // create modal for this and all other alerts
     } catch (error) {
       set({ error: error.message, isLoading: false });
-      //   alert(error.message);
+
       alert(error);
     }
   },
 
-  // log out user\
   logout: () => {
     localStorage.removeItem('user');
     sessionStorage.removeItem('user');
@@ -105,10 +90,6 @@ const useAuthStore = create((set, get) => ({
     sessionStorage.removeItem('profile-storage');
     localStorage.removeItem('isManager');
   },
-  // check if password and repeat password is same
-  //   confirmPassword: function(){
-  //     if(password === confirmPassword)
-  //   }
 
   initAuth: () => {
     const user =
@@ -145,21 +126,13 @@ const useAuthStore = create((set, get) => ({
       const { getUser } = useProfileStore.getState();
       const user = returnUser();
       const token = returnToken();
-      console.log('user', user);
-      console.log('user', token);
 
       if (user && token) {
         const data = await getUser(user.name);
 
-        console.log('data', data.data);
-        console.log('data.name', data.data.name);
-        // console.log('data', data.data);
-
         let status = Boolean(data.data.venueManager);
-        // console.log('Manager status:', status);
 
         localStorage.setItem('isManager', JSON.stringify(status));
-        // sessionStorage.setItem('isManager', JSON.stringify(status));
 
         set({
           isManager: status,

@@ -3,14 +3,12 @@ import React, { useState } from 'react';
 
 function ManagersVenue({ venue, handleEditVenue, handleRemoveVenue }) {
   const [selectedBookingData, setSelectedBookingData] = useState(null);
-  const [isPopUpOpen, setIsPopUpOpen] = useState(false); // You might not need this if using flip only
-  const [isFlipped, setIsFlipped] = useState(false); // State for flip
+  const [isFlipped, setIsFlipped] = useState(false);
 
   const bookings = venue?.bookings || [];
 
   const handleShowMore = bookings => {
     setSelectedBookingData(bookings);
-
     setIsFlipped(true);
   };
 
@@ -20,7 +18,6 @@ function ManagersVenue({ venue, handleEditVenue, handleRemoveVenue }) {
   };
 
   return (
-    // fix padding and margin between img and text h-full?
     <div className="flip-card p-4 bg-white shadow-lg rounded-lg max-w-md mx-auto w-full overflow-hidden">
       <div
         className={`flip-card-inner relative w-full h-full text-center transition-transform duration-800 ${
@@ -72,7 +69,7 @@ function ManagersVenue({ venue, handleEditVenue, handleRemoveVenue }) {
             </div>
           </div>
         </div>
-        {/* back of card  */}
+
         <div className="flip-card-back absolute w-full h-full backface-hidden rounded-lg bg-white shadow-lg flex flex-col p-4 transform rotate-y-180">
           <p className="text-xl font-bold mb-3 text-center">
             Bookings for {venue?.name}

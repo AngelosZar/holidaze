@@ -8,9 +8,6 @@ import 'dayjs/locale/nb';
 export default function BasicDatePickerProvider({ children }) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="nb">
-      {/* <DemoContainer components={['DatePicker']}> */}
-      {/* <DatePicker label={labelMsg} /> */}
-      {/* </DemoContainer> */}
       {children}
     </LocalizationProvider>
   );

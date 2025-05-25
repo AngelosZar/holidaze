@@ -13,7 +13,6 @@ function ChooseHolidays() {
         />
 
         <div className="py-6 max-w-xl mx-auto">
-          {/* maybe change it to be a bit more appearing */}
           <h5 className="pt-6 pb-2"> Benefits choosing Holidaze</h5>
           <h6 className="my-2">Easy check-in</h6>
           <p className="mb-8">

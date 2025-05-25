@@ -10,7 +10,6 @@ function LogInPage() {
       <AuthContainer action="Log In">
         <SignInForm />
       </AuthContainer>
-      {/* <AuthDecision /> */}
     </Layout>
   );
 }

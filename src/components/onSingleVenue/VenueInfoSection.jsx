@@ -12,9 +12,6 @@ import shower from '../../assets/accommodation_icons/shower.svg';
 import private_entrance from '../../assets/accommodation_icons/private_entrance.svg';
 
 function VenueInfoSection({ venue, isLoading, error }) {
-  // const { venueLocation, setVenueLocation } = useState();
-  // console.log('venue', venue);
-  // console.log('venue', venue.id);
   return (
     <section className="px-8">
       <div className="grid grid-cols-1 xl:grid-cols-2">
@@ -29,8 +26,7 @@ function VenueInfoSection({ venue, isLoading, error }) {
           </p>
           <div className="flex flex-row gap-2 max-w-sm mb-2">
             <span>{venue?.rating} stars</span>
-            {/* // create a function to give a random
-            number between 0 and 100 */}
+
             <span>100 Reviews</span>
           </div>
           <div className="border-t-2 border-primary max-w-60 mb-2">
@@ -61,8 +57,6 @@ function VenueInfoSection({ venue, isLoading, error }) {
           <BookAside venue={venue} />
         </div>
       </div>
-
-      {/* <CalendarAside /> */}
     </section>
   );
 }
