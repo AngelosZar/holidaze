@@ -40,7 +40,7 @@ This project is built using modern web technologies to deliver a fast, responsiv
 * **Routing:** [React Router DOM](https://reactrouter.com/en/main) for seamless client-side navigation.
 * **Styling:** [Tailwind CSS](https://tailwindcss.com/) for utility-first CSS styling and responsive design.
 * **State Management:** [Zustand](https://zustand-bear.github.io/zustand/) for efficient and simple state management.
-* **API Communication:** [Fetch API] (or [Axios], if used) for interacting with the backend API.
+* **API Communication:** [Fetch API]  for interacting with the backend API.
 * **Deployment:** [Netlify](https://www.netlify.com/) for continuous deployment and hosting.
 * **Build Tool:** [Vite] (or [Create React App], etc.) for fast development and optimized builds.
 
