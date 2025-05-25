@@ -7,8 +7,8 @@ function RecommendedStays() {
   const { stays, loading, error } = useGetFilteredVenues(getVenues, 'rating');
 
   return (
-    <section className="container mx-auto px-4 py-8">
-      <h4>Best stays -recommended for you </h4>
+    <section className="px-4 py-8 mb-12 bg-white ">
+      <h4 className="py-4">Top rated Venues </h4>
       <StaysList stays={stays} loading={loading} error={error} />
     </section>
   );

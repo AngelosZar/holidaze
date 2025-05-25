@@ -1,6 +1,6 @@
 function TestimonialsSection() {
   return (
-    <section className="">
+    <section className="bg-white shadow-md rounded-lg mb-12 py-12">
       <h4 className="mx-12 mb-4">Testimonials</h4>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 p-4 bg-white shadow-md rounded-lg max-w-7xl mx-auto w-full height-full">
         {testimonials.map(testimonial => (
@@ -46,8 +46,7 @@ const testimonials = [
 
 function TestimonialCard({ text, name, location, imgUrl }) {
   return (
-    <div className="rounded-lg overflow-hidden shadow-lg relative h-auto max-w-sm">
-      {/* <div className="rounded-lg overflow-hidden shadow-lg relative h-auto max-w-sm"> */}
+    <div className="rounded-lg overflow-hidden relative h-auto max-w-sm">
       <div className="absolute inset-0 z-0">
         <img
           src="https://images.unsplash.com/photo-1541274387095-12117e6099dc?q=80&w=1365&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"

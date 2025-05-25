@@ -1,6 +1,6 @@
 function ChooseHolidays() {
   return (
-    <aside className="flex flex-col gap-4 px-6 mt-22 py-12 bg-white shadow-xl rounded-lg max-w-7xl mx-auto">
+    <aside className="flex flex-col gap-4 px-6 mt-22 py-12 mb-12 bg-white shadow-xl rounded-lg max-w-7xl mx-auto">
       <h4 className="pt-6 pb-4"> Why Choose Holidaze?</h4>
       <div>
         <img
