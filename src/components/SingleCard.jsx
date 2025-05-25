@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import useVenueStore from '../stores/venuesStore';
 
@@ -13,7 +12,7 @@ function SingleCard({ id, title, image, price, rating, location }) {
   };
   return (
     <div
-      className="flex flex-col gap-4 p-4 bg-white shadow-lg rounded-lg max-w-sm hover:shadow-xl transition-all duration-200 cursor-pointer hover:scale-105  "
+      className="flex flex-col gap-4 p-4 bg-white shadow-lg rounded-lg max-w-sm hover:shadow-xl transition-all duration-200 cursor-pointer hover:scale-105 "
       value={id}
       onClick={() => handleClick(id)}
     >

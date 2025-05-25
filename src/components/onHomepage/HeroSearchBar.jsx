@@ -49,8 +49,7 @@ export default function HeroSearchBar() {
   };
   const checkVenuesAvailability = (venue, checkIn, checkOut) => {
     if (!checkIn || !checkOut || !venue) return true;
-    // or
-    // if (checkIn || !checkOut ){return false}
+
     if (!venue.bookings || venue.bookings.length === 0) return true;
     const hasConflict = venue.bookings.some(booking => {
       checkDatesOverlap(booking.dateFrom, booking.dateTo, checkIn, checkOut);
@@ -61,7 +60,6 @@ export default function HeroSearchBar() {
   const handleSubmitSearchQuery = async function () {
     try {
       const data = await searchVenues(searchQuery, 99, 1);
-      console.log('search data', data);
 
       if (data?.data) {
         const availableVenues = data.data.filter(venue =>
@@ -70,9 +68,8 @@ export default function HeroSearchBar() {
         setSearchResults(availableVenues);
         console.log('availableVenues', availableVenues);
         setIsSearchPopupOpen(true);
-        // return availableVenues;
       }
-      console.log(searchResults);
+
       return [];
     } catch (error) {
       console.error('Error searching venues:', error);
@@ -82,15 +79,19 @@ export default function HeroSearchBar() {
   return (
     <>
       <div
-        className="grid grid-rows-3 grid-cols-1 gap-4 border-2 
-                    sm:grid-rows-2 sm:grid-cols-2
-                    md:grid-rows-1 md:grid-cols-3 
-                    lg:grid-cols-[2fr_2fr_1fr]
-                    border-primary bg-white rounded-lg p-4 
-                    relative 
-                    sm:top-[-100px]
-                    md:top-[-200px] 
-                    shadow-lg mx-4 sm:mx-auto sm:max-w-[90%]"
+        className="
+          grid grid-rows-3 grid-cols-1 gap-4 border-2
+          sm:grid-rows-2 sm:grid-cols-2
+          md:grid-rows-1 md:grid-cols-3
+          lg:grid-cols-[2fr_2fr_1fr]
+          border-primary bg-white rounded-lg p-4
+          absolute   
+          bottom-[10%] 
+          left-1/2 -translate-x-1/2 
+          shadow-lg w-[calc(100%-2rem)] 
+          sm:w-[calc(90%-2rem)] 
+          max-w-[90%]
+        "
       >
         <div className="flex flex-col justify-center ">
           <input
@@ -139,8 +140,6 @@ function SearchPopUp({
   reset,
   setSearchQuery,
 }) {
-  console.log('searchResults', stays);
-
   const handleClick = function () {
     console.log('clicked');
     setSearchQuery('');
@@ -149,17 +148,16 @@ function SearchPopUp({
   };
 
   return (
-    <section className="fixed inset-0 bg-white z-50 mx-auto">
+    <section className="fixed inset-0 bg-white z-[100] mx-auto">
       <div className="relative w-full h-full overflow-auto">
-        <div className="min-h-full bg-white bg-opacity-95 p-6 max-w-8xl mx-auto rounded-lg shadow-lg">
-          {/* Header with close button */}
-          <div className="flex justify-between items-center mb-8 sticky top-0 bg-white bg-opacity-95 py-4">
+        <div className="min-h-full bg-white bg-opacity-95 px-6 py-8 max-w-8xl mx-auto rounded-lg shadow-lg ">
+          <div className="flex justify-between items-center mb-8 sticky top-0 bg-white bg-opacity-95 py-4 z-10 border-b-2 border-primary">
             <h2 className="text-3xl font-bold text-primary mb-4 mx-auto">
               Available Properties
             </h2>
             <button
               onClick={handleClick}
-              className="text-gray-600 hover:text-gray-800 text-4xl font-light"
+              className="text-primary hover:text-primary60 text-4xl font-light mr-2"
             >
               ×
             </button>
