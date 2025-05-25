@@ -42,7 +42,7 @@ This project is built using modern web technologies to deliver a fast, responsiv
 * **State Management:** [Zustand](https://zustand-bear.github.io/zustand/) for efficient and simple state management.
 * **API Communication:** [Fetch API]  for interacting with the backend API.
 * **Deployment:** [Netlify](https://www.netlify.com/) for continuous deployment and hosting.
-* **Build Tool:** [Vite] (or [Create React App], etc.) for fast development and optimized builds.
+* **Build Tool:** [Vite]) for fast development and optimized builds.
 
 ## Setup Instructions
 
@@ -66,9 +66,7 @@ Before you begin, ensure you have the following installed:
 2.  **Install dependencies:**
     ```bash
     npm install
-    # OR
-    yarn install
-    ```
+   
 
 ### 3. Environment Variables
 
@@ -99,7 +97,3 @@ To start the development server:
 npm run dev
 # OR (if using Create React App)
 npm start
-# OR
-yarn dev
-# OR (if using Create React App)
-yarn start
