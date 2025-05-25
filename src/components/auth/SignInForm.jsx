@@ -28,8 +28,8 @@ function SignInForm() {
 
     try {
       const data = await signin(email, password, rememberDevice);
-
-      navigate('/Homepage');
+      navigate('/');
+      return data;
     } catch (error) {
       console.error('Sign in error:', error);
     }
