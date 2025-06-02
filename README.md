@@ -78,16 +78,7 @@ This project requires API keys and potentially other configuration variables. Yo
 2.  **Add your API key(s):**
     Add your API key(s) to this file. **Remember to use the correct prefix for your build tool:**
     * **Vite:** `VITE_YOUR_API_KEY_NAME=your_actual_api_key`
-    * **Create React App (CRA):** `REACT_APP_YOUR_API_KEY_NAME=your_actual_api_key`
-    * **Next.js:** `NEXT_PUBLIC_YOUR_API_KEY_NAME=your_actual_api_key`
 
-    
-
-3.  **Netlify Environment Variables:**
-    For deployment, you must configure these same environment variables directly in your Netlify site settings.
-    * Log in to your [Netlify dashboard](https://app.netlify.com/).
-    * Navigate to your site **> Site settings > Build & deploy > Environment variables**.
-    * Add each variable with the **exact same Key (name)** and its corresponding **Value** as in your `.env` file. Ensure the **Scope** is set to "Builds" or "All scopes".
 
 ### 4. Running the Project
 
